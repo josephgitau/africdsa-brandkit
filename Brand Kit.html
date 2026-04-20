@@ -1202,22 +1202,27 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
       <!-- Full-width TOKEN / STREAM showcase -->
       <div style="position: relative; margin-top: 28px; border-radius: 8px; overflow: hidden; background: #020244; height: 220px;" id="token-stream-hero" aria-label="TOKEN / STREAM graphic device preview"></div>
 
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;">
         <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
-          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--flamingo); margin-bottom: 6px;">Flamingo</div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Content / high-signal tokens. Nouns, verbs, key terms.</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="display:inline-block;width:32px;height:12px;border-radius:3px;background:#1C2175;"></span>
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy);">Navy base</span>
+          </div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">~70% of cells. Background layer — structural, stop, and low-signal tokens.</p>
         </div>
         <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
-          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); margin-bottom: 6px;">Navy</div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Structural / stop tokens. Punctuation, articles, connectors.</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="display:inline-block;width:32px;height:12px;border-radius:3px;background:#D95E25;"></span>
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #C04E1A;">Orange</span>
+          </div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">High-activity clusters — content tokens, named entities, high-frequency terms.</p>
         </div>
         <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
-          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sand); margin-bottom: 6px;">Sand</div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Named entities, numbers, and proper nouns.</p>
-        </div>
-        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
-          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7278C5; margin-bottom: 6px;">Iris</div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Sub-word pieces and continuation tokens.</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="display:inline-block;width:32px;height:12px;border-radius:3px;background:#C8B898;"></span>
+            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A7A5A;">Beige</span>
+          </div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Medium-activity zones — rare words, proper nouns, boundary tokens.</p>
         </div>
       </div>
       <p class="small" style="margin-top: 14px;">Scale the brick height with <span class="mono">--token-bh</span> (default <span class="mono">13px</span>) and gap with <span class="mono">--token-vg</span> (default <span class="mono">4px</span>). On dark fields only — never render on light or sand backgrounds.</p>
@@ -1605,24 +1610,42 @@ const patternSvg = (id, inner, vb='0 0 400 300') =>
 
 const patterns = {
   'pat-17': (()=>{
-    // Token / Stream — mosaic of variable-width NLP-style tokens on deep navy
-    const C = ['#F1592A','#F1592A','#3B41B2','#3B41B2','#3B41B2','#7278C5','#C4C7E6','#EDA455','#8C91CC'];
-    const BH = 13, VG = 4;
-    const WS = [14,26,20,34,22,30,16,40,24,18,28,12,22,32,18,24];
-    let s = '';
-    for (let r = 0; r < 17; r++) {
-      const y = 9 + r * (BH + VG);
-      let x = 5, c = 0;
-      while (x < 396) {
-        const w = WS[(r * 7 + c * 11) % WS.length];
-        const capped = Math.min(w, 395 - x);
-        if (capped < 6) { x += capped + 4; c++; continue; }
-        const ci = (r * 5 + c * 3 + Math.floor(r / 4)) % C.length;
-        s += `<rect x='${x}' y='${y}' width='${capped}' height='${BH}' rx='2.5' fill='${C[ci]}'  opacity='0.9'/>`;
-        x += w + 4; c++;
+    // TOKEN / STREAM — uniform heatmap grid, cluster-based organic highlights
+    const W=400, H=300, CW=20, CH=12, GX=3, GY=3;
+    const COLS=Math.floor(W/(CW+GX)), ROWS=Math.floor(H/(CH+GY));
+    const OX=(W-COLS*(CW+GX)+GX)/2, OY=(H-ROWS*(CH+GY)+GY)/2;
+    // Hotspot clusters [nx, ny, radius, type: 'o'=orange 'b'=beige]
+    const hot=[
+      [0.12,0.25,0.16,'o'],[0.55,0.18,0.13,'o'],[0.78,0.62,0.14,'o'],
+      [0.30,0.78,0.11,'o'],[0.90,0.38,0.09,'o'],[0.65,0.88,0.10,'o'],
+      [0.20,0.55,0.09,'b'],[0.70,0.38,0.10,'b'],[0.45,0.65,0.08,'b'],
+      [0.88,0.78,0.08,'b']
+    ];
+    let s='';
+    for(let r=0;r<ROWS;r++){
+      for(let c=0;c<COLS;c++){
+        const nx=c/COLS, ny=r/ROWS;
+        const px=OX+c*(CW+GX), py=OY+r*(CH+GY);
+        let best=0, typ='n';
+        hot.forEach(([hx,hy,hr,ht])=>{
+          const d=Math.sqrt((nx-hx)**2+(ny-hy)**2);
+          const inf=Math.max(0,1-d/hr);
+          if(inf>best){best=inf;typ=ht;}
+        });
+        // Per-cell pseudo-random jitter for organic edges
+        const jit=((r*17+c*11)%23)/23*0.22;
+        const eff=best+jit;
+        let f='#1C2175', o=0.80;
+        if(eff>0.68){ f=typ==='o'?'#D95E25':'#C8B898'; o=0.90; }
+        else if(eff>0.42){ f=typ==='o'?'#A84420':'#A89070'; o=0.75; }
+        s+=`<rect x='${px.toFixed(1)}' y='${py.toFixed(1)}' width='${CW}' height='${CH}' rx='3' fill='${f}' opacity='${o}'/>`;
       }
     }
-    return patternSvg('17', `<rect width='400' height='300' fill='#020244'/>${s}`);
+    // Label badge baked into SVG
+    const lx=10, ly=H-28, lw=132, lh=19;
+    s+=`<rect x='${lx}' y='${ly}' width='${lw}' height='${lh}' rx='9.5' fill='#EBE8DC' opacity='0.93'/>`;
+    s+=`<text x='${lx+10}' y='${ly+13}' font-family='monospace' font-size='8' fill='#0C1152' letter-spacing='1'>17 · TOKEN / STREAM</text>`;
+    return patternSvg('17', `<rect width='${W}' height='${H}' fill='#010128'/>${s}`);
   })(),
 
   'pat-01': patternSvg('01', `
@@ -1739,31 +1762,44 @@ Object.entries(patterns).forEach(([id, svg]) => {
   if (el) el.insertAdjacentHTML('afterbegin', svg);
 });
 
-// ---------- TOKEN / STREAM hero (full-width showcase) ----------
+// ---------- TOKEN / STREAM hero (full-width uniform-grid heatmap) ----------
 (()=>{
   const hero = document.getElementById('token-stream-hero');
   if (!hero) return;
-  const C = ['#F1592A','#F1592A','#3B41B2','#3B41B2','#3B41B2','#7278C5','#C4C7E6','#EDA455','#8C91CC'];
-  const BH = 16, VG = 5;
-  const WS = [14,30,22,42,26,36,18,50,28,20,34,12,24,38,18,28];
-  let s = '';
-  const W = 1200, H = 220;
-  for (let r = 0; r < 11; r++) {
-    const y = 8 + r * (BH + VG);
-    let x = 6, c = 0;
-    while (x < W - 5) {
-      const w = WS[(r * 7 + c * 11) % WS.length];
-      const capped = Math.min(w, W - 6 - x);
-      if (capped < 6) { x += capped + 4; c++; continue; }
-      const ci = (r * 5 + c * 3 + Math.floor(r / 4)) % C.length;
-      s += `<rect x='${x}' y='${y}' width='${capped}' height='${BH}' rx='2.5' fill='${C[ci]}' opacity='0.9'/>`;
-      x += w + 5; c++;
+  const W=1200, H=220, CW=20, CH=12, GX=3, GY=3;
+  const COLS=Math.floor(W/(CW+GX)), ROWS=Math.floor(H/(CH+GY));
+  const OX=(W-COLS*(CW+GX)+GX)/2, OY=(H-ROWS*(CH+GY)+GY)/2;
+  // More hotspots spread across wider canvas for visual rhythm
+  const hot=[
+    [0.06,0.30,0.11,'o'],[0.18,0.65,0.10,'o'],[0.30,0.20,0.12,'o'],
+    [0.42,0.72,0.09,'o'],[0.55,0.38,0.13,'o'],[0.67,0.55,0.10,'o'],
+    [0.78,0.22,0.11,'o'],[0.88,0.68,0.09,'o'],[0.96,0.40,0.08,'o'],
+    [0.12,0.45,0.09,'b'],[0.25,0.82,0.08,'b'],[0.48,0.50,0.08,'b'],
+    [0.60,0.80,0.10,'b'],[0.74,0.35,0.08,'b'],[0.92,0.20,0.07,'b']
+  ];
+  let s='';
+  for(let r=0;r<ROWS;r++){
+    for(let c=0;c<COLS;c++){
+      const nx=c/COLS, ny=r/ROWS;
+      const px=OX+c*(CW+GX), py=OY+r*(CH+GY);
+      let best=0, typ='n';
+      hot.forEach(([hx,hy,hr,ht])=>{
+        const d=Math.sqrt((nx-hx)**2+(ny-hy)**2);
+        const inf=Math.max(0,1-d/hr);
+        if(inf>best){best=inf;typ=ht;}
+      });
+      const jit=((r*17+c*11)%23)/23*0.22;
+      const eff=best+jit;
+      let f='#1C2175', o=0.80;
+      if(eff>0.68){ f=typ==='o'?'#D95E25':'#C8B898'; o=0.90; }
+      else if(eff>0.42){ f=typ==='o'?'#A84420':'#A89070'; o=0.75; }
+      s+=`<rect x='${px.toFixed(1)}' y='${py.toFixed(1)}' width='${CW}' height='${CH}' rx='3' fill='${f}' opacity='${o}'/>`;
     }
   }
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}' preserveAspectRatio='xMidYMid slice' style='position:absolute;inset:0;width:100%;height:100%;'><rect width='${W}' height='${H}' fill='#020244'/>${s}<rect width='${W}' height='${H}' fill='url(#ts-fade)'/><defs><linearGradient id='ts-fade' x1='0' y1='0' x2='1' y2='0'><stop offset='0%' stop-color='#020244' stop-opacity='0.55'/><stop offset='30%' stop-color='#020244' stop-opacity='0'/><stop offset='70%' stop-color='#020244' stop-opacity='0'/><stop offset='100%' stop-color='#020244' stop-opacity='0.55'/></linearGradient></defs></svg>`;
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}' preserveAspectRatio='xMidYMid slice' style='position:absolute;inset:0;width:100%;height:100%;'><rect width='${W}' height='${H}' fill='#010128'/>${s}</svg>`;
   hero.insertAdjacentHTML('afterbegin', svg);
-  // overlay label
-  hero.insertAdjacentHTML('beforeend', `<div style="position:absolute;bottom:16px;left:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);">17 · TOKEN / STREAM · AfriCDSA graphic device</div>`);
+  // Floating label badge
+  hero.insertAdjacentHTML('beforeend', `<div style="position:absolute;bottom:14px;left:14px;background:#EBE8DC;border-radius:20px;padding:5px 14px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;color:#0C1152;line-height:1;">17 · TOKEN / STREAM</div>`);
 })();
 
 // ---------- Icon grid ----------
