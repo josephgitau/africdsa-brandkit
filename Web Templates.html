@@ -1,0 +1,2328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AfriCDSA — Web Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="web-templates-extra.css">
+
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "page": "course",
+  "darkMode": false,
+  "density": "comfortable",
+  "announce": true
+}/*EDITMODE-END*/;
+</script>
+
+<style>
+:root {
+  /* Brand tokens — mirrored from Brand Kit */
+  --navy:#040474; --navy-50:#EEF0FB; --navy-100:#D7DBF3; --navy-200:#AAB2E3;
+  --navy-300:#7A85D0; --navy-400:#4A56BB; --navy-500:#2328A0; --navy-600:#040474;
+  --navy-700:#030360; --navy-800:#02024A; --navy-900:#010132;
+
+  --flamingo:#F1592A; --flamingo-50:#FEEEE7; --flamingo-100:#FCD4C3; --flamingo-200:#F9B098;
+  --flamingo-400:#F36C42; --flamingo-500:#F1592A; --flamingo-600:#D8430F; --flamingo-700:#AE350B;
+
+  --sand:#EDA455; --sand-50:#FDF5E9; --sand-100:#FAE5C6; --sand-200:#F6D29E;
+  --sand-300:#F0BB71; --sand-400:#EDA455; --sand-500:#DF8A30;
+
+  --ink-0:#FFFFFF; --ink-50:#F7F8FB; --ink-100:#EDF0F5; --ink-200:#DDE2EC;
+  --ink-300:#C3CAD9; --ink-400:#8D95A8; --ink-500:#656C80; --ink-600:#474D60;
+  --ink-700:#2E3344; --ink-800:#1A1D2B; --ink-900:#0D0F1A;
+
+  --success:#1E8A5F; --warning:#E0A32C; --danger:#C4342A; --info:#2F6FE0;
+
+  --bg:var(--ink-0); --panel:#FFFFFF; --surface:var(--ink-50);
+  --text:var(--ink-900); --muted:var(--ink-500); --rule:var(--ink-200);
+
+  --font-display:'Newsreader', Georgia, serif;
+  --font-body:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:'IBM Plex Mono', Menlo, monospace;
+
+  --radius-sm:4px; --radius-md:6px; --radius-lg:10px;
+  --shadow-sm:0 1px 2px rgba(4,4,116,0.06);
+  --shadow-md:0 8px 24px -12px rgba(4,4,116,0.18);
+  --shadow-lg:0 24px 48px -24px rgba(4,4,116,0.28);
+
+  --container:1200px;
+  --gutter:32px;
+}
+html[data-theme="dark"] {
+  --bg:#08091A; --panel:#10122A; --surface:#0D0F28;
+  --text:#E8EBF4; --muted:#8D95A8; --rule:#23264A;
+  --ink-50:#10122A; --ink-100:#15183A; --ink-200:#23264A;
+}
+html[data-density="compact"] { --gutter: 24px; }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:var(--font-body); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin:0 0 14px;}
+.eyebrow.on-dark{color:var(--sand-300);}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:400; letter-spacing:-0.02em; margin:0;}
+h1{font-size:72px; line-height:0.98;}
+h2{font-size:48px; line-height:1.05;}
+h3{font-size:28px; line-height:1.2;}
+h4{font-size:20px; line-height:1.3;}
+em{font-style:italic; color:var(--flamingo);}
+p{margin:0 0 1em; max-width:62ch;}
+a{color:inherit;}
+.lede{font-family:var(--font-display); font-size:22px; font-weight:300; line-height:1.5; color:var(--ink-700); max-width:640px;}
+html[data-theme="dark"] .lede{color:var(--ink-800);}
+.mono{font-family:var(--font-mono); font-size:12px; letter-spacing:0.04em;}
+.small{font-size:13px; color:var(--muted);}
+
+/* ============ LAYOUT ============ */
+.container{max-width:var(--container); margin:0 auto; padding:0 var(--gutter);}
+.section-py{padding:96px 0;}
+.section-py-sm{padding:64px 0;}
+.rule{height:1px; background:var(--rule); border:0;}
+
+/* ============ TOP NAV ============ */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,0.85); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--rule);
+}
+html[data-theme="dark"] .nav{background:rgba(8,9,26,0.85);}
+.nav-inner{display:flex; align-items:center; gap:32px; height:72px;}
+.nav-inner .nav-cta{margin-left:auto;}
+.nav-logo{display:flex; align-items:center; gap:12px; text-decoration:none;}
+.nav-logo svg{width:28px; height:28px;}
+.nav-logo .wm{font-family:var(--font-display); font-size:22px; font-weight:500; letter-spacing:-0.015em;}
+.nav-logo .wm em{color:var(--flamingo); font-style:italic;}
+.nav-links{display:flex; gap:22px; list-style:none; padding:0; margin:0;}
+.nav-links a{color:var(--ink-700); text-decoration:none; font-size:14px; font-weight:500; transition:color 0.15s;}
+html[data-theme="dark"] .nav-links a{color:var(--ink-800);}
+.nav-links a:hover{color:var(--flamingo);}
+.nav-links a.active{color:var(--flamingo);}
+.nav-cta{display:flex; gap:12px; align-items:center;}
+
+/* Nav responsive — mobile drawer below 1080px */
+@media (max-width:1080px){
+  .nav-links{display:none;}
+  .nav-search{display:none;}
+  .nav-burger{display:inline-flex;}
+  .nav-inner{gap:16px;}
+}
+@media (max-width:640px){
+  .nav-cta .btn:not(.nav-burger){display:none;}
+}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 22px; border-radius:var(--radius-sm);
+  font-family:var(--font-body); font-size:14px; font-weight:500;
+  letter-spacing:0.01em; text-decoration:none; border:1px solid transparent;
+  cursor:pointer; transition:all 0.15s ease; white-space:nowrap;
+}
+.btn-primary{background:var(--flamingo); color:#fff; border-color:var(--flamingo);}
+.btn-primary:hover{background:var(--flamingo-700); border-color:var(--flamingo-700); transform:translateY(-1px); box-shadow:var(--shadow-md);}
+.btn-secondary{background:var(--navy-600); color:#fff; border-color:var(--navy-600);}
+.btn-secondary:hover{background:var(--navy-800); border-color:var(--navy-800);}
+.btn-outline{background:transparent; color:var(--navy-600); border-color:var(--navy-200);}
+.btn-outline:hover{background:var(--navy-50); border-color:var(--navy-600);}
+html[data-theme="dark"] .btn-outline{color:var(--ink-800); border-color:var(--ink-200);}
+html[data-theme="dark"] .btn-outline:hover{background:var(--ink-100);}
+.btn-ghost{background:transparent; color:var(--ink-700); border-color:transparent;}
+.btn-ghost:hover{background:var(--ink-100); color:var(--navy-600);}
+html[data-theme="dark"] .btn-ghost{color:var(--ink-800);}
+.btn-link{background:transparent; border:none; color:var(--flamingo); padding:0; font-weight:500; font-size:14px;}
+.btn-link:hover{color:var(--flamingo-700); text-decoration:underline;}
+.btn-sm{padding:8px 14px; font-size:13px;}
+.btn-lg{padding:16px 28px; font-size:15px;}
+.btn .arrow{display:inline-block; transition:transform 0.2s;}
+.btn:hover .arrow{transform:translateX(3px);}
+.btn[disabled]{opacity:0.5; cursor:not-allowed; pointer-events:none;}
+
+/* ============ BADGES / CHIPS ============ */
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border-radius:999px;
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+  font-weight:500;
+}
+.badge-new{background:var(--flamingo-50); color:var(--flamingo-700);}
+.badge-accredited{background:var(--navy-50); color:var(--navy-600);}
+.badge-live{background:rgba(30,138,95,0.1); color:var(--success);}
+.badge-live::before{content:''; width:6px; height:6px; border-radius:999px; background:var(--success); animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.4;}}
+.badge-cohort{background:var(--sand-100); color:var(--sand-700, #8D5516);}
+
+.chip{
+  display:inline-flex; padding:6px 12px; border-radius:999px;
+  background:var(--ink-100); color:var(--ink-700);
+  font-size:12px; font-weight:500; border:1px solid var(--rule);
+  transition:all 0.15s;
+}
+.chip:hover{background:var(--navy-50); color:var(--navy-600); border-color:var(--navy-200);}
+.chip.active{background:var(--navy-600); color:#fff; border-color:var(--navy-600);}
+
+/* ============ FORM ELEMENTS ============ */
+.form-group{margin-bottom:20px;}
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+label{display:block; font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; font-weight:500;}
+input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea{
+  width:100%; padding:12px 14px;
+  background:var(--panel); color:var(--text);
+  border:1px solid var(--rule); border-radius:var(--radius-sm);
+  font-family:var(--font-body); font-size:15px;
+  transition:border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, select:focus, textarea:focus{
+  outline:none; border-color:var(--navy-600);
+  box-shadow:0 0 0 3px rgba(4,4,116,0.12);
+}
+input.error, select.error{border-color:var(--danger);}
+.helper{font-size:12px; color:var(--muted); margin-top:6px;}
+.helper.error{color:var(--danger);}
+textarea{min-height:120px; resize:vertical; font-family:var(--font-body);}
+.checkbox-row{display:flex; align-items:flex-start; gap:10px; margin-bottom:14px;}
+.checkbox-row input[type="checkbox"]{margin-top:3px; accent-color:var(--flamingo);}
+.checkbox-row label{font-family:var(--font-body); font-size:14px; letter-spacing:0; text-transform:none; color:var(--ink-700); margin:0;}
+html[data-theme="dark"] .checkbox-row label{color:var(--ink-800);}
+
+/* ============ CARDS ============ */
+.card{
+  background:var(--panel); border:1px solid var(--rule);
+  border-radius:var(--radius-md); padding:28px;
+  transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.card-hover:hover{transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--navy-200);}
+.card-head{display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px;}
+.card-title{font-family:var(--font-display); font-size:22px; font-weight:500; margin:0 0 6px; letter-spacing:-0.01em;}
+.card-meta{display:flex; gap:16px; font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:0.06em; text-transform:uppercase; margin-top:14px;}
+.card-meta > span{display:flex; align-items:center; gap:6px;}
+
+/* ============ IMAGE STYLES ============ */
+/* Image placeholder system — subtle diagonal stripes with monospace label */
+.img{
+  display:block; width:100%; border-radius:var(--radius-sm);
+  overflow:hidden; position:relative; background:var(--ink-100);
+}
+.img.placeholder{
+  background:
+    linear-gradient(135deg, rgba(4,4,116,0.02) 0%, rgba(241,89,42,0.03) 100%),
+    repeating-linear-gradient(45deg, var(--ink-200) 0 8px, var(--ink-100) 8px 16px);
+}
+.img.placeholder::after{
+  content:attr(data-label);
+  position:absolute; bottom:12px; left:12px;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:0.08em;
+  background:rgba(255,255,255,0.92); color:var(--ink-700);
+  padding:5px 10px; border-radius:2px;
+}
+.img.placeholder.inverse{
+  background:
+    linear-gradient(135deg, var(--navy-700), var(--navy-500)),
+    repeating-linear-gradient(45deg, transparent 0 8px, rgba(255,255,255,0.04) 8px 16px);
+}
+.img.placeholder.inverse::after{background:rgba(0,0,0,0.5); color:var(--sand-200);}
+.img .duotone-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(4,4,116,0.35), rgba(241,89,42,0.15));
+  mix-blend-mode:multiply;
+}
+.img-ratio-16-9{aspect-ratio:16/9;}
+.img-ratio-4-3{aspect-ratio:4/3;}
+.img-ratio-1-1{aspect-ratio:1/1;}
+.img-ratio-3-4{aspect-ratio:3/4;}
+
+/* Image + caption pattern */
+.figure figcaption{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:0.06em;
+  color:var(--muted); margin-top:10px;
+  padding-left:12px; border-left:2px solid var(--flamingo);
+}
+
+/* Image with dot overlay (brand signature) */
+.img.with-mesh::before{
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(237,164,85,0.25) 1px, transparent 1.2px);
+  background-size:18px 18px;
+  mask-image:linear-gradient(135deg, black 20%, transparent 70%);
+  pointer-events:none;
+}
+
+/* ============ HOMEPAGE ============ */
+
+/* Hero */
+.hero{
+  position:relative; overflow:hidden;
+  padding:96px 0 120px;
+  background:var(--panel);
+}
+.hero-bg{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px, var(--ink-200) 1px, transparent 1.2px);
+  background-size:22px 22px;
+  mask-image:radial-gradient(ellipse 60% 80% at 90% 50%, black, transparent 70%);
+  opacity:0.9;
+}
+.hero-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:80px; align-items:center; position:relative;}
+.hero-left h1{margin-bottom:28px; max-width:620px;}
+.hero-left .lede{margin-bottom:40px;}
+.hero-ctas{display:flex; gap:14px; margin-bottom:40px; flex-wrap:wrap;}
+.hero-proof{display:flex; gap:32px; padding-top:28px; border-top:1px solid var(--rule);}
+.hero-proof .stat .n{font-family:var(--font-display); font-size:32px; line-height:1; color:var(--navy-600);}
+.hero-proof .stat .l{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; margin-top:6px;}
+html[data-theme="dark"] .hero-proof .stat .n{color:var(--ink-800);}
+.hero-right{position:relative;}
+.hero-visual{
+  aspect-ratio:4/5; border-radius:var(--radius-lg); overflow:hidden;
+  position:relative; background:var(--navy-600);
+}
+.hero-visual .pattern-layer{position:absolute; inset:0;}
+.hero-visual .img-layer{
+  position:absolute; inset:20px;
+  background:linear-gradient(160deg, var(--navy-500), var(--navy-800)),
+             repeating-linear-gradient(45deg, transparent 0 8px, rgba(255,255,255,0.04) 8px 16px);
+  border-radius:var(--radius-md);
+  display:flex; align-items:flex-end; padding:24px;
+}
+.hero-visual .img-layer::after{
+  content:'— cohort working session · Nairobi';
+  font-family:var(--font-mono); font-size:11px; letter-spacing:0.06em;
+  background:rgba(0,0,0,0.45); color:var(--sand-200);
+  padding:6px 10px; border-radius:2px;
+}
+.hero-float{
+  position:absolute; bottom:-24px; left:-24px;
+  background:var(--flamingo); color:#fff;
+  padding:20px 24px; border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg);
+  max-width:240px;
+}
+.hero-float .mono{color:rgba(255,255,255,0.75); margin-bottom:6px; display:block;}
+.hero-float .q{font-family:var(--font-display); font-size:17px; line-height:1.3; font-weight:400;}
+
+/* Trusted by strip */
+.trust{padding:32px 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); background:var(--surface);}
+.trust-inner{display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:space-between;}
+.trust-label{font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted);}
+.trust-logos{display:flex; gap:48px; flex-wrap:wrap; align-items:center; opacity:0.7;}
+.trust-logo{font-family:var(--font-display); font-size:20px; font-weight:500; color:var(--ink-600); letter-spacing:0.02em;}
+html[data-theme="dark"] .trust-logo{color:var(--ink-800);}
+
+/* Programmes grid */
+.programmes{position:relative;}
+.programmes-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; gap:40px;}
+.programmes-head > div{max-width:640px;}
+.programmes-filter{display:flex; gap:10px; margin-bottom:32px; flex-wrap:wrap;}
+.programmes-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+.programme-card{
+  background:var(--panel); border:1px solid var(--rule);
+  border-radius:var(--radius-md); overflow:hidden;
+  display:flex; flex-direction:column;
+  transition:transform 0.2s, box-shadow 0.2s;
+  text-decoration:none; color:inherit;
+}
+.programme-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-md);}
+.programme-card .cover{
+  aspect-ratio:16/10; position:relative; overflow:hidden;
+  background:var(--navy-600);
+}
+.programme-card .cover .code{
+  position:absolute; top:16px; left:16px;
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.16em; color:var(--sand-300); text-transform:uppercase;
+  background:rgba(0,0,0,0.25); padding:4px 10px; border-radius:2px;
+}
+.programme-card .cover .badge{position:absolute; top:16px; right:16px;}
+.programme-card .body{padding:24px; flex:1; display:flex; flex-direction:column;}
+.programme-card .ttl{font-family:var(--font-display); font-size:22px; font-weight:500; letter-spacing:-0.01em; margin:0 0 10px;}
+.programme-card .desc{font-size:14px; color:var(--ink-600); line-height:1.55; margin-bottom:20px; flex:1;}
+html[data-theme="dark"] .programme-card .desc{color:var(--ink-800);}
+.programme-card .foot{display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid var(--rule);}
+.programme-card .foot .mono{color:var(--muted);}
+.programme-card .foot .link{color:var(--flamingo); font-weight:500; font-size:13px;}
+
+/* Programme cover variants */
+.cover.v-cds{background:var(--navy-600);}
+.cover.v-cda{background:var(--flamingo);}
+.cover.v-ai{background:linear-gradient(135deg, var(--navy-700), var(--navy-500));}
+.cover.v-bam{background:var(--sand-400);}
+.cover.v-dpo{background:var(--navy-800);}
+.cover.v-ml{background:linear-gradient(135deg, var(--flamingo-700), var(--flamingo));}
+
+/* Two-col feature (consulting) */
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center;}
+.two-col .visual{
+  aspect-ratio:1; border-radius:var(--radius-lg); overflow:hidden;
+  position:relative; background:var(--navy-600);
+}
+
+/* How it works */
+.steps{display:grid; grid-template-columns:repeat(4, 1fr); gap:24px; margin-top:48px;}
+.step{padding:28px; border-left:2px solid var(--flamingo); background:var(--surface); border-radius:0 var(--radius-md) var(--radius-md) 0;}
+.step .n{font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; color:var(--flamingo); margin-bottom:12px; text-transform:uppercase;}
+.step h4{margin-bottom:10px;}
+.step p{font-size:14px; color:var(--ink-600); margin:0;}
+html[data-theme="dark"] .step p{color:var(--ink-800);}
+
+/* Testimonials */
+.testi-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+.testi{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); padding:28px;}
+.testi .quote{font-family:var(--font-display); font-size:18px; line-height:1.45; font-weight:400; color:var(--text); margin-bottom:24px; min-height:140px;}
+.testi .author{display:flex; gap:14px; align-items:center; padding-top:18px; border-top:1px solid var(--rule);}
+.testi .avatar{width:44px; height:44px; border-radius:999px; background:var(--navy-100); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:17px; color:var(--navy-600); font-weight:500;}
+.testi .name{font-size:14px; font-weight:500; margin:0 0 2px;}
+.testi .role{font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);}
+
+/* Stats band */
+.stats-band{
+  background:var(--navy-600); color:#fff;
+  padding:80px 0; position:relative; overflow:hidden;
+}
+.stats-band::before{
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(237,164,85,0.2) 1px, transparent 1.2px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(135deg, black 20%, transparent 80%);
+}
+.stats-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:40px; position:relative;}
+.stat-big .n{font-family:var(--font-display); font-size:72px; line-height:1; letter-spacing:-0.03em;}
+.stat-big .n em{color:var(--sand-300); font-style:italic;}
+.stat-big .l{font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--sand-300); margin-top:12px;}
+.stat-big .d{font-size:14px; color:rgba(255,255,255,0.75); margin-top:8px; max-width:200px;}
+
+/* Insights (blog teaser) */
+.insights-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:20px;}
+.insight{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column;}
+.insight .cover{aspect-ratio:16/9; background:var(--sand-100); position:relative;}
+.insight.large .cover{aspect-ratio:4/3;}
+.insight .body{padding:24px;}
+.insight .tag{font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:10px;}
+.insight h4{margin-bottom:10px; font-size:20px;}
+.insight.large h4{font-size:28px;}
+.insight .meta{font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:0.06em; margin-top:16px;}
+.insight.large .body{padding:32px 32px 28px; display:flex; flex-direction:column; gap:0;}
+.insight .deck{font-size:15px; line-height:1.55; color:var(--ink-600); margin:14px 0 22px; max-width:60ch;}
+html[data-theme="dark"] .insight .deck{color:var(--ink-800);}
+.insight-stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin:0 0 22px;}
+.is-item{padding:18px 0; border-right:1px solid var(--rule);}
+.is-item:last-child{border-right:0;}
+.is-n{font-family:var(--font-display); font-size:38px; font-weight:400; line-height:1; letter-spacing:-0.02em; color:var(--navy-600); display:flex; align-items:baseline; gap:6px;}
+.is-n .unit{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; font-weight:500;}
+html[data-theme="dark"] .is-n{color:var(--ink-800);}
+.is-l{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-top:6px;}
+.insight-foot{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;}
+.insight-by{display:flex; align-items:center; gap:12px;}
+.by-av{width:36px; height:36px; border-radius:999px; background:linear-gradient(135deg, var(--navy-600), var(--flamingo)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.05em;}
+.by-n{font-size:14px; font-weight:500; color:var(--ink-800); line-height:1.2;}
+html[data-theme="dark"] .by-n{color:var(--ink-100);}
+.by-r{font-family:var(--font-mono); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:3px;}
+.insight-cta{font-family:var(--font-body); font-size:14px; font-weight:500; color:var(--flamingo); text-decoration:none; display:inline-flex; align-items:center; gap:6px;}
+.insight-cta:hover{color:var(--flamingo-700);}
+.insight-cta .arrow{transition:transform 0.2s;}
+.insight-cta:hover .arrow{transform:translateX(3px);}
+
+/* CTA band */
+.cta-band{
+  background:var(--flamingo); color:#fff; padding:80px 0;
+  position:relative; overflow:hidden;
+}
+.cta-band::before{
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,0.18) 1px, transparent 1.2px);
+  background-size:26px 26px;
+  mask-image:radial-gradient(circle at 80% 50%, black 20%, transparent 70%);
+}
+.cta-inner{display:grid; grid-template-columns:1.35fr 1fr; gap:64px; align-items:center; position:relative;}
+.cta-inner h2{color:#fff; font-size:56px; line-height:1.0; margin:0 0 18px; max-width:100%;}
+.cta-inner h2 em{color:var(--navy-600);}
+.cta-eyebrow{color:rgba(255,255,255,0.78) !important; margin-bottom:18px;}
+.cta-deck{font-size:16px; line-height:1.55; color:rgba(255,255,255,0.9); margin:0 0 28px; max-width:56ch;}
+.cta-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:22px;}
+.cta-reassure{display:flex; gap:20px; flex-wrap:wrap; font-family:var(--font-mono); font-size:11px; letter-spacing:0.08em; color:rgba(255,255,255,0.8); text-transform:uppercase;}
+.cta-right{background:rgba(4,4,116,0.35); border:1px solid rgba(255,255,255,0.18); backdrop-filter:blur(8px); border-radius:var(--radius-md); padding:28px; position:relative;}
+.cta-countdown{padding-bottom:22px; border-bottom:1px solid rgba(255,255,255,0.22); margin-bottom:20px;}
+.cd-label{font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.75); margin-bottom:14px;}
+.cd-grid{display:flex; align-items:center; gap:10px;}
+.cd-unit{flex:1; background:rgba(255,255,255,0.08); padding:14px 10px; border-radius:4px; text-align:center;}
+.cd-n{font-family:var(--font-display); font-size:44px; font-weight:400; line-height:1; letter-spacing:-0.02em; color:#fff;}
+.cd-u{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-top:4px;}
+.cd-sep{font-family:var(--font-display); font-size:32px; color:rgba(255,255,255,0.4); padding-bottom:20px;}
+.cta-stats{margin:0; display:flex; flex-direction:column; gap:0;}
+.cs-row{display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.12); font-size:14px;}
+.cs-row:last-child{border-bottom:0;}
+.cs-row dt{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin:0;}
+.cs-row dd{margin:0; color:#fff; font-weight:500;}
+.cs-hot{color:var(--sand-200); font-family:var(--font-mono); font-size:13px; letter-spacing:0.03em;}
+.cta-band .btn-primary{background:var(--navy-600); border-color:var(--navy-600); color:#fff;}
+.cta-band .btn-primary:hover{background:var(--navy-800); border-color:var(--navy-800);}
+.cta-band .btn-outline{color:#fff; border-color:rgba(255,255,255,0.5); background:transparent;}
+.cta-band .btn-outline:hover{background:rgba(255,255,255,0.12);}
+
+/* ============ COURSE PAGE ============ */
+
+/* Course hero */
+.course-hero{
+  background:var(--navy-600); color:#fff;
+  padding:56px 0 96px; position:relative; overflow:hidden;
+}
+.course-hero::before{
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(237,164,85,0.18) 1px, transparent 1.2px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(ellipse 50% 80% at 80% 50%, black, transparent 70%);
+}
+.breadcrumb{display:flex; gap:8px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--sand-300); margin-bottom:32px; position:relative;}
+.breadcrumb a{color:var(--sand-300); text-decoration:none; opacity:0.75;}
+.breadcrumb a:hover{opacity:1;}
+.breadcrumb .sep{opacity:0.5;}
+.course-hero .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:start; position:relative;}
+.course-hero h1{color:#fff; margin-bottom:24px;}
+.course-hero h1 em{color:var(--sand-300);}
+.course-hero .lede{color:rgba(255,255,255,0.8); max-width:580px;}
+.course-badges{display:flex; gap:10px; margin-bottom:28px;}
+.course-badges .badge{background:rgba(255,255,255,0.12); color:#fff;}
+.course-badges .badge-accredited{background:var(--sand-300); color:var(--navy-800);}
+.course-meta-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+  padding:24px 0; margin-top:40px;
+  border-top:1px solid rgba(255,255,255,0.15);
+  border-bottom:1px solid rgba(255,255,255,0.15);
+}
+.course-meta-grid .m .l{font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--sand-300); margin-bottom:6px;}
+.course-meta-grid .m .v{font-family:var(--font-display); font-size:20px; font-weight:500;}
+
+/* Enrolment card (sticky) */
+.enrol-card{
+  background:var(--panel); color:var(--text);
+  border-radius:var(--radius-lg); padding:28px;
+  box-shadow:var(--shadow-lg);
+  position:sticky; top:96px;
+}
+.enrol-card .price{display:flex; align-items:baseline; gap:12px; margin-bottom:4px;}
+.enrol-card .price .amt{font-family:var(--font-display); font-size:44px; font-weight:500; letter-spacing:-0.02em;}
+.enrol-card .price .was{font-family:var(--font-mono); font-size:13px; color:var(--muted); text-decoration:line-through;}
+.enrol-card .price-sub{font-family:var(--font-mono); font-size:11px; letter-spacing:0.08em; color:var(--muted); text-transform:uppercase; margin-bottom:24px;}
+.enrol-card .deadline{display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--flamingo-50); color:var(--flamingo-700); border-radius:var(--radius-sm); font-size:13px; margin-bottom:20px;}
+html[data-theme="dark"] .enrol-card .deadline{background:rgba(241,89,42,0.15); color:var(--flamingo-200);}
+.enrol-card .includes{list-style:none; padding:0; margin:0 0 24px;}
+.enrol-card .includes li{display:flex; gap:10px; padding:8px 0; font-size:14px; color:var(--ink-700); border-bottom:1px solid var(--rule);}
+html[data-theme="dark"] .enrol-card .includes li{color:var(--ink-800);}
+.enrol-card .includes li:last-child{border:0;}
+.enrol-card .includes svg{width:16px; height:16px; flex-shrink:0; color:var(--success);}
+.enrol-card .btn{width:100%; margin-bottom:8px;}
+
+/* Course content */
+.course-body{padding:64px 0;}
+.course-body-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:start;}
+.course-main > section{margin-bottom:64px;}
+.course-main h2{font-size:36px; margin-bottom:24px;}
+
+/* Outcomes */
+.outcomes{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.outcome{display:flex; gap:14px; padding:18px; background:var(--surface); border-radius:var(--radius-sm);}
+.outcome .i{width:28px; height:28px; border-radius:999px; background:var(--flamingo); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px; font-weight:600; flex-shrink:0;}
+.outcome p{margin:0; font-size:14px;}
+
+/* Syllabus accordion */
+.syllabus{border-top:1px solid var(--rule);}
+.module{border-bottom:1px solid var(--rule);}
+.module-head{
+  width:100%; padding:20px 0; background:none; border:none;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  cursor:pointer; text-align:left; color:inherit; font-family:var(--font-body);
+}
+.module-head:hover{color:var(--flamingo);}
+.module-num{font-family:var(--font-mono); font-size:11px; color:var(--flamingo); letter-spacing:0.14em; text-transform:uppercase; flex-shrink:0; width:60px;}
+.module-title{font-family:var(--font-display); font-size:22px; font-weight:500; letter-spacing:-0.01em; flex:1;}
+.module-meta{font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; flex-shrink:0;}
+.module-toggle{
+  width:32px; height:32px; border-radius:999px; border:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:all 0.2s;
+}
+.module-toggle svg{transition:transform 0.2s;}
+.module.open .module-toggle{background:var(--navy-600); border-color:var(--navy-600); color:#fff;}
+.module.open .module-toggle svg{transform:rotate(45deg);}
+.module-body{padding:0 0 28px 80px; display:none;}
+.module.open .module-body{display:block;}
+.module-body p{color:var(--ink-600); margin-bottom:16px;}
+html[data-theme="dark"] .module-body p{color:var(--ink-800);}
+.module-topics{list-style:none; padding:0; margin:0;}
+.module-topics li{padding:6px 0 6px 20px; font-size:14px; position:relative;}
+.module-topics li::before{content:''; position:absolute; left:0; top:12px; width:10px; height:1px; background:var(--flamingo);}
+
+/* Instructor */
+.instructor{display:grid; grid-template-columns:180px 1fr; gap:32px; align-items:start; background:var(--surface); padding:32px; border-radius:var(--radius-md);}
+.instructor .avatar{
+  aspect-ratio:1; border-radius:var(--radius-md); overflow:hidden;
+  background:linear-gradient(135deg, var(--navy-500), var(--navy-800));
+  position:relative;
+}
+.instructor .avatar::after{
+  content:'— portrait'; position:absolute; bottom:8px; left:8px;
+  font-family:var(--font-mono); font-size:9px; color:var(--sand-200);
+  background:rgba(0,0,0,0.4); padding:3px 6px; border-radius:2px;
+}
+.instructor .name{font-family:var(--font-display); font-size:24px; font-weight:500; margin:0 0 4px;}
+.instructor .title{font-family:var(--font-mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--flamingo); margin-bottom:16px;}
+.instructor p{font-size:14px; margin-bottom:12px;}
+.instructor .credentials{display:flex; gap:12px; flex-wrap:wrap; font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:0.04em; padding-top:16px; border-top:1px solid var(--rule);}
+.instructor .credentials span{padding:4px 10px; background:var(--panel); border-radius:2px; border:1px solid var(--rule);}
+
+/* FAQ */
+.faq .module-title{font-size:18px;}
+
+/* Registration form */
+.reg-form{
+  background:var(--panel); border:1px solid var(--rule);
+  border-radius:var(--radius-md); padding:40px;
+}
+
+/* Footer */
+footer.site{background:var(--ink-900); color:var(--ink-200); padding:72px 0 32px;}
+html[data-theme="dark"] footer.site{background:#05061A;}
+.footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:40px; margin-bottom:56px;}
+.footer-brand .logo-row{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+.footer-brand .logo-row svg{width:32px; height:32px;}
+.footer-brand .logo-row .wm{font-family:var(--font-display); font-size:22px; font-weight:500; color:#fff;}
+.footer-brand .logo-row .wm em{color:var(--flamingo); font-style:italic;}
+.footer-brand p{font-size:14px; color:var(--ink-300); max-width:320px;}
+.footer-col h5{font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--sand-300); margin:0 0 16px; font-weight:500;}
+.footer-col ul{list-style:none; padding:0; margin:0;}
+.footer-col li{padding:4px 0;}
+.footer-col a{color:var(--ink-200); text-decoration:none; font-size:13px; transition:color 0.15s;}
+.footer-col a:hover{color:var(--flamingo);}
+.footer-bottom{display:flex; justify-content:space-between; padding-top:32px; border-top:1px solid rgba(255,255,255,0.1); font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-400);}
+
+/* Tweaks panel */
+.tweaks-panel{
+  position:fixed; right:20px; bottom:20px; width:280px;
+  background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md);
+  padding:18px; z-index:100; display:none; box-shadow:var(--shadow-lg);
+}
+.tweaks-panel.open{display:block;}
+.tweaks-panel h4{font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin:0 0 14px; font-weight:500; display:flex; justify-content:space-between;}
+.tweaks-panel .row{margin-bottom:14px;}
+.tweaks-panel label{display:block; margin-bottom:6px;}
+.tweaks-panel select, .tweaks-panel input[type="checkbox"]{width:100%; padding:8px; border:1px solid var(--rule); background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:13px; border-radius:3px;}
+.tweaks-panel input[type="checkbox"]{width:auto;}
+.tweaks-panel .row.checkbox{display:flex; align-items:center; justify-content:space-between;}
+
+/* Page visibility */
+.page{display:none;}
+.page.active{display:block;}
+
+/* Component library section */
+.lib-section{padding:80px 0; border-top:1px solid var(--rule); background:var(--surface);}
+.lib-section h2 em{color:var(--flamingo);}
+.lib-row{display:grid; grid-template-columns:280px 1fr; gap:40px; padding:32px 0; border-bottom:1px solid var(--rule);}
+.lib-row:last-child{border-bottom:0;}
+.lib-row > div:first-child h3{margin-bottom:8px;}
+.lib-row > div:first-child p{font-size:13px; color:var(--muted); margin:0;}
+.lib-examples{display:flex; flex-wrap:wrap; gap:16px; align-items:center;}
+.lib-examples.column{flex-direction:column; align-items:stretch; max-width:440px;}
+
+@media (max-width: 900px) {
+  h1{font-size:44px;}
+  h2{font-size:32px;}
+  .hero-grid, .two-col, .course-hero .grid, .course-body-grid, .instructor{grid-template-columns:1fr; gap:40px;}
+  .programmes-grid, .testi-grid, .insights-grid, .stats-grid, .steps, .footer-grid, .outcomes{grid-template-columns:1fr 1fr; gap:16px;}
+  .section-py{padding:64px 0;}
+  .course-meta-grid{grid-template-columns:1fr 1fr;}
+  .cta-inner{grid-template-columns:1fr; gap:40px;}
+  .cta-inner h2{font-size:40px;}
+  .insight-stats{grid-template-columns:1fr 1fr 1fr;}
+  .is-n{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" id="mobileClose">×</button>
+  <div class="mobile-menu-group"><h5>Explore</h5>
+    <a href="#" data-page="home">Home</a>
+    <a href="#" data-page="course">Programmes</a>
+    <a href="#" data-page="about">About</a>
+    <a href="#" data-page="partners">Partners</a>
+    <a href="#" data-page="hackathons">Hackathons</a>
+    <a href="#" data-page="lms">LMS</a>
+    <a href="#" data-page="library">Components</a>
+  </div>
+  <div class="mobile-menu-group"><h5>Account</h5>
+    <a href="#" data-page="lms">Sign in</a>
+    <a href="#" data-page="course">Apply</a>
+  </div>
+</div>
+
+<!-- Tweaks panel -->
+<div class="tweaks-panel" id="tweaksPanel">
+  <h4><span>Tweaks</span><span style="color:var(--flamingo)">●</span></h4>
+  <div class="row">
+    <label>Active page</label>
+    <select id="tw-page">
+      <option value="home">Homepage</option>
+      <option value="course">Course page</option>
+      <option value="about">About</option>
+      <option value="partners">Partners</option>
+      <option value="hackathons">Hackathons</option>
+      <option value="lms">LMS dashboard</option>
+      <option value="library">Component library</option>
+    </select>
+  </div>
+  <div class="row">
+    <label>Density</label>
+    <select id="tw-density">
+      <option value="comfortable">Comfortable</option>
+      <option value="compact">Compact</option>
+    </select>
+  </div>
+  <div class="row checkbox">
+    <label style="margin:0">Dark mode</label>
+    <input type="checkbox" id="tw-dark">
+  </div>
+</div>
+
+<!-- Announcement bar -->
+<div class="announce" id="announceBar">
+  <div class="announce-inner">
+    <span class="dot"></span>
+    <span class="copy"><strong>Cohort 14 · applications close 12 May.</strong> &nbsp;Early-bird saves 20%. <a href="#" class="cta" data-page="course">Apply now →</a></span>
+    <button class="close" id="announceClose" aria-label="Dismiss">×</button>
+  </div>
+</div>
+
+<!-- Shared top nav (switches pages) -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" data-page="home">
+      <!-- v2 monogram -->
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+          <line x1="60" y1="20" x2="24" y2="96"/><line x1="60" y1="20" x2="96" y2="96"/>
+          <line x1="36" y1="70" x2="84" y2="70"/><line x1="60" y1="20" x2="60" y2="70"/>
+          <line x1="36" y1="70" x2="24" y2="96"/><line x1="84" y1="70" x2="96" y2="96"/>
+        </g>
+        <g>
+          <circle cx="60" cy="20" r="8" fill="#F1592A"/>
+          <circle cx="24" cy="96" r="6" fill="currentColor"/>
+          <circle cx="96" cy="96" r="6" fill="currentColor"/>
+          <circle cx="36" cy="70" r="5" fill="currentColor"/>
+          <circle cx="84" cy="70" r="5" fill="currentColor"/>
+          <circle cx="60" cy="70" r="4.5" fill="#EDA455"/>
+        </g>
+      </svg>
+      <span class="wm">Afri<em>CDSA</em></span>
+    </a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#" data-page="home">Home</a></li>
+      <li class="nav-item"><a href="#" class="has-caret" data-page="course">Programmes</a>
+        <div class="mega wide">
+          <a href="#" class="mega-item" data-page="course"><span class="code">CDS · 001</span><span class="t">Certified Data Scientist</span><span class="d">24-week flagship · IABAC</span></a>
+          <a href="#" class="mega-item" data-page="course"><span class="code">CDA · 002</span><span class="t">Certified Data Analyst</span><span class="d">16-week · SQL, dashboards</span></a>
+          <a href="#" class="mega-item" data-page="course"><span class="code">AI · 003</span><span class="t">Certified AI Expert</span><span class="d">20-week · deep learning</span></a>
+          <a href="#" class="mega-item" data-page="course"><span class="code">BAM · 004</span><span class="t">BA for Managers</span><span class="d">6-week executive</span></a>
+          <a href="#" class="mega-item" data-page="course"><span class="code">DPO · 005</span><span class="t">Data Protection Officer</span><span class="d">8-week · Kenya DPA + GDPR</span></a>
+          <a href="#" class="mega-item" data-page="course"><span class="code">ML · 006</span><span class="t">Machine Learning</span><span class="d">18-week · MLOps track</span></a>
+          <div class="mega-footer"><span class="l">6 accredited programmes</span><a href="#" class="btn-link" data-page="course">View all →</a></div>
+        </div>
+      </li>
+      <li class="nav-item"><a href="#" class="has-caret" data-page="partners">Community</a>
+        <div class="mega">
+          <a href="#" class="mega-item" data-page="partners"><span class="code">01</span><span class="t">Partners</span><span class="d">Hiring, academic & corporate partners</span></a>
+          <a href="#" class="mega-item" data-page="hackathons"><span class="code">02</span><span class="t">Hackathons</span><span class="d">Upcoming events & past winners</span></a>
+          <a href="#" class="mega-item" data-nav="alumni"><span class="code">03</span><span class="t">Alumni network</span><span class="d">4,200+ graduates across 6 countries</span></a>
+          <a href="#" class="mega-item" data-nav="research"><span class="code">04</span><span class="t">Field notes</span><span class="d">Research & policy briefs</span></a>
+        </div>
+      </li>
+      <li class="nav-item"><a href="#" data-nav="consulting">Consulting</a></li>
+      <li class="nav-item"><a href="#" data-page="about">About</a></li>
+      <li class="nav-item"><a href="#" data-page="library">Components</a></li>
+    </ul>
+    <div class="nav-cta">
+      <div class="nav-search" id="navSearch">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input type="text" placeholder="Search programmes, notes…">
+      </div>
+      <a href="#" class="btn btn-ghost btn-sm" data-page="lms">Sign in</a>
+      <a href="#" class="btn btn-primary btn-sm" data-page="course">Apply now</a>
+      <button class="nav-burger" id="navBurger" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HOMEPAGE ============ -->
+<div class="page" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div style="display:flex; gap:10px; margin-bottom:28px;">
+            <span class="badge badge-accredited">● IABAC Accredited</span>
+            <span class="badge badge-cohort">Cohort 14 open</span>
+          </div>
+          <h1>Evidence-led careers in <em>data, AI & analytics</em> — for Africa.</h1>
+          <p class="lede">A research, consulting and professional-training institute certifying the next generation of African data scientists, analysts, and AI practitioners.</p>
+          <div class="hero-ctas">
+            <a href="#" class="btn btn-primary btn-lg" data-page="course">Explore programmes <span class="arrow">→</span></a>
+            <a href="#" class="btn btn-outline btn-lg">Talk to admissions</a>
+          </div>
+          <div class="hero-proof">
+            <div class="stat"><div class="n">4,200+</div><div class="l">Graduates</div></div>
+            <div class="stat"><div class="n">78%</div><div class="l">6-mo placement</div></div>
+            <div class="stat"><div class="n">6</div><div class="l">Countries</div></div>
+            <div class="stat"><div class="n">94%</div><div class="l">Completion rate</div></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-visual">
+            <div class="img-layer"></div>
+          </div>
+          <div class="hero-float">
+            <span class="mono">— CDS Cohort 13</span>
+            <div class="q">"Placed at Safaricom six weeks after capstone."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted by -->
+  <section class="trust">
+    <div class="container trust-inner">
+      <span class="trust-label">Partnered with organizations across Africa</span>
+      <div class="trust-logos">
+        <span class="trust-logo">IABAC</span>
+        <span class="trust-logo">World Bank</span>
+        <span class="trust-logo">Safaricom</span>
+        <span class="trust-logo">KCB Group</span>
+        <span class="trust-logo">UNECA</span>
+        <span class="trust-logo">MTN</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programmes -->
+  <section class="section-py programmes">
+    <div class="container">
+      <div class="programmes-head">
+        <div>
+          <p class="eyebrow">Certification programmes</p>
+          <h2>Accredited pathways — <em>from foundation to expert.</em></h2>
+        </div>
+        <a href="#" class="btn-link">View all programmes <span class="arrow">→</span></a>
+      </div>
+
+      <div class="programmes-filter">
+        <button class="chip active">All · 6</button>
+        <button class="chip">Data Science</button>
+        <button class="chip">Analytics</button>
+        <button class="chip">AI / ML</button>
+        <button class="chip">Management</button>
+        <button class="chip">Governance</button>
+      </div>
+
+      <div class="programmes-grid">
+        <a href="#" class="programme-card" data-page="course">
+          <div class="cover v-cds">
+            <span class="code">CDS · 001</span>
+            <span class="badge badge-new">● New cohort</span>
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="c1-grid" width="40" height="25" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 25" fill="none" stroke="#EDA455" stroke-width="0.4" opacity="0.25"/>
+                </pattern>
+                <pattern id="c1-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r="0.9" fill="#EDA455" opacity="0.28"/>
+                </pattern>
+                <linearGradient id="c1-fill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#F1592A" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="250" fill="url(#c1-dots)"/>
+              <rect width="400" height="250" fill="url(#c1-grid)"/>
+              <!-- axis baseline -->
+              <line x1="28" y1="212" x2="380" y2="212" stroke="#EDA455" stroke-width="0.6" opacity="0.45"/>
+              <line x1="28" y1="30" x2="28" y2="212" stroke="#EDA455" stroke-width="0.6" opacity="0.45"/>
+              <!-- tick marks -->
+              <g stroke="#EDA455" stroke-width="0.6" opacity="0.4">
+                <line x1="28" y1="212" x2="25" y2="212"/><line x1="28" y1="170" x2="25" y2="170"/>
+                <line x1="28" y1="128" x2="25" y2="128"/><line x1="28" y1="86" x2="25" y2="86"/>
+                <line x1="28" y1="44" x2="25" y2="44"/>
+              </g>
+              <!-- area fill -->
+              <path d="M 40,198 L 95,178 L 150,162 L 205,132 L 260,108 L 315,82 L 365,58 L 365,212 L 40,212 Z" fill="url(#c1-fill)"/>
+              <!-- prediction band -->
+              <path d="M 40,208 L 95,185 L 150,170 L 205,140 L 260,115 L 315,88 L 365,64 M 40,188 L 95,170 L 150,153 L 205,124 L 260,100 L 315,76 L 365,52" stroke="#EDA455" stroke-width="0.7" stroke-dasharray="2 3" fill="none" opacity="0.55"/>
+              <!-- main line -->
+              <polyline points="40,198 95,178 150,162 205,132 260,108 315,82 365,58" stroke="#F1592A" stroke-width="1.8" fill="none"/>
+              <!-- data points with outlined halos -->
+              <g>
+                <circle cx="40" cy="198" r="5" fill="#040474" stroke="#F1592A" stroke-width="1.5"/>
+                <circle cx="150" cy="162" r="3.5" fill="#F1592A"/>
+                <circle cx="260" cy="108" r="3.5" fill="#F1592A"/>
+                <circle cx="365" cy="58" r="6" fill="#F1592A" stroke="#EDA455" stroke-width="1.5"/>
+              </g>
+              <!-- annotation label near terminus -->
+              <g>
+                <line x1="365" y1="58" x2="340" y2="34" stroke="#EDA455" stroke-width="0.6" opacity="0.8"/>
+                <rect x="238" y="22" width="100" height="18" fill="#040474" stroke="#EDA455" stroke-width="0.5" opacity="0.95"/>
+                <text x="248" y="34" font-family="monospace" font-size="9" fill="#EDA455" letter-spacing="0.5">r² = 0.947</text>
+              </g>
+              <!-- scatter cluster -->
+              <g fill="#EDA455" opacity="0.6">
+                <circle cx="72" cy="195" r="1.3"/><circle cx="88" cy="188" r="1.3"/><circle cx="110" cy="176" r="1.3"/>
+                <circle cx="135" cy="168" r="1.3"/><circle cx="178" cy="146" r="1.3"/><circle cx="225" cy="122" r="1.3"/>
+                <circle cx="285" cy="98" r="1.3"/><circle cx="340" cy="72" r="1.3"/>
+                <circle cx="65" cy="202" r="1"/><circle cx="120" cy="158" r="1"/><circle cx="195" cy="140" r="1"/>
+                <circle cx="245" cy="118" r="1"/><circle cx="298" cy="90" r="1"/>
+              </g>
+              <!-- axis labels -->
+              <text x="28" y="232" font-family="monospace" font-size="8" fill="#EDA455" opacity="0.7" letter-spacing="0.8">WK 01</text>
+              <text x="340" y="232" font-family="monospace" font-size="8" fill="#EDA455" opacity="0.7" letter-spacing="0.8">WK 24</text>
+              <text x="36" y="40" font-family="monospace" font-size="8" fill="#EDA455" opacity="0.7" letter-spacing="0.8" transform="rotate(-90 36 40)">SKILL↑</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3 class="ttl">Certified Data Scientist</h3>
+            <p class="desc">The flagship programme — regression, classification, causal inference, and three applied capstone projects with real data.</p>
+            <div class="card-meta">
+              <span>24 weeks</span><span>Hybrid</span><span>IABAC</span>
+            </div>
+            <div class="foot">
+              <span class="mono">From KES 180,000</span>
+              <span class="link">Details →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="programme-card" data-page="course">
+          <div class="cover v-cda">
+            <span class="code" style="background:rgba(4,4,116,0.25); color:#fff;">CDA · 002</span>
+            <span class="badge badge-live">Enrolling</span>
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <g fill="#040474" opacity="0.7">
+                <rect x="40" y="160" width="30" height="60"/>
+                <rect x="90" y="120" width="30" height="100"/>
+                <rect x="140" y="90" width="30" height="130"/>
+                <rect x="190" y="70" width="30" height="150"/>
+                <rect x="240" y="110" width="30" height="110"/>
+                <rect x="290" y="50" width="30" height="170"/>
+                <rect x="340" y="80" width="30" height="140"/>
+              </g>
+            </svg>
+          </div>
+          <div class="body">
+            <h3 class="ttl">Certified Data Analyst</h3>
+            <p class="desc">SQL, dashboards, storytelling with data, and business-case projects tuned for analyst roles in finance, telco, and public sector.</p>
+            <div class="card-meta">
+              <span>16 weeks</span><span>Online</span><span>IABAC</span>
+            </div>
+            <div class="foot">
+              <span class="mono">From KES 120,000</span>
+              <span class="link">Details →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="programme-card" data-page="course">
+          <div class="cover v-ai">
+            <span class="code">AI · 003</span>
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#F1592A" stroke-width="1" fill="none" opacity="0.7">
+                <line x1="60" y1="60" x2="200" y2="125"/><line x1="60" y1="190" x2="200" y2="125"/>
+                <line x1="200" y1="125" x2="340" y2="80"/><line x1="200" y1="125" x2="340" y2="170"/>
+                <line x1="60" y1="125" x2="200" y2="125"/>
+              </g>
+              <g fill="#F1592A">
+                <circle cx="60" cy="60" r="4"/><circle cx="60" cy="125" r="4"/><circle cx="60" cy="190" r="4"/>
+                <circle cx="200" cy="125" r="6"/>
+                <circle cx="340" cy="80" r="4"/><circle cx="340" cy="170" r="4"/>
+              </g>
+            </svg>
+          </div>
+          <div class="body">
+            <h3 class="ttl">Certified AI Expert</h3>
+            <p class="desc">Neural networks, transformers, applied deep learning, and responsible-AI practices. Includes a deployed ML system as capstone.</p>
+            <div class="card-meta">
+              <span>20 weeks</span><span>Hybrid</span><span>IABAC</span>
+            </div>
+            <div class="foot">
+              <span class="mono">From KES 220,000</span>
+              <span class="link">Details →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="programme-card" data-page="course">
+          <div class="cover v-bam">
+            <span class="code" style="background:rgba(4,4,116,0.25); color:#fff;">BAM · 004</span>
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#040474" fill="none" stroke-width="1" opacity="0.5">
+                <circle cx="200" cy="125" r="30"/><circle cx="200" cy="125" r="60"/><circle cx="200" cy="125" r="90"/><circle cx="200" cy="125" r="120"/>
+              </g>
+              <circle cx="200" cy="125" r="8" fill="#F1592A"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3 class="ttl">Business Analytics for Managers</h3>
+            <p class="desc">A 6-week executive programme for managers leading analytics teams. Methods, metrics, and how to commission data projects.</p>
+            <div class="card-meta">
+              <span>6 weeks</span><span>Evenings</span><span>IABAC</span>
+            </div>
+            <div class="foot">
+              <span class="mono">From KES 95,000</span>
+              <span class="link">Details →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="programme-card" data-page="course">
+          <div class="cover v-dpo">
+            <span class="code">DPO · 005</span>
+            <span class="badge badge-new">● Launching</span>
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <path d="M 200 30 L 320 70 V 140 C 320 190 260 220 200 230 C 140 220 80 190 80 140 V 70 Z" fill="none" stroke="#F1592A" stroke-width="2" opacity="0.8"/>
+              <circle cx="200" cy="125" r="18" fill="#EDA455" opacity="0.85"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3 class="ttl">Data Protection Officer</h3>
+            <p class="desc">Kenya DPA 2019, GDPR, and regional data-governance. Designed for appointed DPOs and compliance leads.</p>
+            <div class="card-meta">
+              <span>8 weeks</span><span>Online</span><span>ODPC</span>
+            </div>
+            <div class="foot">
+              <span class="mono">From KES 140,000</span>
+              <span class="link">Details →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="programme-card" data-page="course">
+          <div class="cover v-ml">
+            <span class="code">ML · 006</span>
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#fff" stroke-width="1" fill="none" opacity="0.6">
+                <path d="M 0 180 Q 100 60 200 130 T 400 80"/>
+                <path d="M 0 220 Q 100 100 200 170 T 400 120"/>
+              </g>
+              <g fill="#fff">
+                <circle cx="100" cy="95" r="4"/><circle cx="200" cy="130" r="4"/><circle cx="300" cy="105" r="4"/>
+              </g>
+            </svg>
+          </div>
+          <div class="body">
+            <h3 class="ttl">Certified Machine Learning</h3>
+            <p class="desc">Supervised, unsupervised, and reinforcement-learning foundations with a focus on production deployment and MLOps.</p>
+            <div class="card-meta">
+              <span>18 weeks</span><span>Hybrid</span><span>IABAC</span>
+            </div>
+            <div class="foot">
+              <span class="mono">From KES 200,000</span>
+              <span class="link">Details →</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consulting feature -->
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <p class="eyebrow">Consulting & research</p>
+          <h2>Data science, <em>on the ground.</em></h2>
+          <p class="lede" style="margin-bottom:24px;">We partner with ministries, NGOs, and enterprises across East and West Africa — running diagnostics, building analytics capacity, and delivering decision-support systems that match the local data environment.</p>
+          <ul style="list-style:none; padding:0; margin:0 0 32px; display:grid; gap:12px;">
+            <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--flamingo); font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em;">01</span><span>Maturity diagnostic & roadmap — 6 weeks</span></li>
+            <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--flamingo); font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em;">02</span><span>Embedded analytics teams — 3 to 12 months</span></li>
+            <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--flamingo); font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em;">03</span><span>Decision-support dashboards & models</span></li>
+            <li style="display:flex; gap:12px; align-items:flex-start;"><span style="color:var(--flamingo); font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em;">04</span><span>Applied research & published reports</span></li>
+          </ul>
+          <a href="#" class="btn btn-primary">Start a conversation <span class="arrow">→</span></a>
+        </div>
+        <div>
+          <div class="visual">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%;">
+              <defs><pattern id="cp1" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1.2" fill="#EDA455" opacity="0.35"/></pattern></defs>
+              <rect width="400" height="400" fill="url(#cp1)"/>
+              <g stroke="#F1592A" stroke-width="1.2" fill="none" opacity="0.8">
+                <path d="M 60 320 Q 120 200 200 220 T 340 120"/>
+              </g>
+              <g fill="#F1592A">
+                <circle cx="60" cy="320" r="5"/><circle cx="200" cy="220" r="5"/><circle cx="340" cy="120" r="6"/>
+              </g>
+              <text x="70" y="345" font-family="IBM Plex Mono" font-size="10" fill="#EDA455" letter-spacing="1.5">DIAGNOSE</text>
+              <text x="180" y="250" font-family="IBM Plex Mono" font-size="10" fill="#EDA455" letter-spacing="1.5">BUILD</text>
+              <text x="310" y="100" font-family="IBM Plex Mono" font-size="10" fill="#EDA455" letter-spacing="1.5">DECIDE</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section-py">
+    <div class="container">
+      <div style="max-width:680px;">
+        <p class="eyebrow">How it works</p>
+        <h2>Four steps from <em>application</em> to certification.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">Step 01</div><h4>Apply online</h4><p>15-minute form plus a short motivation statement. No prior degree required.</p></div>
+        <div class="step"><div class="n">Step 02</div><h4>Diagnostic</h4><p>A timed aptitude test places you in the right cohort level.</p></div>
+        <div class="step"><div class="n">Step 03</div><h4>Cohort</h4><p>Live sessions, asynchronous modules, weekly labs, and peer projects.</p></div>
+        <div class="step"><div class="n">Step 04</div><h4>Certify</h4><p>Capstone evaluation, IABAC credential, and placement support for 12 months.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:48px;">
+        <p class="eyebrow">Graduates</p>
+        <h2>What our <em>alumni</em> say.</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi">
+          <div class="quote">"The capstone was the real differentiator — I shipped a production model that my current employer actually uses."</div>
+          <div class="author"><div class="avatar">AW</div><div><div class="name">Amina Wanjiru</div><div class="role">Data Scientist · Safaricom</div></div></div>
+        </div>
+        <div class="testi">
+          <div class="quote">"I came in as a business analyst. Six months later I was leading the analytics function at our Kigali office."</div>
+          <div class="author"><div class="avatar">JM</div><div><div class="name">Jean-Pierre Mugisha</div><div class="role">Analytics Lead · Bank of Kigali</div></div></div>
+        </div>
+        <div class="testi">
+          <div class="quote">"AfriCDSA treats African case studies as first-class material — not as footnotes. That changed how I approach problems."</div>
+          <div class="author"><div class="avatar">KA</div><div><div class="name">Kofi Asante</div><div class="role">ML Engineer · MTN Ghana</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="stats-band">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:56px; position:relative;">
+        <p class="eyebrow on-dark">By the numbers</p>
+        <h2 style="color:#fff;">Seven years. <em style="color:var(--sand-300);">Six countries.</em> One mission.</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-big">
+          <div class="n">4.2<em>K</em></div>
+          <div class="l">Graduates</div>
+          <div class="d">Across six African nations and the diaspora.</div>
+        </div>
+        <div class="stat-big">
+          <div class="n">78<em>%</em></div>
+          <div class="l">Placement rate</div>
+          <div class="d">Within 6 months of completion.</div>
+        </div>
+        <div class="stat-big">
+          <div class="n">240<em>+</em></div>
+          <div class="l">Consulting projects</div>
+          <div class="d">For ministries, NGOs, and enterprise clients.</div>
+        </div>
+        <div class="stat-big">
+          <div class="n">94<em>%</em></div>
+          <div class="l">Completion rate</div>
+          <div class="d">The highest in the region's certification landscape.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section class="section-py">
+    <div class="container">
+      <div class="programmes-head">
+        <div>
+          <p class="eyebrow">Field notes</p>
+          <h2>Insights from our <em>research team.</em></h2>
+        </div>
+        <a href="#" class="btn-link">All field notes <span class="arrow">→</span></a>
+      </div>
+      <div class="insights-grid">
+        <article class="insight large">
+          <div class="cover" style="background:linear-gradient(135deg, var(--navy-700), var(--navy-500)); position:relative;">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="ip1-grid" width="60" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 60 0 L 0 0 0 40" fill="none" stroke="#EDA455" stroke-width="0.4" opacity="0.22"/>
+                </pattern>
+                <pattern id="ip1-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+                  <circle cx="1" cy="1" r="1.2" fill="#EDA455" opacity="0.3"/>
+                </pattern>
+                <linearGradient id="ip1-fill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#F1592A" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="600" height="400" fill="url(#ip1-dots)"/>
+              <rect width="600" height="400" fill="url(#ip1-grid)"/>
+              <!-- axes -->
+              <line x1="60" y1="340" x2="560" y2="340" stroke="#EDA455" stroke-width="0.8" opacity="0.5"/>
+              <line x1="60" y1="60" x2="60" y2="340" stroke="#EDA455" stroke-width="0.8" opacity="0.5"/>
+              <!-- area + line — placement curve -->
+              <path d="M 80,320 L 160,280 L 240,235 L 320,190 L 400,145 L 480,105 L 540,85 L 540,340 L 80,340 Z" fill="url(#ip1-fill)"/>
+              <polyline points="80,320 160,280 240,235 320,190 400,145 480,105 540,85" stroke="#F1592A" stroke-width="2.2" fill="none"/>
+              <!-- threshold line "78%" -->
+              <line x1="60" y1="130" x2="560" y2="130" stroke="#EDA455" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.55"/>
+              <rect x="66" y="116" width="56" height="18" fill="#040474" stroke="#EDA455" stroke-width="0.5"/>
+              <text x="73" y="129" font-family="monospace" font-size="10" fill="#EDA455" letter-spacing="0.6">78% · 6 MO</text>
+              <!-- scatter cohort points -->
+              <g fill="#EDA455" opacity="0.65">
+                <circle cx="110" cy="308" r="2"/><circle cx="135" cy="295" r="2"/><circle cx="180" cy="268" r="2"/>
+                <circle cx="210" cy="252" r="2"/><circle cx="265" cy="226" r="2"/><circle cx="290" cy="212" r="2"/>
+                <circle cx="345" cy="178" r="2"/><circle cx="380" cy="160" r="2"/><circle cx="425" cy="132" r="2"/>
+                <circle cx="465" cy="115" r="2"/><circle cx="510" cy="94" r="2"/>
+              </g>
+              <!-- highlighted cohort markers -->
+              <g>
+                <circle cx="80" cy="320" r="5" fill="#F1592A"/>
+                <circle cx="240" cy="235" r="5" fill="#F1592A"/>
+                <circle cx="400" cy="145" r="5" fill="#F1592A"/>
+                <circle cx="540" cy="85" r="7" fill="#F1592A" stroke="#EDA455" stroke-width="2"/>
+              </g>
+              <!-- x-axis cohort labels -->
+              <g font-family="monospace" font-size="10" fill="#EDA455" opacity="0.75" letter-spacing="0.8">
+                <text x="72" y="362">C7</text>
+                <text x="152" y="362">C8</text>
+                <text x="232" y="362">C9</text>
+                <text x="312" y="362">C10</text>
+                <text x="392" y="362">C11</text>
+                <text x="472" y="362">C12</text>
+              </g>
+              <!-- y-axis labels -->
+              <g font-family="monospace" font-size="9" fill="#EDA455" opacity="0.65" letter-spacing="0.5">
+                <text x="24" y="344">0%</text>
+                <text x="20" y="274">25</text>
+                <text x="20" y="204">50</text>
+                <text x="20" y="134">75</text>
+                <text x="18" y="64">100</text>
+              </g>
+              <!-- title in chart -->
+              <text x="60" y="44" font-family="monospace" font-size="11" fill="#EDA455" letter-spacing="1.2">PLACEMENT · COHORT 7–12</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="tag">Research · Labor markets</div>
+            <h4>Why 78% of our CDS graduates place within six months — and what it says about the African data-skills gap.</h4>
+            <p class="deck">A longitudinal study of cohorts 7 through 12, cross-referenced with regional labor market data from Kenya, Rwanda, and Ghana. We find a persistent skills-to-seats mismatch concentrated in three verticals — and a measurable cohort effect that has been widening since 2022.</p>
+            <div class="insight-stats">
+              <div class="is-item"><div class="is-n">78<span class="unit">%</span></div><div class="is-l">6-mo placement</div></div>
+              <div class="is-item"><div class="is-n">6<span class="unit">cohorts</span></div><div class="is-l">Longitudinal</div></div>
+              <div class="is-item"><div class="is-n">3<span class="unit">countries</span></div><div class="is-l">Labor data</div></div>
+            </div>
+            <div class="insight-foot">
+              <div class="insight-by">
+                <div class="by-av">AW</div>
+                <div>
+                  <div class="by-n">Dr. Amina Wanjiru</div>
+                  <div class="by-r">Head of Research · AfriCDSA</div>
+                </div>
+              </div>
+              <a href="#" class="insight-cta">Read the study <span class="arrow">→</span></a>
+            </div>
+            <div class="meta">12 min read · Apr 2026 · 24 pages · PDF available</div>
+          </div>
+        </article>
+        <article class="insight">
+          <div class="cover" style="background:var(--sand-100); position:relative;">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <g fill="#040474" opacity="0.7">
+                <rect x="40" y="200" width="30" height="80"/><rect x="90" y="160" width="30" height="120"/>
+                <rect x="140" y="130" width="30" height="150"/><rect x="190" y="100" width="30" height="180"/>
+                <rect x="240" y="140" width="30" height="140"/><rect x="290" y="70" width="30" height="210"/>
+                <rect x="340" y="110" width="30" height="170"/>
+              </g>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="tag">Methods · Analytics</div>
+            <h4>The dashboard that ministries actually use.</h4>
+            <div class="meta">7 min read · Mar 2026</div>
+          </div>
+        </article>
+        <article class="insight">
+          <div class="cover" style="background:var(--flamingo-50); position:relative;">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#F1592A" fill="none" stroke-width="1.5" opacity="0.8">
+                <circle cx="200" cy="150" r="40"/><circle cx="200" cy="150" r="70"/><circle cx="200" cy="150" r="100"/>
+              </g>
+              <circle cx="200" cy="150" r="8" fill="#F1592A"/>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="tag">Policy · Data governance</div>
+            <h4>Kenya DPA at five years — a practitioner's reading.</h4>
+            <div class="meta">9 min read · Feb 2026</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div class="cta-left">
+        <p class="eyebrow cta-eyebrow">Cohort 14 · Applications</p>
+        <h2>Applications close <em>12 May.</em><br/>Don't wait.</h2>
+        <p class="cta-deck">Early-bird pricing ends 5 May — saves 20%. Scholarships available for up to 20% of each cohort. First application review happens 48 hours after submission.</p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn-primary btn-lg" data-page="course">Apply now</a>
+          <a href="#" class="btn btn-outline btn-lg">Book a 15-min call</a>
+        </div>
+        <div class="cta-reassure">
+          <span>● Rolling reviews</span>
+          <span>● 48-hour first response</span>
+          <span>● Needs-based scholarships</span>
+        </div>
+      </div>
+      <aside class="cta-right">
+        <div class="cta-countdown">
+          <div class="cd-label">Applications close in</div>
+          <div class="cd-grid">
+            <div class="cd-unit"><div class="cd-n">18</div><div class="cd-u">days</div></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><div class="cd-n">06</div><div class="cd-u">hrs</div></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><div class="cd-n">42</div><div class="cd-u">min</div></div>
+          </div>
+        </div>
+        <dl class="cta-stats">
+          <div class="cs-row"><dt>Starts</dt><dd>12 May 2026</dd></div>
+          <div class="cs-row"><dt>Duration</dt><dd>24 weeks · Hybrid</dd></div>
+          <div class="cs-row"><dt>Seats remaining</dt><dd><span class="cs-hot">11 of 48</span></dd></div>
+          <div class="cs-row"><dt>Early-bird ends</dt><dd>5 May · saves 20%</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ COURSE PAGE ============ -->
+<div class="page" id="page-course">
+
+  <!-- Course hero -->
+  <section class="course-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="#" data-page="home">AfriCDSA</a>
+        <span class="sep">/</span>
+        <a href="#" data-page="home">Programmes</a>
+        <span class="sep">/</span>
+        <span>Certified Data Scientist</span>
+      </div>
+      <div class="grid">
+        <div>
+          <div class="course-badges">
+            <span class="badge badge-accredited">● IABAC Accredited</span>
+            <span class="badge">CDS · 001</span>
+            <span class="badge">Cohort 14</span>
+          </div>
+          <h1>Certified Data <em>Scientist.</em></h1>
+          <p class="lede">Our flagship 24-week programme. Regression, classification, causal inference, and three applied capstone projects — built around African case data.</p>
+          <div class="course-meta-grid">
+            <div class="m"><div class="l">Duration</div><div class="v">24 weeks</div></div>
+            <div class="m"><div class="l">Format</div><div class="v">Hybrid</div></div>
+            <div class="m"><div class="l">Starts</div><div class="v">12 May 2026</div></div>
+            <div class="m"><div class="l">Location</div><div class="v">Nairobi + Online</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="enrol-card">
+            <div class="price"><span class="amt">KES 180,000</span><span class="was">KES 220,000</span></div>
+            <div class="price-sub">— early-bird · ends 5 May —</div>
+            <div class="deadline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Cohort closes in <strong>18 days</strong></span>
+            </div>
+            <ul class="includes">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>240 hours of instruction</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>3 applied capstone projects</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly 1:1 mentor sessions</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>IABAC certification exam</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12-month placement support</li>
+            </ul>
+            <a href="#reg-form" class="btn btn-primary btn-lg">Apply to cohort 14</a>
+            <a href="#" class="btn btn-outline">Download syllabus (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course body -->
+  <section class="course-body">
+    <div class="container">
+      <div class="course-body-grid">
+        <div class="course-main">
+
+          <!-- Overview -->
+          <section>
+            <p class="eyebrow">Overview</p>
+            <h2>An applied programme — <em>built around real data.</em></h2>
+            <p class="lede" style="margin-bottom:24px;">The CDS track is designed for early-career professionals who have a quantitative foundation and want to move into data-scientist roles. You'll finish the programme with a portfolio of three projects, an IABAC credential, and direct introductions to our hiring partners.</p>
+            <p>This is not a survey course. Every module ends in a hands-on deliverable, reviewed by a mentor. The final capstone is evaluated by an external panel drawn from industry.</p>
+          </section>
+
+          <!-- Outcomes -->
+          <section>
+            <p class="eyebrow">Outcomes</p>
+            <h2>What you'll be able to do.</h2>
+            <div class="outcomes">
+              <div class="outcome"><div class="i">01</div><p>Formulate a business problem as a well-posed predictive or causal question.</p></div>
+              <div class="outcome"><div class="i">02</div><p>Build, evaluate, and compare regression and classification models end-to-end.</p></div>
+              <div class="outcome"><div class="i">03</div><p>Design an experiment or quasi-experiment and defend the inference.</p></div>
+              <div class="outcome"><div class="i">04</div><p>Ship a model to production with monitoring and fallback behavior.</p></div>
+              <div class="outcome"><div class="i">05</div><p>Communicate methods and findings to a non-technical decision-maker.</p></div>
+              <div class="outcome"><div class="i">06</div><p>Apply responsible-AI and data-protection principles to real workflows.</p></div>
+            </div>
+          </section>
+
+          <!-- Syllabus -->
+          <section>
+            <p class="eyebrow">Syllabus · 6 modules · 24 weeks</p>
+            <h2>What you'll learn.</h2>
+            <div class="syllabus" id="syllabus">
+              <div class="module open">
+                <button class="module-head">
+                  <span class="module-num">M 01</span>
+                  <span class="module-title">Foundations — statistics, Python, and the data environment</span>
+                  <span class="module-meta">4 weeks · 40h</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>A rigorous setup of the probability, statistics, and programming environment you'll rely on for the rest of the programme.</p>
+                  <ul class="module-topics">
+                    <li>Probability distributions, sampling, and the central limit theorem</li>
+                    <li>Hypothesis testing and confidence intervals in practice</li>
+                    <li>Python for data — NumPy, Pandas, Matplotlib, Seaborn</li>
+                    <li>Git, reproducible notebooks, and the lab environment</li>
+                    <li>Lab: Cleaning and exploring a Kenyan mobile-money transaction dataset</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">M 02</span>
+                  <span class="module-title">Regression — from linear models to regularization</span>
+                  <span class="module-meta">4 weeks · 40h</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>The workhorse family of models — linear, generalized-linear, and their regularized variants — with emphasis on diagnostics.</p>
+                  <ul class="module-topics">
+                    <li>OLS, assumptions, and residual diagnostics</li>
+                    <li>GLMs: logistic, Poisson, and negative-binomial regression</li>
+                    <li>Ridge, Lasso, and ElasticNet — when and why</li>
+                    <li>Capstone 1: Predicting retail churn for a Nairobi grocery chain</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">M 03</span>
+                  <span class="module-title">Classification and ensemble methods</span>
+                  <span class="module-meta">4 weeks · 40h</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>Trees, forests, and gradient-boosted machines; the engines of most production ML systems in industry.</p>
+                  <ul class="module-topics">
+                    <li>Decision trees and CART</li>
+                    <li>Random forests, bagging, and feature importance</li>
+                    <li>Gradient boosting — XGBoost, LightGBM, CatBoost</li>
+                    <li>Imbalanced classes, calibration, and cost-sensitive learning</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">M 04</span>
+                  <span class="module-title">Causal inference — beyond prediction</span>
+                  <span class="module-meta">4 weeks · 40h</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>The methods that let you answer "what would happen if…" — the difference between a model and a decision.</p>
+                  <ul class="module-topics">
+                    <li>Potential outcomes and the fundamental problem</li>
+                    <li>Randomized experiments and A/B testing</li>
+                    <li>Difference-in-differences, instrumental variables, regression discontinuity</li>
+                    <li>Capstone 2: Evaluating a public-health intervention in Western Kenya</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">M 05</span>
+                  <span class="module-title">Production ML — deployment, monitoring, MLOps</span>
+                  <span class="module-meta">4 weeks · 40h</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>Models are only useful if they ship. This module covers deployment, versioning, and ongoing monitoring.</p>
+                  <ul class="module-topics">
+                    <li>Model packaging with Docker and FastAPI</li>
+                    <li>Data- and concept-drift monitoring</li>
+                    <li>Retraining, shadow deployments, and rollback strategies</li>
+                    <li>Cloud fundamentals — AWS / GCP / Azure essentials</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">M 06</span>
+                  <span class="module-title">Capstone 3 — end-to-end project & external defense</span>
+                  <span class="module-meta">4 weeks · 40h</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>A solo project scoped with an industry partner, defended before an external panel of practitioners.</p>
+                  <ul class="module-topics">
+                    <li>Project scoping and problem definition</li>
+                    <li>Implementation, evaluation, and deployment</li>
+                    <li>Written technical report and business brief</li>
+                    <li>Oral defense before an external panel</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Instructor -->
+          <section>
+            <p class="eyebrow">Lead instructor</p>
+            <h2>Taught by <em>practitioners.</em></h2>
+            <div class="instructor">
+              <div class="avatar"></div>
+              <div>
+                <div class="name">Dr. Amina Wanjiru</div>
+                <div class="title">Director, Applied Research</div>
+                <p>Amina leads our Nairobi faculty. Before AfriCDSA, she was a senior data scientist at Safaricom and a research fellow at the University of Cape Town, where she completed her PhD in applied statistics.</p>
+                <p>She has authored two open-access textbooks on causal inference for African data and advises the Ministry of Health on maternal-mortality analytics.</p>
+                <div class="credentials">
+                  <span>PhD · Statistics</span>
+                  <span>IABAC · CDS</span>
+                  <span>10 yrs · Industry</span>
+                  <span>40+ publications</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Who it's for -->
+          <section>
+            <p class="eyebrow">Who it's for</p>
+            <h2>Prerequisites.</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div class="card">
+                <h4 style="margin-bottom:10px; color:var(--success);">✓ This is for you if…</h4>
+                <ul style="padding-left:20px; margin:0; font-size:14px;">
+                  <li>You have a quantitative undergraduate background (STEM, econ, or similar)</li>
+                  <li>You've written at least some Python or R</li>
+                  <li>You're early- to mid-career, targeting a data-scientist role</li>
+                  <li>You can commit 15–20 hours per week for 6 months</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h4 style="margin-bottom:10px; color:var(--muted);">Not a fit if…</h4>
+                <ul style="padding-left:20px; margin:0; font-size:14px; color:var(--muted);">
+                  <li>You're looking for a one-month intro to Python (try our CDA track)</li>
+                  <li>You're a manager commissioning analytics (try BAM)</li>
+                  <li>You need a purely online, self-paced programme</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section>
+            <p class="eyebrow">FAQ</p>
+            <h2>Common questions.</h2>
+            <div class="syllabus faq">
+              <div class="module open">
+                <button class="module-head">
+                  <span class="module-num">Q 01</span>
+                  <span class="module-title">Is the IABAC certification recognized outside Africa?</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>Yes. IABAC is a global accreditation body with recognition across 40+ countries. Your credential is issued centrally and is verifiable online.</p>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">Q 02</span>
+                  <span class="module-title">Are scholarships available?</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>We offer needs-based partial scholarships for up to 20% of each cohort. A separate application is sent to shortlisted candidates.</p>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">Q 03</span>
+                  <span class="module-title">What if I miss a session?</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>All live sessions are recorded and available within 24 hours on the LMS. Labs have flexible deadlines within each module.</p>
+                </div>
+              </div>
+              <div class="module">
+                <button class="module-head">
+                  <span class="module-num">Q 04</span>
+                  <span class="module-title">How is placement support structured?</span>
+                  <span class="module-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </button>
+                <div class="module-body">
+                  <p>Graduates get 12 months of career support: a dedicated placement lead, CV / portfolio review, interview prep, and direct introductions to our hiring partner network.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Registration form -->
+          <section id="reg-form">
+            <p class="eyebrow">Apply</p>
+            <h2>Reserve your seat.</h2>
+            <p style="margin-bottom:32px;">This is the first step — a non-binding application. Once we receive it, we'll send you a diagnostic link within 48 hours.</p>
+            <form class="reg-form" onsubmit="event.preventDefault(); alert('Application received.');">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-first">First name</label>
+                  <input type="text" id="f-first" placeholder="Amina" required>
+                </div>
+                <div class="form-group">
+                  <label for="f-last">Last name</label>
+                  <input type="text" id="f-last" placeholder="Wanjiru" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-email">Email</label>
+                  <input type="email" id="f-email" placeholder="you@email.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="f-phone">Phone (WhatsApp)</label>
+                  <input type="tel" id="f-phone" placeholder="+254 700 000 000" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="f-country">Country</label>
+                  <select id="f-country" required>
+                    <option value="">Select…</option>
+                    <option>Kenya</option><option>Rwanda</option><option>Burundi</option>
+                    <option>Ghana</option><option>Uganda</option><option>Tanzania</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="f-exp">Years of experience</label>
+                  <select id="f-exp" required>
+                    <option value="">Select…</option>
+                    <option>0–2 years</option><option>2–5 years</option>
+                    <option>5–10 years</option><option>10+ years</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="f-bg">Current role / background</label>
+                <input type="text" id="f-bg" placeholder="e.g. Business analyst at Safaricom">
+              </div>
+              <div class="form-group">
+                <label for="f-mot">Motivation (2–3 sentences)</label>
+                <textarea id="f-mot" placeholder="What do you hope to do after completing the programme?"></textarea>
+                <div class="helper">Max 500 characters.</div>
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="f-updates" checked>
+                <label for="f-updates">Send me occasional field notes and cohort updates.</label>
+              </div>
+              <div class="checkbox-row">
+                <input type="checkbox" id="f-terms" required>
+                <label for="f-terms">I agree to the terms of application and data-processing policy.</label>
+              </div>
+              <div style="display:flex; gap:12px; align-items:center; padding-top:12px; border-top:1px solid var(--rule);">
+                <button type="submit" class="btn btn-primary btn-lg">Submit application <span class="arrow">→</span></button>
+                <span class="mono" style="color:var(--muted);">Takes about 4 minutes.</span>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <!-- Sidebar (empty — enrol card is sticky in hero; optional related) -->
+        <aside>
+          <div class="card" style="margin-bottom:20px;">
+            <p class="eyebrow">Related programmes</p>
+            <div style="display:flex; flex-direction:column; gap:14px; margin-top:8px;">
+              <a href="#" style="text-decoration:none; color:inherit; padding:12px; border:1px solid var(--rule); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div><div style="font-family:var(--font-mono); font-size:10px; color:var(--flamingo); letter-spacing:0.14em; text-transform:uppercase;">CDA · 002</div><div style="font-family:var(--font-display); font-size:17px; margin-top:2px;">Data Analyst</div></div>
+                <span style="color:var(--flamingo);">→</span>
+              </a>
+              <a href="#" style="text-decoration:none; color:inherit; padding:12px; border:1px solid var(--rule); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div><div style="font-family:var(--font-mono); font-size:10px; color:var(--flamingo); letter-spacing:0.14em; text-transform:uppercase;">ML · 006</div><div style="font-family:var(--font-display); font-size:17px; margin-top:2px;">Machine Learning</div></div>
+                <span style="color:var(--flamingo);">→</span>
+              </a>
+              <a href="#" style="text-decoration:none; color:inherit; padding:12px; border:1px solid var(--rule); border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center;">
+                <div><div style="font-family:var(--font-mono); font-size:10px; color:var(--flamingo); letter-spacing:0.14em; text-transform:uppercase;">AI · 003</div><div style="font-family:var(--font-display); font-size:17px; margin-top:2px;">AI Expert</div></div>
+                <span style="color:var(--flamingo);">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="card" style="background:var(--navy-600); color:#fff; border:0; position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background-image:radial-gradient(circle at 1px 1px, rgba(237,164,85,0.25) 1px, transparent 1.2px); background-size:18px 18px; mask-image:linear-gradient(135deg, black 20%, transparent 80%);"></div>
+            <div style="position:relative;">
+              <p class="eyebrow" style="color:var(--sand-300);">Not sure?</p>
+              <h4 style="color:#fff; margin-bottom:12px;">Book a 15-min call with admissions.</h4>
+              <a href="#" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.4);">Book a call</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ COMPONENT LIBRARY ============ -->
+<div class="page" id="page-library">
+  <section class="section-py">
+    <div class="container">
+      <p class="eyebrow">Reference</p>
+      <h1>Component <em>library.</em></h1>
+      <p class="lede">The building blocks used across the AfriCDSA web system. Every element draws from the brand kit's color, type, and graphic-device tokens.</p>
+    </div>
+  </section>
+
+  <section class="lib-section">
+    <div class="container">
+      <div class="lib-row">
+        <div><h3>Buttons</h3><p>Primary for conversion actions; secondary for navy-weighted decisions; outline/ghost for tertiary. Sizes: sm / default / lg.</p></div>
+        <div class="lib-examples">
+          <button class="btn btn-primary">Primary action</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+          <button class="btn btn-primary">With arrow <span class="arrow">→</span></button>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Badges & chips</h3><p>Badges denote status (new, accredited, live). Chips are filter controls.</p></div>
+        <div class="lib-examples">
+          <span class="badge badge-new">● New cohort</span>
+          <span class="badge badge-accredited">● IABAC Accredited</span>
+          <span class="badge badge-live">Enrolling</span>
+          <span class="badge badge-cohort">Cohort 14</span>
+          <span style="width:100%; height:1px;"></span>
+          <button class="chip active">All · 6</button>
+          <button class="chip">Data Science</button>
+          <button class="chip">Analytics</button>
+          <button class="chip">AI / ML</button>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Form inputs</h3><p>All inputs share a single height, radius, and focus ring. Labels set in Plex Mono, uppercase.</p></div>
+        <div class="lib-examples column">
+          <div class="form-group">
+            <label for="lib-1">Text input</label>
+            <input type="text" id="lib-1" placeholder="Placeholder">
+            <div class="helper">Helper text sits below.</div>
+          </div>
+          <div class="form-group">
+            <label for="lib-2">Error state</label>
+            <input type="text" id="lib-2" class="error" value="invalid@">
+            <div class="helper error">Please enter a valid email address.</div>
+          </div>
+          <div class="form-group">
+            <label for="lib-3">Select</label>
+            <select id="lib-3"><option>Choose an option…</option><option>Kenya</option><option>Rwanda</option></select>
+          </div>
+          <div class="form-group">
+            <label for="lib-4">Textarea</label>
+            <textarea id="lib-4" placeholder="Longer form input…"></textarea>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="lib-5" checked>
+            <label for="lib-5">Send me occasional updates.</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Cards</h3><p>Standard container. Add <code>.card-hover</code> for hover-lift behaviour.</p></div>
+        <div class="lib-examples column" style="max-width:560px;">
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <h4 class="card-title">Card title</h4>
+                <div class="mono" style="color:var(--muted);">Subtitle · metadata</div>
+              </div>
+              <span class="badge badge-new">● New</span>
+            </div>
+            <p style="font-size:14px; color:var(--ink-600); margin:0;">A standard card. Used for programmes, insights, sidebar modules, and callouts. Sits on the panel surface with a 1px rule.</p>
+            <div class="card-meta"><span>Meta one</span><span>Meta two</span><span>Meta three</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Image treatments</h3><p>Three approved treatments: natural documentary, navy-duotone for editorial, and striped placeholder with monospace caption.</p></div>
+        <div class="lib-examples" style="gap:14px;">
+          <div style="width:220px;">
+            <figure class="figure">
+              <div class="img img-ratio-4-3 placeholder with-mesh" data-label="— documentary"></div>
+              <figcaption>Natural / in-situ</figcaption>
+            </figure>
+          </div>
+          <div style="width:220px;">
+            <figure class="figure">
+              <div class="img img-ratio-4-3 placeholder inverse" data-label="— duotone"></div>
+              <figcaption>Navy duotone · editorial</figcaption>
+            </figure>
+          </div>
+          <div style="width:220px;">
+            <figure class="figure">
+              <div class="img img-ratio-4-3 placeholder" data-label="— placeholder"></div>
+              <figcaption>Placeholder · stripes</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Alerts / inline messages</h3><p>Used for deadlines, notices, and inline feedback.</p></div>
+        <div class="lib-examples column">
+          <div style="display:flex; gap:10px; padding:14px 16px; background:var(--flamingo-50); color:var(--flamingo-700); border-radius:var(--radius-sm); border-left:3px solid var(--flamingo); align-items:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Cohort 14 closes in 18 days.</span>
+          </div>
+          <div style="display:flex; gap:10px; padding:14px 16px; background:rgba(30,138,95,0.1); color:var(--success); border-radius:var(--radius-sm); border-left:3px solid var(--success); align-items:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Application received. Check your email.</span>
+          </div>
+          <div style="display:flex; gap:10px; padding:14px 16px; background:rgba(196,52,42,0.08); color:var(--danger); border-radius:var(--radius-sm); border-left:3px solid var(--danger); align-items:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>We couldn't verify that email. Please try again.</span>
+          </div>
+          <div style="display:flex; gap:10px; padding:14px 16px; background:var(--navy-50); color:var(--navy-600); border-radius:var(--radius-sm); border-left:3px solid var(--navy-600); align-items:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Next diagnostic window: 28 April, 09:00 EAT.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Section heads</h3><p>All sections open with an eyebrow (mono, uppercase) followed by an H2 with one italic phrase for emphasis.</p></div>
+        <div class="lib-examples column">
+          <div>
+            <p class="eyebrow">Certification programmes</p>
+            <h2 style="font-size:36px;">Accredited pathways — <em>from foundation to expert.</em></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ABOUT PAGE ============ -->
+<div class="page" id="page-about">
+  <section class="page-header">
+    <div class="container"><div class="inner">
+      <div class="bc"><span>AfriCDSA</span><span style="opacity:0.5">/</span><span>About</span></div>
+      <p class="eyebrow">About the institute</p>
+      <h1>From data, <em>to decisions</em> — for Africa.</h1>
+      <p class="lede">AfriCDSA is a research, consulting, and professional-training institute building the continent's data-science capacity from the ground up.</p>
+    </div></div>
+  </section>
+
+  <section class="container">
+    <div class="about-story">
+      <div>
+        <p class="eyebrow">Our story</p>
+        <h2>Started in Nairobi. <em>Built for the continent.</em></h2>
+        <p>AfriCDSA was founded in 2019 by a coalition of African data scientists, academics, and industry practitioners who shared a common frustration: African data talent was being trained on curricula imported wholesale from the global north — with case studies, examples, and problem framings that rarely matched the realities of African data environments.</p>
+        <p>We set out to change that. Our curriculum is rebuilt each year around African case data. Our faculty are practitioners who work across the continent's industries — from mobile money and agritech to public-health surveillance and central-bank analytics. Our research programme publishes openly, in the languages our stakeholders actually speak.</p>
+        <p>Seven years in, we've grown from one cohort of 18 students in Westlands to six locations across East and West Africa, with 4,200+ graduates and a consulting practice that advises ministries and enterprises across the region.</p>
+      </div>
+      <div class="visual"></div>
+    </div>
+  </section>
+
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">What we believe</p><h2>Four <em>principles</em> that shape everything we do.</h2></div>
+      <div class="values">
+        <div class="value-card"><div class="n">Principle 01</div><h4>African data first.</h4><p>Every capstone uses data drawn from the continent. Case studies are scoped with local partners.</p></div>
+        <div class="value-card"><div class="n">Principle 02</div><h4>Rigor over hype.</h4><p>We teach methods that hold up under scrutiny — not the trending tool of the quarter.</p></div>
+        <div class="value-card"><div class="n">Principle 03</div><h4>Practice, not theory.</h4><p>All faculty are active practitioners. Our graduates ship things — they don't just learn things.</p></div>
+        <div class="value-card"><div class="n">Principle 04</div><h4>Open by default.</h4><p>Research is published openly. Curricula are shared with accredited partners at no cost.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-py">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 2fr; gap:80px;">
+        <div><p class="eyebrow">Timeline</p><h2>Seven years. <em>Six countries.</em></h2></div>
+        <div class="timeline">
+          <div class="tl-item"><div class="yr">2019</div><h4>Founded in Nairobi</h4><p>First cohort of 18 students, housed in two rooms off Mpaka Road.</p></div>
+          <div class="tl-item"><div class="yr">2020</div><h4>IABAC accreditation</h4><p>CDS and CDA tracks receive formal accreditation from the International Association of Business Analytics Certifications.</p></div>
+          <div class="tl-item"><div class="yr">2021</div><h4>Kigali campus opens</h4><p>Rwanda becomes our second market. Launched French-bilingual delivery.</p></div>
+          <div class="tl-item"><div class="yr">2023</div><h4>1,000th graduate</h4><p>Celebrated the 1,000th certified graduate at the Nairobi alumni summit.</p></div>
+          <div class="tl-item"><div class="yr">2024</div><h4>Consulting practice launches</h4><p>Formalized the research + consulting arm. First engagement: maternal-mortality analytics for MoH Kenya.</p></div>
+          <div class="tl-item"><div class="yr">2026</div><h4>Six countries, 4,200 graduates</h4><p>Active campuses in Nairobi, Kigali, Kampala, Dar es Salaam, Accra, and Bujumbura.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">Faculty</p><h2>Taught by <em>practitioners.</em></h2></div>
+      <div class="faculty-grid">
+        <div class="faculty-card"><div class="portrait"></div><div class="body"><div class="n">Dr. Amina Wanjiru</div><div class="r">Director, Applied Research</div><p class="b">PhD Statistics (UCT). Previously senior DS at Safaricom.</p></div></div>
+        <div class="faculty-card"><div class="portrait v2"></div><div class="body"><div class="n">Prof. Kwame Osei</div><div class="r">Faculty Chair · AI</div><p class="b">Deep learning research · formerly at University of Ghana.</p></div></div>
+        <div class="faculty-card"><div class="portrait v3"></div><div class="body"><div class="n">Dr. Jeanne Nkurunziza</div><div class="r">Head · Consulting Practice</div><p class="b">Public-sector analytics · World Bank alum.</p></div></div>
+        <div class="faculty-card"><div class="portrait v4"></div><div class="body"><div class="n">Samuel Ochieng</div><div class="r">Lead Instructor · CDA</div><p class="b">10 years FinTech analytics · ex-KCB Group.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-py">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">Locations</p><h2>Six <em>campuses.</em></h2></div>
+      <div class="locations">
+        <div class="loc-card"><div class="flag">● Kenya</div><h4>Nairobi · HQ</h4><p>Mpaka Rd, Westlands. Flagship campus with 120-seat main hall.</p><div class="meta"><span>800+ students/yr</span><span>Opened 2019</span></div></div>
+        <div class="loc-card"><div class="flag">● Rwanda</div><h4>Kigali</h4><p>KG 9 Ave, Nyarutarama. Bilingual EN/FR delivery.</p><div class="meta"><span>320+ students/yr</span><span>Opened 2021</span></div></div>
+        <div class="loc-card"><div class="flag">● Uganda</div><h4>Kampala</h4><p>Kololo campus. Hybrid format with Nairobi faculty rotation.</p><div class="meta"><span>180+ students/yr</span><span>Opened 2022</span></div></div>
+        <div class="loc-card"><div class="flag">● Tanzania</div><h4>Dar es Salaam</h4><p>Masaki. Smaller cohort model, strong agritech focus.</p><div class="meta"><span>140+ students/yr</span><span>Opened 2023</span></div></div>
+        <div class="loc-card"><div class="flag">● Ghana</div><h4>Accra</h4><p>Airport Residential Area. West Africa hub.</p><div class="meta"><span>220+ students/yr</span><span>Opened 2023</span></div></div>
+        <div class="loc-card"><div class="flag">● Burundi</div><h4>Bujumbura</h4><p>Newest campus. Needs-based scholarship focus.</p><div class="meta"><span>80+ students/yr</span><span>Opened 2025</span></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PARTNERS PAGE ============ -->
+<div class="page" id="page-partners">
+  <section class="page-header">
+    <div class="container"><div class="inner">
+      <div class="bc"><span>AfriCDSA</span><span style="opacity:0.5">/</span><span>Partners</span></div>
+      <p class="eyebrow">Hiring, academic, and corporate partners</p>
+      <h1>We don't place graduates. <em>Our partners do.</em></h1>
+      <p class="lede">140+ organisations across six countries hire from AfriCDSA cohorts, co-design curriculum, or sponsor research programmes.</p>
+    </div></div>
+  </section>
+
+  <section class="section-py">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">Three ways to partner</p><h2>Pick the <em>relationship</em> that fits.</h2></div>
+      <div class="partner-types">
+        <div class="partner-type">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <h4>Hiring partner</h4>
+          <p style="font-size:14px; color:var(--ink-600); margin:0;">Priority access to capstone-defense events and direct referrals from placement team.</p>
+          <ul><li>Quarterly cohort preview</li><li>Curated shortlists</li><li>Campus recruiting days</li><li>Optional sponsored project</li></ul>
+        </div>
+        <div class="partner-type">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
+          <h4>Curriculum partner</h4>
+          <p style="font-size:14px; color:var(--ink-600); margin:0;">Co-design a specialization track. Contribute real data for capstones.</p>
+          <ul><li>Joint syllabus design</li><li>Guest lectures / masterclasses</li><li>Data-donor program</li><li>Co-branded certificate</li></ul>
+        </div>
+        <div class="partner-type">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h4>Research partner</h4>
+          <p style="font-size:14px; color:var(--ink-600); margin:0;">Commission or co-publish applied-research studies with our team.</p>
+          <ul><li>Commissioned studies</li><li>Co-authored publications</li><li>Policy-brief series</li><li>Convenings & workshops</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">Our partners</p><h2>A network <em>built on trust.</em></h2></div>
+      <div class="partner-grid">
+        <div class="partner-cell">Safaricom</div><div class="partner-cell">KCB Group</div><div class="partner-cell">MTN</div><div class="partner-cell">Equity Bank</div><div class="partner-cell">World Bank</div>
+        <div class="partner-cell">UNECA</div><div class="partner-cell">Bank of Kigali</div><div class="partner-cell">NCBA</div><div class="partner-cell">Airtel</div><div class="partner-cell">Twiga</div>
+        <div class="partner-cell">Jumia</div><div class="partner-cell">M-KOPA</div><div class="partner-cell">Cellulant</div><div class="partner-cell">Flutterwave</div><div class="partner-cell">Interswitch</div>
+        <div class="partner-cell">GIZ</div><div class="partner-cell">IFC</div><div class="partner-cell">AfDB</div><div class="partner-cell">Mastercard F.</div><div class="partner-cell">Gates F.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-py">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">Case study</p><h2>Partnership in <em>practice.</em></h2></div>
+      <div class="case-study">
+        <div class="visual">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%;">
+            <defs><pattern id="cs1" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1.2" fill="#EDA455" opacity="0.35"/></pattern></defs>
+            <rect width="400" height="300" fill="url(#cs1)"/>
+            <g stroke="#F1592A" stroke-width="1.5" fill="none"><polyline points="40,230 110,180 180,140 250,100 320,60"/></g>
+            <g fill="#F1592A"><circle cx="40" cy="230" r="4"/><circle cx="320" cy="60" r="5"/></g>
+          </svg>
+        </div>
+        <div>
+          <div class="partner-logo">— SAFARICOM × AFRICDSA</div>
+          <h3>Training 120 analysts for the data-driven network.</h3>
+          <p>Safaricom engaged AfriCDSA to co-design a 12-week analytics programme for their network-operations team. We built a bespoke curriculum around anonymized signalling data, delivered in three cohorts over 18 months.</p>
+          <div class="metrics">
+            <div class="metric"><div class="n">120</div><div class="l">Analysts trained</div></div>
+            <div class="metric"><div class="n">96%</div><div class="l">Completion</div></div>
+            <div class="metric"><div class="n">18mo</div><div class="l">Engagement</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2>Ready to <em>partner</em> with us?</h2>
+      <div style="display:flex; gap:12px;"><a href="#" class="btn btn-primary btn-lg">Start a conversation</a><a href="#" class="btn btn-outline btn-lg">Download partner deck</a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HACKATHONS PAGE ============ -->
+<div class="page" id="page-hackathons">
+  <section class="event-hero">
+    <div class="container"><div class="inner">
+      <div>
+        <div class="bc" style="color:var(--sand-300); margin-bottom:20px; display:flex; gap:8px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase;"><span>AfriCDSA</span><span style="opacity:0.5">/</span><span>Hackathons</span></div>
+        <span class="badge badge-live" style="background:rgba(30,138,95,0.25); color:var(--success); margin-bottom:16px;">Registration open</span>
+        <h1>AfriCDSA <em>Datathon</em> · 2026.</h1>
+        <p class="lede">A 48-hour applied data-science competition. Six tracks. Teams of 3–5. KES 2,000,000 in prizes. Open to students, alumni, and practitioners across Africa.</p>
+        <div style="display:flex; gap:12px; margin-top:28px;"><a href="#" class="btn btn-primary btn-lg">Register a team</a><a href="#" class="btn btn-outline btn-lg" style="color:#fff; border-color:rgba(255,255,255,0.4);">Sponsor the event</a></div>
+      </div>
+      <div class="event-countdown">
+        <div class="lbl">Registration closes in</div>
+        <div class="cells"><div class="cell"><div class="n">23</div><div class="l">Days</div></div><div class="cell"><div class="n">14</div><div class="l">Hrs</div></div><div class="cell"><div class="n">38</div><div class="l">Min</div></div><div class="cell"><div class="n">12</div><div class="l">Sec</div></div></div>
+        <div style="margin-top:20px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.15); display:grid; grid-template-columns:1fr 1fr; gap:12px; font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; color:rgba(255,255,255,0.65); text-transform:uppercase;"><span>Event · 22–24 Jun</span><span>Nairobi + Online</span><span>2,000,000 KES pool</span><span>6 tracks</span></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section-py">
+    <div class="container">
+      <div class="programmes-head" style="margin-bottom:32px;"><div><p class="eyebrow">Upcoming events</p><h2>Four events <em>this year.</em></h2></div><a href="#" class="btn-link">View calendar <span class="arrow">→</span></a></div>
+      <div class="event-grid">
+        <div class="event-card"><div class="cover"><span class="date">22–24 JUN 2026</span><span class="badge badge-live">Registration open</span></div><div class="body"><div class="prize"><span class="amt">KES 2,000,000</span><span class="lbl">Prize pool</span></div><h4>AfriCDSA Datathon 2026</h4><p class="desc">Our flagship 48-hour hackathon. Six tracks from fintech to public health. Open to teams of 3–5.</p><div class="meta"><span>Nairobi + Online</span><span>48 hours</span><span>Teams 3–5</span></div></div></div>
+        <div class="event-card"><div class="cover v2"><span class="date">12 JUL 2026</span><span class="badge badge-new">● Early-bird</span></div><div class="body"><div class="prize"><span class="amt">KES 500,000</span><span class="lbl">Prize pool</span></div><h4>Women in Data · Kigali</h4><p class="desc">A one-day analytics challenge for female-led teams. Mentorship from regional alumni.</p><div class="meta"><span>Kigali</span><span>1 day</span><span>Teams 2–4</span></div></div></div>
+        <div class="event-card"><div class="cover v3"><span class="date">24 AUG 2026</span></div><div class="body"><div class="prize"><span class="amt">KES 800,000</span><span class="lbl">Prize pool</span></div><h4>AgriTech Data Challenge</h4><p class="desc">Partnership with Twiga Foods. Build models on real supply-chain data.</p><div class="meta"><span>Online</span><span>72 hours</span><span>Teams 3–5</span></div></div></div>
+        <div class="event-card"><div class="cover v4"><span class="date">15 NOV 2026</span></div><div class="body"><div class="prize"><span class="amt">KES 600,000</span><span class="lbl">Prize pool</span></div><h4>Public Health Analytics · Accra</h4><p class="desc">MoH Ghana partnership. Anonymized surveillance data. Solo or duo entries.</p><div class="meta"><span>Accra</span><span>36 hours</span><span>Solo / duo</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:32px;"><p class="eyebrow">Past winners</p><h2>Seven years of <em>excellent work.</em></h2></div>
+      <div class="winners-list">
+        <div class="winner-row"><div class="place gold">01</div><div><div class="proj">Maternal Risk Classifier</div><div class="team">Team PREDICT · Nairobi</div></div><div class="event">Datathon 2025</div><div></div><div class="prize">KES 500,000</div></div>
+        <div class="winner-row"><div class="place gold">01</div><div><div class="proj">Mobile-Money Fraud Graph</div><div class="team">Team NODE · Kigali</div></div><div class="event">FinTech Challenge 2025</div><div></div><div class="prize">KES 300,000</div></div>
+        <div class="winner-row"><div class="place">02</div><div><div class="proj">Crop-yield Forecaster</div><div class="team">Team HARVEST · Kampala</div></div><div class="event">AgriTech 2025</div><div></div><div class="prize">KES 200,000</div></div>
+        <div class="winner-row"><div class="place gold">01</div><div><div class="proj">Transit Demand Simulator</div><div class="team">Team MATATU · Nairobi</div></div><div class="event">Smart Cities 2024</div><div></div><div class="prize">KES 400,000</div></div>
+        <div class="winner-row"><div class="place">02</div><div><div class="proj">Solar-load Optimizer</div><div class="team">Team WATT · Accra</div></div><div class="event">Datathon 2024</div><div></div><div class="prize">KES 250,000</div></div>
+        <div class="winner-row"><div class="place">03</div><div><div class="proj">Health-worker Allocator</div><div class="team">Team CLINIC · Dar</div></div><div class="event">Public Health 2024</div><div></div><div class="prize">KES 150,000</div></div>
+      </div>
+      <div style="display:flex; justify-content:center; margin-top:40px;">
+        <div class="pagination"><button>‹</button><button class="active">1</button><button>2</button><button>3</button><span class="ellipsis">…</span><button>7</button><button>›</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <h2>Sponsor a <em>track</em> and meet the continent's top emerging talent.</h2>
+      <div style="display:flex; gap:12px; flex-shrink:0;"><a href="#" class="btn btn-primary btn-lg">Become a sponsor</a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ LMS DASHBOARD ============ -->
+<div class="page" id="page-lms">
+  <div class="lms-shell">
+    <aside class="lms-side">
+      <div class="ident"><div class="av">AW</div><div class="n">Amina Wanjiru</div><div class="c">CDS · Cohort 14</div></div>
+      <ul class="lms-nav">
+        <li><a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>My courses</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="14 2 14 8 20 8"/><path d="M20 13v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z"/></svg>Assignments</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Grades</a></li>
+        <div class="group-lbl">Cohort</div>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Discussion</a></li>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Classmates</a></li>
+        <div class="group-lbl">Account</div>
+        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></li>
+      </ul>
+    </aside>
+    <main class="lms-main">
+      <div class="lms-head">
+        <div><div class="sub">Monday · 20 April 2026</div><h2>Good morning, Amina.</h2></div>
+        <div class="actions"><button class="btn btn-outline btn-sm">Weekly brief</button><button class="btn btn-primary btn-sm">Resume module</button></div>
+      </div>
+      <div class="lms-stats">
+        <div class="lms-stat"><div class="l">Course progress</div><div class="n">62<span style="font-size:20px;color:var(--muted)">%</span></div><div class="d">Module 4 of 6 in progress</div></div>
+        <div class="lms-stat"><div class="l">Assignments due</div><div class="n">3</div><div class="d">Next: Capstone 2 brief, Fri</div></div>
+        <div class="lms-stat"><div class="l">Current grade</div><div class="n" style="color:var(--success);">A-</div><div class="d">Top 15% of cohort</div></div>
+        <div class="lms-stat"><div class="l">Discussion activity</div><div class="n">48</div><div class="d">Posts this month</div></div>
+      </div>
+      <div class="lms-grid">
+        <div>
+          <div class="current-course">
+            <div class="banner">
+              <div class="code">CDS · 001 · M04</div>
+              <h3>Module 04 · Causal Inference</h3>
+              <div class="sub">4 weeks · 40 hours · Dr. Amina Wanjiru</div>
+            </div>
+            <div class="progress-meta"><span>Module progress</span><span>6 / 10 lessons</span></div>
+            <div class="progress-bar"><div class="fill" style="width:60%"></div></div>
+            <ul class="module-list">
+              <li class="done"><div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="t">L01 · Potential outcomes & fundamental problem</div><div class="m">45 min</div></li>
+              <li class="done"><div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="t">L02 · Randomization & RCTs</div><div class="m">52 min</div></li>
+              <li class="done"><div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="t">L03 · A/B testing in production</div><div class="m">38 min</div></li>
+              <li class="done"><div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="t">L04 · Difference-in-differences</div><div class="m">48 min</div></li>
+              <li class="done"><div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="t">L05 · Instrumental variables</div><div class="m">55 min</div></li>
+              <li class="done"><div class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="t">L06 · Regression discontinuity</div><div class="m">41 min</div></li>
+              <li class="current"><div class="check"></div><div class="t">L07 · Synthetic control methods</div><div class="m">47 min</div></li>
+              <li><div class="check"></div><div class="t">L08 · Lab · DiD on Western Kenya data</div><div class="m">2h lab</div></li>
+              <li><div class="check"></div><div class="t">L09 · Capstone 2 briefing</div><div class="m">30 min</div></li>
+              <li><div class="check"></div><div class="t">L10 · Module review + quiz</div><div class="m">1h</div></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="lms-side-card">
+            <h4>Today's schedule</h4>
+            <div class="schedule-item"><div class="time">09:00</div><div><div class="t">Live lecture · L07 Synthetic control</div><div class="s">Dr. Wanjiru · Room 204 / Zoom</div></div></div>
+            <div class="schedule-item"><div class="time">11:30</div><div><div class="t">Mentor 1:1</div><div class="s">Samuel Ochieng · 30 min</div></div></div>
+            <div class="schedule-item"><div class="time">14:00</div><div><div class="t">Study group · Capstone 2</div><div class="s">Discord · Team MATATU</div></div></div>
+            <div class="schedule-item"><div class="time">16:00</div><div><div class="t">Office hours · Open</div><div class="s">Drop-in · Zoom</div></div></div>
+          </div>
+          <div class="lms-side-card">
+            <h4>Upcoming deadlines</h4>
+            <div class="assignment-row urgent"><div class="t">Capstone 2 · problem brief</div><div class="due">Fri · 3 days</div></div>
+            <div class="assignment-row"><div class="t">L07 reading + response</div><div class="due">Mon · 7 days</div></div>
+            <div class="assignment-row"><div class="t">DiD lab submission</div><div class="due">Wed · 9 days</div></div>
+            <div class="assignment-row"><div class="t">Module 4 quiz</div><div class="due">Fri · 12 days</div></div>
+          </div>
+          <div class="lms-side-card" style="background:var(--navy-600); color:#fff; border:0; position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background-image:radial-gradient(circle at 1px 1px, rgba(237,164,85,0.25) 1px, transparent 1.2px); background-size:18px 18px; mask-image:linear-gradient(135deg, black 20%, transparent 80%);"></div>
+            <div style="position:relative;">
+              <h4 style="color:var(--sand-300);">Datathon 2026</h4>
+              <p style="font-size:13px; color:rgba(255,255,255,0.85); margin-bottom:14px;">Registration is open for the June datathon. Your cohort has priority entry.</p>
+              <a href="#" class="btn btn-outline btn-sm" style="color:#fff; border-color:rgba(255,255,255,0.4);" data-page="hackathons">Register team →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row">
+          <svg viewBox="0 0 120 120" aria-hidden="true" style="color:#fff;">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+              <line x1="60" y1="20" x2="24" y2="96"/><line x1="60" y1="20" x2="96" y2="96"/>
+              <line x1="36" y1="70" x2="84" y2="70"/><line x1="60" y1="20" x2="60" y2="70"/>
+              <line x1="36" y1="70" x2="24" y2="96"/><line x1="84" y1="70" x2="96" y2="96"/>
+            </g>
+            <g>
+              <circle cx="60" cy="20" r="8" fill="#F1592A"/>
+              <circle cx="24" cy="96" r="6" fill="currentColor"/><circle cx="96" cy="96" r="6" fill="currentColor"/>
+              <circle cx="36" cy="70" r="5" fill="currentColor"/><circle cx="84" cy="70" r="5" fill="currentColor"/>
+              <circle cx="60" cy="70" r="4.5" fill="#EDA455"/>
+            </g>
+          </svg>
+          <span class="wm">Afri<em>CDSA</em></span>
+        </div>
+        <p>The African Center for Data Science and Analytics — research, consulting, and professional training across Kenya, Rwanda, Burundi, Ghana, Uganda, and Tanzania.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Programmes</h5>
+        <ul>
+          <li><a href="#">Data Scientist (CDS)</a></li>
+          <li><a href="#">Data Analyst (CDA)</a></li>
+          <li><a href="#">AI Expert</a></li>
+          <li><a href="#">Machine Learning</a></li>
+          <li><a href="#">BA for Managers</a></li>
+          <li><a href="#">Data Protection Officer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Institute</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Faculty</a></li>
+          <li><a href="#">Research</a></li>
+          <li><a href="#">Consulting</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#">Field notes</a></li>
+          <li><a href="#">LMS login</a></li>
+          <li><a href="#">Download syllabus</a></li>
+          <li><a href="#">Scholarships</a></li>
+          <li><a href="#">Brand kit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li>Mpaka Rd, Westlands</li>
+          <li>Nairobi, Kenya</li>
+          <li><a href="#">hello@africdsa.org</a></li>
+          <li><a href="#">+254 700 000 000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AfriCDSA Ltd · IABAC Accredited</span>
+      <span>Privacy · Terms · Data Protection</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const TWEAKS = { ...TWEAK_DEFAULTS };
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + name);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === name);
+  });
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  TWEAKS.page = name;
+  syncTweakUI();
+  persist();
+}
+
+function applyTweaks() {
+  document.documentElement.dataset.theme = TWEAKS.darkMode ? 'dark' : 'light';
+  document.documentElement.dataset.density = TWEAKS.density;
+  showPageNoScroll(TWEAKS.page);
+}
+function showPageNoScroll(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + name);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === name);
+  });
+}
+function syncTweakUI() {
+  const p = document.getElementById('tw-page');
+  const d = document.getElementById('tw-density');
+  const dk = document.getElementById('tw-dark');
+  if (p) p.value = TWEAKS.page;
+  if (d) d.value = TWEAKS.density;
+  if (dk) dk.checked = TWEAKS.darkMode;
+}
+function persist() {
+  try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: TWEAKS }, '*'); } catch (e) {}
+}
+
+// Wire page-switching links
+document.querySelectorAll('[data-page]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    showPage(el.dataset.page);
+  });
+});
+
+// Announce bar
+const announceBar = document.getElementById('announceBar');
+if (!TWEAKS.announce && announceBar) announceBar.style.display='none';
+document.getElementById('announceClose').addEventListener('click', () => { announceBar.style.display='none'; TWEAKS.announce=false; persist(); });
+
+// Nav search toggle
+const navSearch = document.getElementById('navSearch');
+navSearch.querySelector('.icon').addEventListener('click', () => { navSearch.classList.toggle('open'); if (navSearch.classList.contains('open')) navSearch.querySelector('input').focus(); });
+
+// Mobile menu
+const mobileMenu = document.getElementById('mobileMenu');
+document.getElementById('navBurger').addEventListener('click', () => mobileMenu.classList.add('open'));
+document.getElementById('mobileClose').addEventListener('click', () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('[data-page]').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+// Dropdown tap for touch
+document.querySelectorAll('.nav-item .has-caret').forEach(el => {
+  el.addEventListener('click', e => {
+    if (window.matchMedia('(hover: none)').matches) { e.preventDefault(); el.parentElement.classList.toggle('open'); }
+  });
+});
+
+// Wire tweaks
+document.getElementById('tw-page').addEventListener('change', e => { showPage(e.target.value); });
+document.getElementById('tw-density').addEventListener('change', e => { TWEAKS.density = e.target.value; applyTweaks(); persist(); });
+document.getElementById('tw-dark').addEventListener('change', e => { TWEAKS.darkMode = e.target.checked; applyTweaks(); persist(); });
+
+// Accordion (syllabus, FAQ)
+document.querySelectorAll('.module-head').forEach(h => {
+  h.addEventListener('click', () => { h.parentElement.classList.toggle('open'); });
+});
+
+// Programme filter chips
+document.querySelectorAll('.programmes-filter .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    c.parentElement.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+  });
+});
+
+applyTweaks();
+syncTweakUI();
+
+// Tweak-mode plumbing
+const panel = document.getElementById('tweaksPanel');
+window.addEventListener('message', (ev) => {
+  const d = ev.data || {};
+  if (d.type === '__activate_edit_mode') panel.classList.add('open');
+  if (d.type === '__deactivate_edit_mode') panel.classList.remove('open');
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+</body>
+</html>
