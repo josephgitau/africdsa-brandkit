@@ -1200,29 +1200,43 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
       <p style="margin-top: 10px; font-size: 14px; line-height: 1.7;">The <strong>Token / Stream</strong> device visualises the atomic unit of language AI: the token. Variable-width bricks represent tokens of differing lengths — short function words, long technical terms — flowing in rows like a real token sequence. Colour encodes token category: <span class="mono" style="color: var(--flamingo);">flamingo</span> marks high-signal content tokens, <span class="mono">navy</span> carries structural or stop tokens, <span class="mono" style="color: var(--sand);">sand</span> flags numeric or named entities, and <span class="mono" style="color: #7278C5;">iris</span> marks sub-word pieces. Use this device wherever the brand touches NLP, LLM, or text-analytics contexts.</p>
 
       <!-- Full-width TOKEN / STREAM showcase -->
-      <div style="position: relative; margin-top: 28px; border-radius: 8px; overflow: hidden; background: #020244; height: 220px;" id="token-stream-hero" aria-label="TOKEN / STREAM graphic device preview"></div>
+      <div style="position: relative; margin-top: 28px; border-radius: 8px; overflow: hidden; background: #0E1347; height: 220px;" id="token-stream-hero" aria-label="TOKEN / STREAM graphic device preview"></div>
 
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;">
-        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 20px;">
+        <div style="padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <span style="display:inline-block;width:32px;height:12px;border-radius:3px;background:#1C2175;"></span>
-            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy);">Navy base</span>
+            <span style="display:inline-block;width:28px;height:10px;border-radius:2px;background:#1A1F6E;"></span>
+            <span style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy);">Navy</span>
           </div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">~70% of cells. Background layer — structural, stop, and low-signal tokens.</p>
+          <p style="font-size: 11px; margin: 0; line-height: 1.5;">Base layer ~55%. Structural tokens.</p>
         </div>
-        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+        <div style="padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <span style="display:inline-block;width:32px;height:12px;border-radius:3px;background:#D95E25;"></span>
-            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #C04E1A;">Orange</span>
+            <span style="display:inline-block;width:28px;height:10px;border-radius:2px;background:#E5562A;"></span>
+            <span style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #C04E1A;">Orange</span>
           </div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">High-activity clusters — content tokens, named entities, high-frequency terms.</p>
+          <p style="font-size: 11px; margin: 0; line-height: 1.5;">High activity ~20%. Content tokens.</p>
         </div>
-        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+        <div style="padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            <span style="display:inline-block;width:32px;height:12px;border-radius:3px;background:#C8B898;"></span>
-            <span style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #8A7A5A;">Beige</span>
+            <span style="display:inline-block;width:28px;height:10px;border-radius:2px;background:#D4C8A8;"></span>
+            <span style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A7A5A;">Beige</span>
           </div>
-          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Medium-activity zones — rare words, proper nouns, boundary tokens.</p>
+          <p style="font-size: 11px; margin: 0; line-height: 1.5;">Medium ~10%. Rare words, entities.</p>
+        </div>
+        <div style="padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="display:inline-block;width:28px;height:10px;border-radius:2px;background:#8A8EA0;"></span>
+            <span style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #6A6E80;">Gray</span>
+          </div>
+          <p style="font-size: 11px; margin: 0; line-height: 1.5;">Secondary ~8%. Boundary tokens.</p>
+        </div>
+        <div style="padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="display:inline-block;width:28px;height:10px;border-radius:2px;background:#B08090;"></span>
+            <span style="font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #906070;">Mauve</span>
+          </div>
+          <p style="font-size: 11px; margin: 0; line-height: 1.5;">Accent ~7%. Sub-word pieces.</p>
         </div>
       </div>
       <p class="small" style="margin-top: 14px;">Scale the brick height with <span class="mono">--token-bh</span> (default <span class="mono">13px</span>) and gap with <span class="mono">--token-vg</span> (default <span class="mono">4px</span>). On dark fields only — never render on light or sand backgrounds.</p>
@@ -1234,7 +1248,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
           <span class="label">01 · Data-mesh / Navy</span>
         </div>
         <!-- 17 Token / Stream -->
-        <div class="pattern" style="background: #020244;" id="pat-17">
+        <div class="pattern" style="background: #0E1347;" id="pat-17">
           <span class="label">17 · TOKEN / STREAM</span>
         </div>
         <!-- 02 Node-network -->
@@ -1610,42 +1624,55 @@ const patternSvg = (id, inner, vb='0 0 400 300') =>
 
 const patterns = {
   'pat-17': (()=>{
-    // TOKEN / STREAM — uniform heatmap grid, cluster-based organic highlights
-    const W=400, H=300, CW=20, CH=12, GX=3, GY=3;
-    const COLS=Math.floor(W/(CW+GX)), ROWS=Math.floor(H/(CH+GY));
-    const OX=(W-COLS*(CW+GX)+GX)/2, OY=(H-ROWS*(CH+GY)+GY)/2;
-    // Hotspot clusters [nx, ny, radius, type: 'o'=orange 'b'=beige]
+    // TOKEN / STREAM — variable-width brick wall with organic highlight clusters
+    function hash(a,b){let h=(a*2654435761^b*2246822519)>>>0;h=((h>>>16)^h)*0x45d9f3b;return((h>>>16)^h)>>>0;}
+    const W=400,H=300,BH=10,VG=3,HG=3,PAD=6;
+    const WIDTHS=[8,10,12,14,16,18,20,22,24,26,28,30,32,36,40];
+    // Highlight clusters: [nx,ny,radius,type] — o=orange, b=beige, g=gray, m=mauve
     const hot=[
-      [0.12,0.25,0.16,'o'],[0.55,0.18,0.13,'o'],[0.78,0.62,0.14,'o'],
-      [0.30,0.78,0.11,'o'],[0.90,0.38,0.09,'o'],[0.65,0.88,0.10,'o'],
-      [0.20,0.55,0.09,'b'],[0.70,0.38,0.10,'b'],[0.45,0.65,0.08,'b'],
-      [0.88,0.78,0.08,'b']
+      [0.10,0.15,0.18,'o'],[0.35,0.30,0.20,'o'],[0.70,0.20,0.15,'o'],
+      [0.20,0.50,0.17,'o'],[0.55,0.55,0.16,'o'],[0.85,0.45,0.13,'o'],
+      [0.30,0.80,0.14,'o'],[0.65,0.75,0.16,'o'],[0.90,0.70,0.12,'o'],
+      [0.08,0.35,0.10,'m'],[0.45,0.40,0.09,'m'],[0.25,0.65,0.08,'m'],
+      [0.50,0.20,0.10,'b'],[0.75,0.50,0.11,'b'],[0.15,0.80,0.09,'b'],
+      [0.80,0.85,0.10,'b'],[0.40,0.70,0.08,'g'],[0.60,0.35,0.09,'g'],
+      [0.05,0.60,0.08,'g'],[0.90,0.25,0.08,'g']
     ];
-    let s='';
-    for(let r=0;r<ROWS;r++){
-      for(let c=0;c<COLS;c++){
-        const nx=c/COLS, ny=r/ROWS;
-        const px=OX+c*(CW+GX), py=OY+r*(CH+GY);
-        let best=0, typ='n';
+    // Color sets per type
+    const cols={o:['#E5562A','#D44E22','#C8451C'],b:['#D4C8A8','#C4B898','#BEB08E'],g:['#8A8EA0','#9A9EB0','#7A7E90'],m:['#B08090','#A07585','#C09098']};
+    let s='',r=0,py=PAD;
+    while(py+BH<=H-PAD){
+      let px=PAD,ci=0;
+      while(px+8<=W-PAD){
+        const wi=hash(r*31,ci*67)%WIDTHS.length;
+        let bw=WIDTHS[wi];
+        if(px+bw>W-PAD)bw=W-PAD-px;
+        if(bw<5){px+=bw+HG;ci++;continue;}
+        const nx=px/W,ny=py/H;
+        let best=0,typ='n';
         hot.forEach(([hx,hy,hr,ht])=>{
-          const d=Math.sqrt((nx-hx)**2+(ny-hy)**2);
-          const inf=Math.max(0,1-d/hr);
+          const d=Math.hypot(nx-hx,ny-hy),inf=Math.max(0,1-d/hr);
           if(inf>best){best=inf;typ=ht;}
         });
-        // Per-cell pseudo-random jitter for organic edges
-        const jit=((r*17+c*11)%23)/23*0.22;
+        const jit=(hash(r*13,ci*29)%100)/100*0.25;
         const eff=best+jit;
-        let f='#1C2175', o=0.80;
-        if(eff>0.68){ f=typ==='o'?'#D95E25':'#C8B898'; o=0.90; }
-        else if(eff>0.42){ f=typ==='o'?'#A84420':'#A89070'; o=0.75; }
-        s+=`<rect x='${px.toFixed(1)}' y='${py.toFixed(1)}' width='${CW}' height='${CH}' rx='3' fill='${f}' opacity='${o}'/>`;
+        let f,o;
+        if(eff>0.55&&typ!=='n'){
+          const cv=cols[typ],pick=hash(r*7,ci*19)%cv.length;
+          f=cv[pick];o=0.88+jit*0.12;
+        }else{
+          const shade=hash(r*23,ci*41)%3;
+          f=['#1A1F6E','#1E2478','#161B64'][shade];o=0.90;
+        }
+        s+=`<rect x='${px}' y='${py}' width='${bw}' height='${BH}' rx='2' fill='${f}' opacity='${o.toFixed(2)}'/>`;
+        px+=bw+HG;ci++;
       }
+      py+=BH+VG;r++;
     }
-    // Label badge baked into SVG
-    const lx=10, ly=H-28, lw=132, lh=19;
-    s+=`<rect x='${lx}' y='${ly}' width='${lw}' height='${lh}' rx='9.5' fill='#EBE8DC' opacity='0.93'/>`;
-    s+=`<text x='${lx+10}' y='${ly+13}' font-family='monospace' font-size='8' fill='#0C1152' letter-spacing='1'>17 · TOKEN / STREAM</text>`;
-    return patternSvg('17', `<rect width='${W}' height='${H}' fill='#010128'/>${s}`);
+    const lx=8,ly=H-26,lw=116,lh=18;
+    s+=`<rect x='${lx}' y='${ly}' width='${lw}' height='${lh}' rx='3' fill='#E8E4D8' opacity='0.92'/>`;
+    s+=`<text x='${lx+8}' y='${ly+12.5}' font-family='monospace' font-size='7.5' fill='#0C1152' letter-spacing='0.8'>17 · TOKEN / STREAM</text>`;
+    return patternSvg('17',`<rect width='${W}' height='${H}' rx='8' fill='#0E1347'/>${s}`);
   })(),
 
   'pat-01': patternSvg('01', `
@@ -1762,44 +1789,55 @@ Object.entries(patterns).forEach(([id, svg]) => {
   if (el) el.insertAdjacentHTML('afterbegin', svg);
 });
 
-// ---------- TOKEN / STREAM hero (full-width uniform-grid heatmap) ----------
+// ---------- TOKEN / STREAM hero (variable-width brick wall heatmap) ----------
 (()=>{
   const hero = document.getElementById('token-stream-hero');
   if (!hero) return;
-  const W=1200, H=220, CW=20, CH=12, GX=3, GY=3;
-  const COLS=Math.floor(W/(CW+GX)), ROWS=Math.floor(H/(CH+GY));
-  const OX=(W-COLS*(CW+GX)+GX)/2, OY=(H-ROWS*(CH+GY)+GY)/2;
-  // More hotspots spread across wider canvas for visual rhythm
+  function hash(a,b){let h=(a*2654435761^b*2246822519)>>>0;h=((h>>>16)^h)*0x45d9f3b;return((h>>>16)^h)>>>0;}
+  const W=1200,H=220,BH=11,VG=3,HG=3,PAD=8;
+  const WIDTHS=[10,12,14,16,18,20,22,24,26,28,30,34,38,42];
   const hot=[
-    [0.06,0.30,0.11,'o'],[0.18,0.65,0.10,'o'],[0.30,0.20,0.12,'o'],
-    [0.42,0.72,0.09,'o'],[0.55,0.38,0.13,'o'],[0.67,0.55,0.10,'o'],
-    [0.78,0.22,0.11,'o'],[0.88,0.68,0.09,'o'],[0.96,0.40,0.08,'o'],
-    [0.12,0.45,0.09,'b'],[0.25,0.82,0.08,'b'],[0.48,0.50,0.08,'b'],
-    [0.60,0.80,0.10,'b'],[0.74,0.35,0.08,'b'],[0.92,0.20,0.07,'b']
+    [0.05,0.20,0.12,'o'],[0.15,0.55,0.13,'o'],[0.28,0.30,0.14,'o'],
+    [0.40,0.70,0.11,'o'],[0.52,0.25,0.13,'o'],[0.62,0.60,0.12,'o'],
+    [0.72,0.40,0.11,'o'],[0.82,0.75,0.13,'o'],[0.93,0.30,0.10,'o'],
+    [0.08,0.40,0.08,'m'],[0.35,0.50,0.09,'m'],[0.55,0.80,0.08,'m'],
+    [0.20,0.15,0.09,'b'],[0.45,0.45,0.10,'b'],[0.70,0.20,0.09,'b'],
+    [0.88,0.55,0.09,'b'],[0.30,0.85,0.08,'g'],[0.60,0.15,0.08,'g'],
+    [0.78,0.65,0.08,'g'],[0.95,0.50,0.07,'g']
   ];
-  let s='';
-  for(let r=0;r<ROWS;r++){
-    for(let c=0;c<COLS;c++){
-      const nx=c/COLS, ny=r/ROWS;
-      const px=OX+c*(CW+GX), py=OY+r*(CH+GY);
-      let best=0, typ='n';
+  const cols={o:['#E5562A','#D44E22','#C8451C'],b:['#D4C8A8','#C4B898','#BEB08E'],g:['#8A8EA0','#9A9EB0','#7A7E90'],m:['#B08090','#A07585','#C09098']};
+  let s='',r=0,py=PAD;
+  while(py+BH<=H-PAD){
+    let px=PAD,ci=0;
+    while(px+8<=W-PAD){
+      const wi=hash(r*31+5,ci*67+3)%WIDTHS.length;
+      let bw=WIDTHS[wi];
+      if(px+bw>W-PAD)bw=W-PAD-px;
+      if(bw<5){px+=bw+HG;ci++;continue;}
+      const nx=px/W,ny=py/H;
+      let best=0,typ='n';
       hot.forEach(([hx,hy,hr,ht])=>{
-        const d=Math.sqrt((nx-hx)**2+(ny-hy)**2);
-        const inf=Math.max(0,1-d/hr);
+        const d=Math.hypot(nx-hx,ny-hy),inf=Math.max(0,1-d/hr);
         if(inf>best){best=inf;typ=ht;}
       });
-      const jit=((r*17+c*11)%23)/23*0.22;
+      const jit=(hash(r*13+2,ci*29+7)%100)/100*0.25;
       const eff=best+jit;
-      let f='#1C2175', o=0.80;
-      if(eff>0.68){ f=typ==='o'?'#D95E25':'#C8B898'; o=0.90; }
-      else if(eff>0.42){ f=typ==='o'?'#A84420':'#A89070'; o=0.75; }
-      s+=`<rect x='${px.toFixed(1)}' y='${py.toFixed(1)}' width='${CW}' height='${CH}' rx='3' fill='${f}' opacity='${o}'/>`;
+      let f,o;
+      if(eff>0.55&&typ!=='n'){
+        const cv=cols[typ],pick=hash(r*7+1,ci*19+4)%cv.length;
+        f=cv[pick];o=0.88+jit*0.12;
+      }else{
+        const shade=hash(r*23+6,ci*41+2)%3;
+        f=['#1A1F6E','#1E2478','#161B64'][shade];o=0.90;
+      }
+      s+=`<rect x='${px}' y='${py}' width='${bw}' height='${BH}' rx='2' fill='${f}' opacity='${o.toFixed(2)}'/>`;
+      px+=bw+HG;ci++;
     }
+    py+=BH+VG;r++;
   }
-  const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}' preserveAspectRatio='xMidYMid slice' style='position:absolute;inset:0;width:100%;height:100%;'><rect width='${W}' height='${H}' fill='#010128'/>${s}</svg>`;
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}' preserveAspectRatio='xMidYMid slice' style='position:absolute;inset:0;width:100%;height:100%;'><rect width='${W}' height='${H}' fill='#0E1347'/>${s}</svg>`;
   hero.insertAdjacentHTML('afterbegin', svg);
-  // Floating label badge
-  hero.insertAdjacentHTML('beforeend', `<div style="position:absolute;bottom:14px;left:14px;background:#EBE8DC;border-radius:20px;padding:5px 14px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;color:#0C1152;line-height:1;">17 · TOKEN / STREAM</div>`);
+  hero.insertAdjacentHTML('beforeend', `<div style="position:absolute;bottom:12px;left:14px;background:#E8E4D8;border-radius:4px;padding:5px 12px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;color:#0C1152;line-height:1;">17 · TOKEN / STREAM</div>`);
 })();
 
 // ---------- Icon grid ----------
