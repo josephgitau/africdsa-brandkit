@@ -1195,11 +1195,42 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
       </div>
       <p class="small" style="margin-top: 12px;">The banner combines three devices — <span class="mono">mesh</span>, <span class="mono">flow-lines</span>, <span class="mono">node-accents</span> — against a navy field. This is the canonical pairing for editorial covers, report spreads, and hero sections.</p>
 
+      <!-- TOKEN / STREAM featured device -->
+      <h3 style="margin-top: 48px;">Featured device — 17 · TOKEN / STREAM</h3>
+      <p style="margin-top: 10px; font-size: 14px; line-height: 1.7;">The <strong>Token / Stream</strong> device visualises the atomic unit of language AI: the token. Variable-width bricks represent tokens of differing lengths — short function words, long technical terms — flowing in rows like a real token sequence. Colour encodes token category: <span class="mono" style="color: var(--flamingo);">flamingo</span> marks high-signal content tokens, <span class="mono">navy</span> carries structural or stop tokens, <span class="mono" style="color: var(--sand);">sand</span> flags numeric or named entities, and <span class="mono" style="color: #7278C5;">iris</span> marks sub-word pieces. Use this device wherever the brand touches NLP, LLM, or text-analytics contexts.</p>
+
+      <!-- Full-width TOKEN / STREAM showcase -->
+      <div style="position: relative; margin-top: 28px; border-radius: 8px; overflow: hidden; background: #020244; height: 220px;" id="token-stream-hero" aria-label="TOKEN / STREAM graphic device preview"></div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px;">
+        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--flamingo); margin-bottom: 6px;">Flamingo</div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Content / high-signal tokens. Nouns, verbs, key terms.</p>
+        </div>
+        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); margin-bottom: 6px;">Navy</div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Structural / stop tokens. Punctuation, articles, connectors.</p>
+        </div>
+        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sand); margin-bottom: 6px;">Sand</div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Named entities, numbers, and proper nouns.</p>
+        </div>
+        <div style="padding: 16px 18px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;">
+          <div style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7278C5; margin-bottom: 6px;">Iris</div>
+          <p style="font-size: 12px; margin: 0; line-height: 1.5;">Sub-word pieces and continuation tokens.</p>
+        </div>
+      </div>
+      <p class="small" style="margin-top: 14px;">Scale the brick height with <span class="mono">--token-bh</span> (default <span class="mono">13px</span>) and gap with <span class="mono">--token-vg</span> (default <span class="mono">4px</span>). On dark fields only — never render on light or sand backgrounds.</p>
+
       <h3 style="margin-top: 48px;">Pattern library</h3>
       <div class="pattern-grid" style="margin-top: 16px;">
         <!-- 01 Data-mesh -->
         <div class="pattern" style="background: var(--navy-600);" id="pat-01">
           <span class="label">01 · Data-mesh / Navy</span>
+        </div>
+        <!-- 17 Token / Stream -->
+        <div class="pattern" style="background: #020244;" id="pat-17">
+          <span class="label">17 · TOKEN / STREAM</span>
         </div>
         <!-- 02 Node-network -->
         <div class="pattern" style="background: var(--ink-50);" id="pat-02">
@@ -1573,6 +1604,27 @@ const patternSvg = (id, inner, vb='0 0 400 300') =>
   `<svg xmlns='http://www.w3.org/2000/svg' viewBox='${vb}' preserveAspectRatio='xMidYMid slice' style='position:absolute;inset:0;width:100%;height:100%;'>${inner}</svg>`;
 
 const patterns = {
+  'pat-17': (()=>{
+    // Token / Stream — mosaic of variable-width NLP-style tokens on deep navy
+    const C = ['#F1592A','#F1592A','#3B41B2','#3B41B2','#3B41B2','#7278C5','#C4C7E6','#EDA455','#8C91CC'];
+    const BH = 13, VG = 4;
+    const WS = [14,26,20,34,22,30,16,40,24,18,28,12,22,32,18,24];
+    let s = '';
+    for (let r = 0; r < 17; r++) {
+      const y = 9 + r * (BH + VG);
+      let x = 5, c = 0;
+      while (x < 396) {
+        const w = WS[(r * 7 + c * 11) % WS.length];
+        const capped = Math.min(w, 395 - x);
+        if (capped < 6) { x += capped + 4; c++; continue; }
+        const ci = (r * 5 + c * 3 + Math.floor(r / 4)) % C.length;
+        s += `<rect x='${x}' y='${y}' width='${capped}' height='${BH}' rx='2.5' fill='${C[ci]}'  opacity='0.9'/>`;
+        x += w + 4; c++;
+      }
+    }
+    return patternSvg('17', `<rect width='400' height='300' fill='#020244'/>${s}`);
+  })(),
+
   'pat-01': patternSvg('01', `
     <defs><pattern id='p1' width='20' height='20' patternUnits='userSpaceOnUse'>
       <circle cx='1.5' cy='1.5' r='1.3' fill='#EDA455' opacity='0.55'/>
@@ -1686,6 +1738,33 @@ Object.entries(patterns).forEach(([id, svg]) => {
   const el = document.getElementById(id);
   if (el) el.insertAdjacentHTML('afterbegin', svg);
 });
+
+// ---------- TOKEN / STREAM hero (full-width showcase) ----------
+(()=>{
+  const hero = document.getElementById('token-stream-hero');
+  if (!hero) return;
+  const C = ['#F1592A','#F1592A','#3B41B2','#3B41B2','#3B41B2','#7278C5','#C4C7E6','#EDA455','#8C91CC'];
+  const BH = 16, VG = 5;
+  const WS = [14,30,22,42,26,36,18,50,28,20,34,12,24,38,18,28];
+  let s = '';
+  const W = 1200, H = 220;
+  for (let r = 0; r < 11; r++) {
+    const y = 8 + r * (BH + VG);
+    let x = 6, c = 0;
+    while (x < W - 5) {
+      const w = WS[(r * 7 + c * 11) % WS.length];
+      const capped = Math.min(w, W - 6 - x);
+      if (capped < 6) { x += capped + 4; c++; continue; }
+      const ci = (r * 5 + c * 3 + Math.floor(r / 4)) % C.length;
+      s += `<rect x='${x}' y='${y}' width='${capped}' height='${BH}' rx='2.5' fill='${C[ci]}' opacity='0.9'/>`;
+      x += w + 5; c++;
+    }
+  }
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}' preserveAspectRatio='xMidYMid slice' style='position:absolute;inset:0;width:100%;height:100%;'><rect width='${W}' height='${H}' fill='#020244'/>${s}<rect width='${W}' height='${H}' fill='url(#ts-fade)'/><defs><linearGradient id='ts-fade' x1='0' y1='0' x2='1' y2='0'><stop offset='0%' stop-color='#020244' stop-opacity='0.55'/><stop offset='30%' stop-color='#020244' stop-opacity='0'/><stop offset='70%' stop-color='#020244' stop-opacity='0'/><stop offset='100%' stop-color='#020244' stop-opacity='0.55'/></linearGradient></defs></svg>`;
+  hero.insertAdjacentHTML('afterbegin', svg);
+  // overlay label
+  hero.insertAdjacentHTML('beforeend', `<div style="position:absolute;bottom:16px;left:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);">17 · TOKEN / STREAM · AfriCDSA graphic device</div>`);
+})();
 
 // ---------- Icon grid ----------
 const icons = [
