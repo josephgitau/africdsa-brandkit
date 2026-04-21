@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AfriCDSA — Web Templates v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────────────── */
+:root{
+  --navy:#040474; --navy-50:#EEF0FB; --navy-100:#D7DBF3; --navy-200:#AAB2E3;
+  --navy-300:#7A85D0; --navy-400:#4A56BB; --navy-500:#2328A0; --navy-600:#040474;
+  --navy-700:#030360; --navy-800:#02024A; --navy-900:#010132; --navy-950:#00001E;
+  --flamingo:#F1592A; --flamingo-50:#FEEEE7; --flamingo-100:#FCD4C3;
+  --flamingo-500:#F1592A; --flamingo-600:#D8430F; --flamingo-700:#AE350B;
+  --sand:#EDA455; --sand-100:#FAE5C6; --sand-200:#F6D29E; --sand-300:#F0BB71;
+  --sand-400:#EDA455; --sand-500:#DF8A30;
+  --ink-0:#FFF; --ink-50:#F7F8FB; --ink-100:#EDF0F5; --ink-200:#DDE2EC;
+  --ink-300:#C3CAD9; --ink-400:#8D95A8; --ink-500:#656C80; --ink-600:#474D60;
+  --ink-700:#2E3344; --ink-800:#1A1D2B; --ink-900:#0D0F1A;
+  --bg:var(--ink-50); --panel:#fff; --rule:var(--ink-200);
+  --text:var(--ink-900); --muted:var(--ink-500);
+  --font-display:'Newsreader', Georgia, serif;
+  --font-body:'IBM Plex Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+  --font-grotesk:'Space Grotesk', sans-serif;
+  --r:6px; --r-lg:12px;
+  --shadow:0 8px 32px -8px rgba(4,4,116,.18);
+  --shadow-lg:0 24px 56px -16px rgba(4,4,116,.26);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{font-family:var(--font-body); font-size:16px; line-height:1.55; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,h5{font-family:var(--font-display); font-weight:400; letter-spacing:-.02em; line-height:1.08;}
+h1{font-size:72px;} h2{font-size:48px;} h3{font-size:32px;} h4{font-size:22px;}
+em{font-style:italic; color:var(--flamingo);}
+p{max-width:62ch;}
+a{color:inherit; text-decoration:none;}
+.eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);}
+.eyebrow.light{color:rgba(255,255,255,.65);}
+.mono{font-family:var(--font-mono); font-size:12px; letter-spacing:.04em;}
+.lede{font-family:var(--font-display); font-size:22px; font-weight:300; line-height:1.5; color:var(--ink-700);}
+
+/* ─── SITE SHELL ─────────────────────────────────────────── */
+.site-header{
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,.88); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--rule);
+}
+.site-header-inner{
+  max-width:1400px; margin:0 auto; padding:0 40px;
+  height:64px; display:flex; align-items:center; gap:32px;
+}
+.logo-mark{display:flex; align-items:center; gap:10px;}
+.logo-disc{width:36px; height:36px; border-radius:50%; background:var(--flamingo); display:flex; align-items:center; justify-content:center; font-family:var(--font-grotesk); font-weight:700; font-size:14px; color:#fff;}
+.logo-name{font-family:var(--font-grotesk); font-size:18px; font-weight:700; letter-spacing:-.5px; color:var(--navy);}
+.logo-name span{color:var(--flamingo);}
+.header-label{font-family:var(--font-mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:4px 10px; border:1px solid var(--rule); border-radius:2px;}
+.header-nav{display:flex; gap:6px; margin-left:auto;}
+.header-nav a{font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); padding:6px 12px; border-radius:2px; transition:all .15s;}
+.header-nav a:hover{background:var(--navy-50); color:var(--navy);}
+.header-nav a.active{background:var(--navy); color:#fff;}
+
+/* ─── PAGE LAYOUT ────────────────────────────────────────── */
+.page-body{display:grid; grid-template-columns:220px 1fr; min-height:calc(100vh - 64px);}
+.sidebar{
+  position:sticky; top:64px; height:calc(100vh - 64px); overflow-y:auto;
+  border-right:1px solid var(--rule); padding:32px 0;
+  background:var(--panel);
+}
+.sidebar-group{margin-bottom:28px;}
+.sidebar-group-label{font-family:var(--font-mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:0 24px; margin-bottom:10px; display:block;}
+.sidebar a{display:flex; align-items:center; gap:10px; padding:8px 24px; font-size:13px; color:var(--ink-600); transition:all .12s;}
+.sidebar a:hover{color:var(--navy); background:var(--ink-50);}
+.sidebar a.active{color:var(--flamingo); background:var(--flamingo-50); font-weight:500;}
+.sidebar .tag{font-family:var(--font-mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; padding:2px 6px; border-radius:2px; background:var(--navy-50); color:var(--navy);}
+.sidebar .tag.ts{background:rgba(14,19,71,.12); color:#1A1F6E;}
+
+.main-content{overflow-y:auto;}
+
+/* ─── TEMPLATE SECTIONS ──────────────────────────────────── */
+.tmpl-section{border-bottom:1px solid var(--rule); padding:72px 56px;}
+.tmpl-section:last-child{border-bottom:0;}
+.tmpl-label{
+  display:inline-flex; align-items:center; gap:10px; margin-bottom:32px;
+  font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+}
+.tmpl-label::before{content:''; display:block; width:24px; height:1px; background:var(--flamingo);}
+.device-badge{font-family:var(--font-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:2px;}
+.device-badge.mesh{background:var(--navy-50); color:var(--navy);}
+.device-badge.ts{background:rgba(14,19,71,.1); color:#1A1F6E;}
+.device-badge.both{background:rgba(241,89,42,.08); color:var(--flamingo-700);}
+.tmpl-desc{font-size:13px; color:var(--muted); max-width:640px; margin-bottom:40px; line-height:1.7;}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.btn{display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:var(--r); font-size:14px; font-weight:500; border:1px solid transparent; cursor:pointer; transition:all .15s; white-space:nowrap; font-family:var(--font-body);}
+.btn-primary{background:var(--flamingo); color:#fff; border-color:var(--flamingo);}
+.btn-primary:hover{background:var(--flamingo-700); transform:translateY(-1px); box-shadow:var(--shadow);}
+.btn-navy{background:var(--navy); color:#fff; border-color:var(--navy);}
+.btn-navy:hover{background:var(--navy-800);}
+.btn-white{background:#fff; color:var(--navy); border-color:rgba(255,255,255,.3);}
+.btn-white:hover{background:rgba(255,255,255,.9);}
+.btn-ghost-white{background:rgba(255,255,255,.1); color:#fff; border-color:rgba(255,255,255,.35);}
+.btn-ghost-white:hover{background:rgba(255,255,255,.2);}
+.btn-outline{background:transparent; color:var(--navy); border-color:var(--navy-200);}
+.btn-outline:hover{background:var(--navy-50);}
+.btn-sm{padding:8px 16px; font-size:13px;}
+.btn-lg{padding:15px 28px; font-size:15px;}
+.badge{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;}
+.badge-live{background:rgba(30,138,95,.1); color:#1E8A5F;}
+.badge-live::before{content:''; width:6px; height:6px; border-radius:50%; background:#1E8A5F; animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.badge-new{background:var(--flamingo-50); color:var(--flamingo-700);}
+.badge-sand{background:var(--sand-100); color:var(--sand-500);}
+
+/* ─── GRAPHIC DEVICE: DATA MESH ──────────────────────────── */
+.mesh-bg{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px, var(--mesh-dot, rgba(237,164,85,.28)) 1px, transparent 1.3px);
+  background-size:var(--mesh-size, 22px) var(--mesh-size, 22px);
+}
+.mesh-bg.fade-right{mask-image:radial-gradient(ellipse 55% 90% at 90% 50%, black 10%, transparent 70%);}
+.mesh-bg.fade-left{mask-image:radial-gradient(ellipse 55% 90% at 10% 50%, black 10%, transparent 70%);}
+.mesh-bg.fade-top{mask-image:linear-gradient(to bottom, black 0%, transparent 80%);}
+.mesh-bg.fade-bottom{mask-image:linear-gradient(to top, black 0%, transparent 80%);}
+.mesh-bg.fade-center{mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);}
+.mesh-bg.dense{--mesh-size:14px;}
+.mesh-bg.sparse{--mesh-size:32px;}
+.mesh-bg.light-dot{--mesh-dot:rgba(255,255,255,.2);}
+.mesh-bg.navy-dot{--mesh-dot:rgba(4,4,116,.15);}
+.mesh-bg.sand-dot{--mesh-dot:rgba(237,164,85,.35);}
+
+/* Flow lines overlay */
+.flow-layer{position:absolute; inset:0; pointer-events:none;}
+
+/* ─── TOKEN STREAM CANVAS ────────────────────────────────── */
+.ts-canvas{position:absolute; inset:0; pointer-events:none;}
+
+/* ─── PREVIEW FRAME ──────────────────────────────────────── */
+.preview{border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-lg); border:1px solid var(--rule);}
+.preview + .preview{margin-top:32px;}
+
+/* ─────────────────────────────────────────────────────────── 
+   01 · HERO — DATA MESH (DARK NAVY)
+──────────────────────────────────────────────────────────── */
+.hero-mesh{
+  position:relative; overflow:hidden;
+  background:var(--navy-600); color:#fff;
+  padding:96px 0 104px;
+}
+.hero-mesh .container{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1;}
+.hero-mesh .grid{display:grid; grid-template-columns:1.1fr 1fr; gap:72px; align-items:center;}
+.hero-mesh .eyebrow{color:var(--sand-300); margin-bottom:20px;}
+.hero-mesh h1{font-size:68px; line-height:.98; margin-bottom:24px; color:#fff;}
+.hero-mesh h1 em{color:var(--sand-300);}
+.hero-mesh .lede{color:rgba(255,255,255,.8); margin-bottom:40px; font-size:20px;}
+.hero-mesh .ctas{display:flex; gap:14px; margin-bottom:48px; flex-wrap:wrap;}
+.hero-mesh .proof{display:flex; gap:40px; padding-top:32px; border-top:1px solid rgba(255,255,255,.14);}
+.hero-mesh .proof .stat .n{font-family:var(--font-display); font-size:36px; line-height:1; color:#fff;}
+.hero-mesh .proof .stat .l{font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; color:var(--sand-300); text-transform:uppercase; margin-top:6px;}
+/* Right visual card */
+.mesh-visual{
+  aspect-ratio:3/4; border-radius:var(--r-lg); overflow:hidden; position:relative;
+  background:linear-gradient(150deg, var(--navy-500) 0%, var(--navy-800) 100%);
+  border:1px solid rgba(255,255,255,.1);
+}
+.mesh-visual .inner{position:absolute; inset:20px; border-radius:8px; background:linear-gradient(150deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); display:flex; flex-direction:column; justify-content:flex-end; padding:24px;}
+.mesh-visual .caption{font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; background:rgba(0,0,0,.4); color:var(--sand-200); padding:5px 10px; border-radius:2px; align-self:flex-start;}
+/* Float card */
+.mesh-float{
+  position:absolute; bottom:-16px; left:-24px;
+  background:var(--flamingo); color:#fff;
+  padding:18px 22px; border-radius:var(--r); box-shadow:var(--shadow-lg); max-width:220px;
+}
+.mesh-float .fl-label{font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.7); margin-bottom:6px;}
+.mesh-float .fl-q{font-family:var(--font-display); font-size:16px; line-height:1.4; font-weight:400;}
+
+/* ─────────────────────────────────────────────────────────── 
+   02 · HERO — DATA MESH (LIGHT / WHITE)
+──────────────────────────────────────────────────────────── */
+.hero-mesh-light{
+  position:relative; overflow:hidden;
+  background:var(--panel); color:var(--text);
+  padding:88px 0 96px;
+}
+.hero-mesh-light .container{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1;}
+.hero-mesh-light .grid{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;}
+
+/* ─────────────────────────────────────────────────────────── 
+   03 · HERO — TOKEN / STREAM FULL BLEED
+──────────────────────────────────────────────────────────── */
+.hero-ts{
+  position:relative; overflow:hidden;
+  background:#0E1347; color:#fff;
+  padding:96px 0 104px; min-height:560px;
+}
+.hero-ts-canvas{position:absolute; inset:0; pointer-events:none;}
+.hero-ts .container{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1;}
+.hero-ts .grid{display:grid; grid-template-columns:1.2fr 1fr; gap:72px; align-items:center;}
+.hero-ts .eyebrow{color:rgba(255,255,255,.5); margin-bottom:20px;}
+.hero-ts h1{font-size:68px; line-height:.98; margin-bottom:24px; color:#fff;}
+.hero-ts h1 em{color:var(--sand-400); font-style:italic;}
+.hero-ts .lede{color:rgba(255,255,255,.75); margin-bottom:40px; font-size:20px;}
+.hero-ts .ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+.hero-ts .tokens-live{
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r); padding:20px 24px; backdrop-filter:blur(6px);
+}
+.hero-ts .tokens-live .tl-label{font-family:var(--font-mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:14px;}
+.tl-row{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;}
+.tl-tok{font-family:var(--font-mono); font-size:11px; letter-spacing:.04em; padding:4px 10px; border-radius:3px; line-height:1;}
+
+/* ─────────────────────────────────────────────────────────── 
+   04 · TOKEN STREAM — SECTION DIVIDER / BANNER
+──────────────────────────────────────────────────────────── */
+.ts-banner{position:relative; overflow:hidden; height:160px; background:#0E1347;}
+.ts-banner-content{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:1;}
+.ts-banner-content h3{color:#fff; font-size:38px; letter-spacing:-.02em;}
+.ts-banner-content h3 em{color:var(--sand-400);}
+
+/* ─────────────────────────────────────────────────────────── 
+   05 · PROGRAMME CARD — DATA MESH COVER
+──────────────────────────────────────────────────────────── */
+.prog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.prog-card{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r-lg); overflow:hidden; display:flex; flex-direction:column; transition:transform .2s, box-shadow .2s;}
+.prog-card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+.prog-cover{aspect-ratio:16/10; position:relative; overflow:hidden;}
+.prog-cover .cover-code{position:absolute; top:14px; left:14px; font-family:var(--font-mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; background:rgba(0,0,0,.3); color:rgba(255,255,255,.85); padding:4px 10px; border-radius:2px; z-index:1;}
+.prog-cover .cover-badge{position:absolute; top:14px; right:14px; z-index:1;}
+.prog-body{padding:24px; flex:1; display:flex; flex-direction:column;}
+.prog-title{font-family:var(--font-display); font-size:22px; font-weight:500; letter-spacing:-.01em; margin-bottom:8px;}
+.prog-desc{font-size:14px; color:var(--ink-600); line-height:1.55; margin-bottom:20px; flex:1;}
+.prog-foot{display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid var(--rule);}
+.prog-foot .mono{color:var(--muted);}
+.prog-link{color:var(--flamingo); font-size:13px; font-weight:500;}
+
+/* Cover backgrounds */
+.cover-cds{background:var(--navy-600);}
+.cover-cda{background:var(--flamingo);}
+.cover-ai{background:linear-gradient(135deg,var(--navy-700),var(--navy-500));}
+
+/* ─────────────────────────────────────────────────────────── 
+   06 · STAT BAND — DATA MESH OVERLAY
+──────────────────────────────────────────────────────────── */
+.stat-band{
+  position:relative; overflow:hidden;
+  background:var(--navy-600); color:#fff; padding:88px 0;
+}
+.stat-grid{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1;}
+.stat-items{display:grid; grid-template-columns:repeat(4,1fr); gap:32px;}
+.stat-item .n{font-family:var(--font-display); font-size:72px; line-height:1; letter-spacing:-.03em;}
+.stat-item .n em{color:var(--sand-300);}
+.stat-item .l{font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--sand-300); margin-top:12px;}
+.stat-item .d{font-size:14px; color:rgba(255,255,255,.7); margin-top:8px; max-width:180px; line-height:1.5;}
+
+/* ─────────────────────────────────────────────────────────── 
+   07 · SPLIT FEATURE — DATA MESH VISUAL
+──────────────────────────────────────────────────────────── */
+.split-feature{background:var(--panel); padding:96px 0;}
+.split-inner{max-width:1200px; margin:0 auto; padding:0 64px; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;}
+.split-visual{
+  aspect-ratio:1; border-radius:var(--r-lg); overflow:hidden; position:relative;
+  background:var(--navy-600);
+}
+.split-copy .eyebrow{margin-bottom:20px;}
+.split-copy h2{margin-bottom:20px;}
+.split-copy .lede{margin-bottom:32px;}
+.split-copy .points{list-style:none; padding:0; margin-bottom:36px;}
+.split-copy .points li{display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--rule); font-size:15px;}
+.split-copy .points li:last-child{border-bottom:0;}
+.split-copy .points .dot{width:8px; height:8px; border-radius:50%; background:var(--flamingo); flex-shrink:0; margin-top:8px;}
+
+/* ─────────────────────────────────────────────────────────── 
+   08 · COURSE HERO — TOKEN / STREAM BACKGROUND
+──────────────────────────────────────────────────────────── */
+.course-hero-ts{
+  position:relative; overflow:hidden;
+  background:#0A0E3A; color:#fff;
+  padding:64px 0 80px;
+}
+.course-hero-ts .container{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1;}
+.course-hero-ts .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:56px; align-items:start;}
+.course-hero-ts .breadcrumb{display:flex; gap:8px; font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:28px;}
+.course-hero-ts .breadcrumb a{color:rgba(255,255,255,.4);}
+.course-hero-ts h1{font-size:56px; color:#fff; margin-bottom:20px; line-height:1.0;}
+.course-hero-ts h1 em{color:var(--sand-300);}
+.course-hero-ts .lede{color:rgba(255,255,255,.75); font-size:18px; margin-bottom:28px;}
+.course-meta{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:24px 0; border-top:1px solid rgba(255,255,255,.12); border-bottom:1px solid rgba(255,255,255,.12); margin-top:36px;}
+.course-meta .m .l{font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--sand-300); margin-bottom:6px;}
+.course-meta .m .v{font-family:var(--font-display); font-size:20px;}
+/* Enrol card */
+.enrol{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(8px); border-radius:var(--r-lg); padding:28px;}
+.enrol .price{font-family:var(--font-display); font-size:52px; line-height:1; margin-bottom:4px;}
+.enrol .price-sub{font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:24px;}
+.enrol .deadline{background:rgba(241,89,42,.2); color:var(--flamingo-100,#FCD4C3); padding:10px 14px; border-radius:var(--r); font-size:13px; margin-bottom:20px; display:flex; align-items:center; gap:8px;}
+.enrol .includes{list-style:none; padding:0; margin:0 0 24px;}
+.enrol .includes li{display:flex; gap:10px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.1); font-size:14px; color:rgba(255,255,255,.8);}
+.enrol .includes li:last-child{border-bottom:0;}
+.enrol .btn{width:100%; margin-bottom:8px; text-align:center; justify-content:center;}
+
+/* ─────────────────────────────────────────────────────────── 
+   09 · ANALYTICS DASHBOARD HEADER
+──────────────────────────────────────────────────────────── */
+.dashboard-header{
+  position:relative; overflow:hidden;
+  background:#0A0E3A; color:#fff;
+  padding:40px 0;
+}
+.dashboard-header .container{max-width:1400px; margin:0 auto; padding:0 40px; position:relative; z-index:1;}
+.dash-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:40px;}
+.dash-title{font-family:var(--font-grotesk); font-size:26px; font-weight:600; letter-spacing:-.5px;}
+.dash-title span{color:rgba(255,255,255,.45); font-weight:400;}
+.dash-cards{display:grid; grid-template-columns:repeat(5,1fr); gap:16px;}
+.dash-kpi{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:var(--r); padding:20px;}
+.dash-kpi .kl{font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:10px;}
+.dash-kpi .kn{font-family:var(--font-grotesk); font-size:36px; font-weight:600; letter-spacing:-.5px; line-height:1;}
+.dash-kpi .kd{font-family:var(--font-mono); font-size:11px; margin-top:6px;}
+.dash-kpi .kd.up{color:#4ADE80;}
+.dash-kpi .kd.dn{color:#F87171;}
+.dash-body{max-width:1400px; margin:0 auto; padding:40px; display:grid; grid-template-columns:1.6fr 1fr; gap:24px;}
+.dash-card{background:var(--panel); border:1px solid var(--rule); border-radius:var(--r-lg); padding:24px;}
+.dash-card-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+.dash-card-head h4{font-family:var(--font-grotesk); font-size:14px; font-weight:600; letter-spacing:-.2px;}
+.chart-placeholder{background:var(--ink-50); border-radius:var(--r); height:200px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; color:var(--muted); position:relative; overflow:hidden;}
+
+/* ─────────────────────────────────────────────────────────── 
+   10 · REPORT / ARTICLE COVER — DATA MESH
+──────────────────────────────────────────────────────────── */
+.report-cover{
+  position:relative; overflow:hidden;
+  background:var(--navy-800); color:#fff;
+  padding:80px 64px; border-radius:var(--r-lg); min-height:400px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.report-cover .rc-top .eyebrow{color:var(--sand-300); margin-bottom:20px;}
+.report-cover h2{font-size:52px; max-width:580px; margin-bottom:0;}
+.report-cover h2 em{color:var(--sand-300);}
+.report-cover .rc-bottom{display:flex; justify-content:space-between; align-items:flex-end; padding-top:40px; border-top:1px solid rgba(255,255,255,.15); margin-top:auto;}
+.report-cover .rc-meta{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.55);}
+
+/* ─────────────────────────────────────────────────────────── 
+   11 · EVENT / HACKATHON HERO — TOKEN / STREAM
+──────────────────────────────────────────────────────────── */
+.event-hero{
+  position:relative; overflow:hidden; min-height:500px;
+  background:#0A0E38; color:#fff;
+  display:flex; align-items:center;
+  padding:80px 0;
+}
+.event-hero .container{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;}
+.event-hero .eyebrow{color:rgba(255,255,255,.5); margin-bottom:16px;}
+.event-hero h1{font-size:62px; line-height:.98; margin-bottom:20px;}
+.event-hero h1 em{color:var(--sand-400);}
+.event-hero .lede{color:rgba(255,255,255,.75); font-size:18px; margin-bottom:36px;}
+.event-dates{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-radius:var(--r); padding:24px; backdrop-filter:blur(8px);}
+.event-dates h4{font-family:var(--font-grotesk); font-size:16px; font-weight:600; margin-bottom:18px; color:rgba(255,255,255,.9);}
+.ev-items{display:flex; flex-direction:column; gap:14px;}
+.ev-item{display:flex; gap:16px; align-items:flex-start;}
+.ev-dot{width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-top:5px;}
+.ev-dot.orange{background:var(--flamingo);}
+.ev-dot.sand{background:var(--sand-400);}
+.ev-dot.navy{background:var(--navy-300);}
+.ev-info .ev-date{font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:3px;}
+.ev-info .ev-name{font-size:14px; color:rgba(255,255,255,.85);}
+
+/* ─────────────────────────────────────────────────────────── 
+   12 · CERTIFICATE CARD — DATA MESH
+──────────────────────────────────────────────────────────── */
+.cert-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+.cert-card{
+  background:var(--navy-700); color:#fff;
+  border-radius:var(--r-lg); overflow:hidden; position:relative;
+  padding:40px; aspect-ratio:1.618/1;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.cert-card .cert-logo{display:flex; align-items:center; gap:10px; margin-bottom:auto;}
+.cert-card .cert-logo .disc{width:36px; height:36px; border-radius:50%; background:var(--flamingo); display:flex; align-items:center; justify-content:center; font-family:var(--font-grotesk); font-size:13px; font-weight:700;}
+.cert-card .cert-logo .nm{font-family:var(--font-grotesk); font-weight:700; font-size:16px; letter-spacing:-.3px;}
+.cert-card .cert-body{position:relative; z-index:1;}
+.cert-card .cert-body .cert-eyebrow{font-family:var(--font-mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--sand-300); margin-bottom:8px;}
+.cert-card .cert-body h3{font-size:26px; line-height:1.1; color:#fff;}
+.cert-card .cert-body h3 em{color:var(--sand-300);}
+.cert-card .cert-foot{display:flex; justify-content:space-between; align-items:flex-end; padding-top:20px; border-top:1px solid rgba(255,255,255,.12); position:relative; z-index:1;}
+.cert-card .cert-foot .cert-holder{font-size:14px; opacity:.7;}
+.cert-card .cert-foot .cert-id{font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; color:var(--sand-300);}
+
+/* ─────────────────────────────────────────────────────────── 
+   13 · NEWSLETTER / CTA BAND — MIXED DEVICES
+──────────────────────────────────────────────────────────── */
+.cta-band-v2{
+  position:relative; overflow:hidden;
+  background:var(--flamingo); color:#fff; padding:80px 0;
+}
+.cta-band-v2 .container{max-width:1200px; margin:0 auto; padding:0 64px; position:relative; z-index:1;}
+.cta-band-v2 .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:center;}
+.cta-band-v2 h2{font-size:52px; color:#fff; margin-bottom:16px; line-height:1.0;}
+.cta-band-v2 h2 em{color:var(--navy-900);}
+.cta-band-v2 .cta-deck{font-size:16px; color:rgba(255,255,255,.88); margin-bottom:28px;}
+.cta-form{background:rgba(4,4,116,.3); border:1px solid rgba(255,255,255,.2); border-radius:var(--r); padding:28px; backdrop-filter:blur(8px);}
+.cta-form label{font-family:var(--font-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.65); display:block; margin-bottom:8px;}
+.cta-form input{width:100%; padding:12px 14px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:var(--r); color:#fff; font-family:var(--font-body); font-size:15px; margin-bottom:16px;}
+.cta-form input::placeholder{color:rgba(255,255,255,.45);}
+.cta-form input:focus{outline:none; border-color:rgba(255,255,255,.7);}
+.cta-form .btn{width:100%; justify-content:center; background:var(--navy); border-color:var(--navy);}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+.site-footer{background:var(--ink-900); color:var(--ink-300); padding:64px 0 28px;}
+.footer-inner{max-width:1400px; margin:0 auto; padding:0 40px;}
+.footer-top{display:flex; justify-content:space-between; align-items:center; padding-bottom:32px; border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:28px;}
+.footer-brand{font-family:var(--font-grotesk); font-size:20px; font-weight:700; color:#fff;}
+.footer-brand span{color:var(--flamingo);}
+.footer-nav{display:flex; gap:32px;}
+.footer-nav a{font-size:13px; color:var(--ink-400); transition:color .15s;}
+.footer-nav a:hover{color:#fff;}
+.footer-bottom{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-500);}
+
+/* ─── SCROLLSPY HELPER ───────────────────────────────────── */
+.section[id]{scroll-margin-top:80px;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ 
+     SITE HEADER
+════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="logo-mark">
+      <div class="logo-disc">A</div>
+      <div class="logo-name">Afri<span>CDSA</span></div>
+    </div>
+    <span class="header-label">Web Templates v2</span>
+    <nav class="header-nav">
+      <a href="index.html">Index</a>
+      <a href="Brand Kit.html">Brand Kit</a>
+      <a href="Web Templates.html">Templates v1</a>
+      <a href="web-templates-v2.html" class="active">Templates v2</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════ 
+     BODY: SIDEBAR + MAIN
+════════════════════════════════════════════════════════ -->
+<div class="page-body">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Graphic Devices</span>
+      <a href="#s01" class="active"><span class="tag mesh">Data Mesh</span> Hero — Dark</a>
+      <a href="#s02"><span class="tag mesh">Data Mesh</span> Hero — Light</a>
+      <a href="#s03"><span class="tag ts">Token Stream</span> Hero — Full bleed</a>
+      <a href="#s04"><span class="tag ts">Token Stream</span> Banner divider</a>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Page Components</span>
+      <a href="#s05"><span class="tag mesh">Data Mesh</span> Programme cards</a>
+      <a href="#s06"><span class="tag mesh">Data Mesh</span> Stat band</a>
+      <a href="#s07"><span class="tag mesh">Data Mesh</span> Split feature</a>
+      <a href="#s08"><span class="tag ts">Token Stream</span> Course hero</a>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Full Pages</span>
+      <a href="#s09"><span class="tag ts">Token Stream</span> Analytics dashboard</a>
+      <a href="#s10"><span class="tag mesh">Data Mesh</span> Report cover</a>
+      <a href="#s11"><span class="tag ts">Token Stream</span> Event hero</a>
+      <a href="#s12"><span class="tag mesh">Data Mesh</span> Certificates</a>
+      <a href="#s13"><span class="tag ts">Token Stream</span> CTA band</a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────── -->
+  <main class="main-content">
+
+<!-- ═══════════════════════════════════════════════════════
+     01 · HERO — DATA MESH (DARK NAVY)
+════════════════════════════════════════════════════════ -->
+<section id="s01" class="tmpl-section">
+  <div class="tmpl-label">01 · Hero — Dark <span class="device-badge mesh">Data Mesh</span></div>
+  <p class="tmpl-desc">Full-width hero on navy using the data-mesh dot-grid device. Mesh fades to the right behind the visual. A flamingo float card adds depth and urgency.</p>
+
+  <div class="preview">
+    <div class="hero-mesh">
+      <!-- Data mesh layers -->
+      <div class="mesh-bg fade-right" style="--mesh-dot:rgba(237,164,85,.22); --mesh-size:22px; opacity:.9;"></div>
+      <svg class="flow-layer" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">
+        <g stroke="#F1592A" stroke-width="1.2" fill="none" opacity=".55">
+          <path d="M 800 400 Q 920 300 1050 360 T 1200 280"/>
+          <path d="M 800 450 Q 950 370 1080 420 T 1200 350" opacity=".4"/>
+        </g>
+        <g fill="#F1592A">
+          <circle cx="800" cy="400" r="3.5"/>
+          <circle cx="1050" cy="360" r="3"/>
+          <circle cx="1200" cy="280" r="4"/>
+        </g>
+        <g fill="#EDA455" opacity=".7">
+          <circle cx="900" cy="340" r="2"/>
+          <circle cx="1000" cy="310" r="2"/>
+          <circle cx="1120" cy="290" r="2"/>
+        </g>
+      </svg>
+
+      <div class="hero-mesh container">
+        <div class="hero-mesh grid">
+          <div>
+            <p class="eyebrow">AfriCDSA · Data Science Institute</p>
+            <h1>Build the skills <em>Africa's economy</em> demands.</h1>
+            <p class="lede" style="margin-bottom:40px;">Accredited programmes in data science, AI, and analytics — built for working professionals across the continent.</p>
+            <div class="ctas">
+              <a href="#" class="btn btn-primary btn-lg">Apply now <span>→</span></a>
+              <a href="#" class="btn btn-ghost-white btn-lg">Browse programmes</a>
+            </div>
+            <div class="proof">
+              <div class="stat"><div class="n">4,200+</div><div class="l">Graduates</div></div>
+              <div class="stat"><div class="n">38</div><div class="l">Countries</div></div>
+              <div class="stat"><div class="n">92%</div><div class="l">Employment rate</div></div>
+            </div>
+          </div>
+          <div style="position:relative;">
+            <div class="mesh-visual">
+              <div class="mesh-bg" style="--mesh-dot:rgba(255,255,255,.08); --mesh-size:18px; opacity:1;"></div>
+              <div class="inner"><span class="caption">— cohort working session · Nairobi</span></div>
+            </div>
+            <div class="mesh-float">
+              <div class="fl-label">Cohort 14 · 12 May close</div>
+              <div class="fl-q">"The most rigorous data programme on the continent."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     02 · HERO — DATA MESH (LIGHT)
+════════════════════════════════════════════════════════ -->
+<section id="s02" class="tmpl-section" style="background:var(--ink-50);">
+  <div class="tmpl-label">02 · Hero — Light <span class="device-badge mesh">Data Mesh</span></div>
+  <p class="tmpl-desc">Light hero on white. The mesh sits at low opacity, fading toward the right, giving structure without overwhelming the content. Flamingo accent on heading.</p>
+
+  <div class="preview">
+    <div class="hero-mesh-light">
+      <div class="mesh-bg fade-right navy-dot" style="opacity:.7;"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="grid" style="display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center;max-width:1200px;margin:0 auto;padding:0 64px;">
+          <div>
+            <p class="eyebrow" style="margin-bottom:20px;">Certification · Data Science</p>
+            <h1 style="font-size:68px;margin-bottom:22px;">Evidence <em>flows</em> from signal to decision.</h1>
+            <p class="lede" style="margin-bottom:36px;">The Certified Data Scientist programme equips you to design pipelines, train models, and present findings that move organisations.</p>
+            <div style="display:flex;gap:14px;margin-bottom:44px;flex-wrap:wrap;">
+              <a href="#" class="btn btn-primary btn-lg">Apply — Cohort 14</a>
+              <a href="#" class="btn btn-outline btn-lg">Download syllabus</a>
+            </div>
+            <div style="display:flex;gap:40px;padding-top:28px;border-top:1px solid var(--rule);">
+              <div><div style="font-family:var(--font-display);font-size:36px;color:var(--navy);">6 mo</div><div class="mono" style="color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:6px;">Duration</div></div>
+              <div><div style="font-family:var(--font-display);font-size:36px;color:var(--navy);">100%</div><div class="mono" style="color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:6px;">Online</div></div>
+              <div><div style="font-family:var(--font-display);font-size:36px;color:var(--navy);">CPD</div><div class="mono" style="color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:6px;">Accredited</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;position:relative;background:var(--navy-50);border:1px solid var(--rule);">
+              <div class="mesh-bg" style="--mesh-dot:rgba(4,4,116,.12);--mesh-size:16px;opacity:1;"></div>
+              <div style="position:absolute;inset:24px;display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:center;z-index:1;">
+                <div style="background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);padding:20px 28px;width:100%;box-shadow:var(--shadow);">
+                  <div class="eyebrow" style="margin-bottom:12px;">Module progress</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;"><span>Statistical foundations</span><span class="badge badge-live">Done</span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;"><span>Data pipelines</span><span class="badge badge-live">Done</span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;"><span>ML models</span><span class="badge badge-sand">In progress</span></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;"><span>Deployment</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">Locked</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     03 · HERO — TOKEN / STREAM FULL BLEED
+════════════════════════════════════════════════════════ -->
+<section id="s03" class="tmpl-section">
+  <div class="tmpl-label">03 · Hero — Full Bleed <span class="device-badge ts">Token / Stream</span></div>
+  <p class="tmpl-desc">TOKEN / STREAM fills the entire hero background. The variable-width brick pattern is rendered at full canvas size, with the copy floating above on a high z-index. Best for NLP, AI, and text-analytics contexts.</p>
+
+  <div class="preview">
+    <div class="hero-ts">
+      <canvas class="hero-ts-canvas" id="heroTsCanvas"></canvas>
+      <div class="hero-ts container">
+        <div class="hero-ts grid">
+          <div>
+            <p class="eyebrow" style="margin-bottom:20px;">AfriCDSA · AI Expert Programme</p>
+            <h1>Language models <em>for the</em> African context.</h1>
+            <p class="lede" style="margin-bottom:40px;">Six months from tokenisation to deployment. Learn how large language models are built, fine-tuned, and evaluated — with African datasets.</p>
+            <div class="ctas">
+              <a href="#" class="btn btn-primary btn-lg">Apply — Cohort 14</a>
+              <a href="#" class="btn btn-ghost-white btn-lg">View curriculum</a>
+            </div>
+            <div style="display:flex;gap:24px;padding-top:32px;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap;">
+              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.55);text-transform:uppercase;">✓ CPD Accredited</span>
+              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.55);text-transform:uppercase;">✓ Live cohort</span>
+              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.55);text-transform:uppercase;">✓ Career support</span>
+            </div>
+          </div>
+          <div>
+            <div class="tokens-live">
+              <div class="tl-label">Live token stream · Swahili NLP model</div>
+              <div class="tl-row">
+                <span class="tl-tok" style="background:#D95E25;color:#fff;">habari</span>
+                <span class="tl-tok" style="background:#1A1F6E;color:rgba(255,255,255,.7);">za</span>
+                <span class="tl-tok" style="background:#D95E25;color:#fff;">asubuhi</span>
+                <span class="tl-tok" style="background:#1A1F6E;color:rgba(255,255,255,.7);">na</span>
+                <span class="tl-tok" style="background:#C8B898;color:#0C1152;">jioni</span>
+                <span class="tl-tok" style="background:#1A1F6E;color:rgba(255,255,255,.7);">ya</span>
+                <span class="tl-tok" style="background:#8A8EA0;color:#fff;">Tanzania</span>
+              </div>
+              <div class="tl-row">
+                <span class="tl-tok" style="background:#D95E25;color:#fff;">data</span>
+                <span class="tl-tok" style="background:#1A1F6E;color:rgba(255,255,255,.7);">ya</span>
+                <span class="tl-tok" style="background:#D95E25;color:#fff;">sayansi</span>
+                <span class="tl-tok" style="background:#C8B898;color:#0C1152;">Afrika</span>
+                <span class="tl-tok" style="background:#1A1F6E;color:rgba(255,255,255,.7);">inakua</span>
+                <span class="tl-tok" style="background:#B08090;color:#fff;">haraka</span>
+              </div>
+              <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);">
+                <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;">Token legend</div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                  <span style="display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.06em;"><span style="width:10px;height:10px;border-radius:2px;background:#D95E25;display:inline-block;"></span>Content</span>
+                  <span style="display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.06em;"><span style="width:10px;height:10px;border-radius:2px;background:#1A1F6E;display:inline-block;"></span>Structural</span>
+                  <span style="display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.06em;"><span style="width:10px;height:10px;border-radius:2px;background:#C8B898;display:inline-block;"></span>Entity</span>
+                  <span style="display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.06em;"><span style="width:10px;height:10px;border-radius:2px;background:#8A8EA0;display:inline-block;"></span>Proper noun</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     04 · TOKEN / STREAM — SECTION BANNER DIVIDER
+════════════════════════════════════════════════════════ -->
+<section id="s04" class="tmpl-section" style="background:var(--ink-50);">
+  <div class="tmpl-label">04 · Section Divider <span class="device-badge ts">Token / Stream</span></div>
+  <p class="tmpl-desc">A compact 160px-tall full-width banner using TOKEN / STREAM as a texture. Effective as a visual break between page sections, or as a sub-header behind section titles.</p>
+
+  <div class="preview">
+    <div class="ts-banner">
+      <canvas id="tsBannerCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+      <div class="ts-banner-content">
+        <div style="text-align:center;">
+          <p class="eyebrow light" style="margin-bottom:12px;">Data Science · Africa</p>
+          <h3>Our <em>programmes</em></h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content below the divider to show context -->
+    <div style="background:var(--panel);padding:56px 64px;">
+      <div class="prog-grid">
+        <!-- Card 1 -->
+        <div class="prog-card">
+          <div class="prog-cover cover-cds" id="pc01">
+            <span class="prog-cover cover-code">CDS-01</span>
+            <span class="prog-cover cover-badge badge badge-new">New cohort</span>
+          </div>
+          <div class="prog-body">
+            <div class="prog-title">Certified Data Scientist</div>
+            <div class="prog-desc">End-to-end data science: statistics, pipelines, machine learning, and communication — with an African context throughout.</div>
+            <div class="prog-foot"><span class="mono">6 months · Online</span><span class="prog-link">Enrol →</span></div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="prog-card">
+          <div class="prog-cover cover-cda" id="pc02">
+            <span class="prog-cover cover-code">CDA-02</span>
+            <span class="prog-cover cover-badge badge badge-live">Live</span>
+          </div>
+          <div class="prog-body">
+            <div class="prog-title">Certified Data Analyst</div>
+            <div class="prog-desc">From raw data to boardroom-ready insight. Excel, SQL, Power BI, and Python — focused on business analytics and decision support.</div>
+            <div class="prog-foot"><span class="mono">4 months · Online</span><span class="prog-link">Enrol →</span></div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="prog-card">
+          <div class="prog-cover cover-ai" id="pc03">
+            <span class="prog-cover cover-code">AIE-03</span>
+            <span class="prog-cover cover-badge badge badge-new">Waitlist open</span>
+          </div>
+          <div class="prog-body">
+            <div class="prog-title">AI Expert</div>
+            <div class="prog-desc">Deep learning, LLM fine-tuning, and deployment in production environments. For senior data scientists moving into AI engineering.</div>
+            <div class="prog-foot"><span class="mono">8 months · Hybrid</span><span class="prog-link">Enrol →</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     05 · STAT BAND — DATA MESH
+════════════════════════════════════════════════════════ -->
+<section id="s06" class="tmpl-section">
+  <div class="tmpl-label">06 · Stat Band <span class="device-badge mesh">Data Mesh</span></div>
+  <p class="tmpl-desc">The data-mesh pattern at low opacity overlays the navy field. Flow lines add motion from mid-left to top-right. The mesh is masked with a radial gradient to concentrate density toward the right edge.</p>
+
+  <div class="preview">
+    <div class="stat-band">
+      <div class="mesh-bg" style="--mesh-dot:rgba(237,164,85,.18); --mesh-size:22px; opacity:1; mask-image:radial-gradient(ellipse 60% 90% at 85% 50%, black 10%, transparent 65%);"></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g stroke="#F1592A" stroke-width="1.5" fill="none" opacity=".5">
+          <path d="M 400 240 Q 600 160 800 200 T 1200 100"/>
+          <path d="M 400 270 Q 620 200 850 240 T 1200 160" opacity=".35"/>
+        </g>
+        <g fill="#F1592A">
+          <circle cx="400" cy="240" r="4"/><circle cx="800" cy="200" r="3.5"/>
+          <circle cx="1100" cy="110" r="5"/>
+        </g>
+        <g fill="#EDA455" opacity=".65">
+          <circle cx="600" cy="185" r="2.5"/><circle cx="950" cy="145" r="2.5"/>
+        </g>
+      </svg>
+      <div class="stat-grid">
+        <div class="stat-items">
+          <div class="stat-item">
+            <div class="n">4<em>,</em>200</div>
+            <div class="l">Graduates</div>
+            <div class="d">Professionals certified across Africa since 2018.</div>
+          </div>
+          <div class="stat-item">
+            <div class="n">38</div>
+            <div class="l">Countries</div>
+            <div class="d">Learners from every corner of the continent.</div>
+          </div>
+          <div class="stat-item">
+            <div class="n">92<em>%</em></div>
+            <div class="l">Employment rate</div>
+            <div class="d">Within 90 days of certification completion.</div>
+          </div>
+          <div class="stat-item">
+            <div class="n">14</div>
+            <div class="l">Active cohort</div>
+            <div class="d">Applications close 12 May 2026.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     07 · SPLIT FEATURE — DATA MESH VISUAL
+════════════════════════════════════════════════════════ -->
+<section id="s07" class="tmpl-section" style="background:var(--ink-50);">
+  <div class="tmpl-label">07 · Split Feature <span class="device-badge mesh">Data Mesh</span></div>
+  <p class="tmpl-desc">Two-column layout: copy on the left, a data-mesh-decorated visual panel on the right. The visual uses the dense mesh with flow lines and node accents — ideal for "how it works" and about sections.</p>
+
+  <div class="preview">
+    <div class="split-feature">
+      <div class="split-inner">
+        <div class="split-copy">
+          <p class="eyebrow" style="margin-bottom:20px;">How it works</p>
+          <h2 style="margin-bottom:20px;">Structured learning. <em>Real outcomes.</em></h2>
+          <p class="lede" style="margin-bottom:32px; color:var(--ink-700);">Each programme combines live instruction, guided projects, and peer review — building competency you can demonstrate on the job from week one.</p>
+          <ul class="points">
+            <li><span class="dot"></span><span><strong>Live cohort sessions</strong> — weekly 2-hour sessions with instructors and peers across the continent.</span></li>
+            <li><span class="dot"></span><span><strong>Project-based assessment</strong> — every module is assessed through a work-relevant project, not an exam.</span></li>
+            <li><span class="dot"></span><span><strong>Mentorship</strong> — 1-on-1 pairing with a working data professional in your sector.</span></li>
+            <li><span class="dot"></span><span><strong>Career placement</strong> — dedicated career support and employer introductions after graduation.</span></li>
+          </ul>
+          <div style="display:flex;gap:12px;">
+            <a href="#" class="btn btn-primary">Browse programmes</a>
+            <a href="#" class="btn btn-outline">Read a learner story</a>
+          </div>
+        </div>
+        <div>
+          <div class="split-visual">
+            <div class="mesh-bg fade-center" style="--mesh-dot:rgba(237,164,85,.28); --mesh-size:18px; opacity:1;"></div>
+            <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 480 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g stroke="#EDA455" stroke-width="1" fill="none" opacity=".65">
+                <line x1="80" y1="80" x2="240" y2="180"/><line x1="240" y1="180" x2="380" y2="120"/>
+                <line x1="240" y1="180" x2="200" y2="300"/><line x1="200" y1="300" x2="320" y2="360"/>
+                <line x1="240" y1="180" x2="300" y2="250"/><line x1="300" y1="250" x2="380" y2="320"/>
+                <line x1="80" y1="320" x2="200" y2="300"/>
+              </g>
+              <g fill="#F1592A">
+                <circle cx="80" cy="80" r="5"/><circle cx="240" cy="180" r="7"/>
+                <circle cx="380" cy="120" r="4"/><circle cx="200" cy="300" r="5"/>
+                <circle cx="320" cy="360" r="4"/><circle cx="80" cy="320" r="4"/>
+                <circle cx="300" cy="250" r="4"/>
+              </g>
+              <g fill="#EDA455" opacity=".75">
+                <circle cx="160" cy="130" r="2.5"/><circle cx="310" cy="155" r="2.5"/>
+                <circle cx="250" cy="235" r="2.5"/><circle cx="170" cy="280" r="2.5"/>
+              </g>
+            </svg>
+            <div style="position:absolute;bottom:24px;left:24px;right:24px;z-index:1;">
+              <div style="background:rgba(4,4,116,.6);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:16px;backdrop-filter:blur(8px);">
+                <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--sand-300);margin-bottom:8px;">Data skill graph · learner cohort</div>
+                <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                  <span style="font-size:13px;color:rgba(255,255,255,.75);">Statistics</span>
+                  <span style="font-size:13px;color:rgba(255,255,255,.75);">Python</span>
+                  <span style="font-size:13px;color:rgba(255,255,255,.75);">SQL</span>
+                  <span style="font-size:13px;color:rgba(255,255,255,.75);">ML</span>
+                  <span style="font-size:13px;color:rgba(255,255,255,.75);">Viz</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     08 · COURSE HERO — TOKEN / STREAM BACKGROUND
+════════════════════════════════════════════════════════ -->
+<section id="s08" class="tmpl-section">
+  <div class="tmpl-label">08 · Course Hero <span class="device-badge ts">Token / Stream</span></div>
+  <p class="tmpl-desc">The TOKEN / STREAM pattern at reduced opacity sits behind the course header. The dark indigo background lets the brick texture read without competing with copy. Right column: sticky enrol card with glassmorphism.</p>
+
+  <div class="preview">
+    <div class="course-hero-ts">
+      <canvas id="courseHeroCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:.45;"></canvas>
+      <div class="container">
+        <div class="grid">
+          <div>
+            <div class="breadcrumb">
+              <a href="#">Programmes</a><span> / </span>
+              <a href="#">AI Expert</a><span> / </span>
+              <span>AIE-03</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-bottom:20px;">
+              <span class="badge badge-new">New cohort</span>
+              <span class="badge" style="background:rgba(237,164,85,.2);color:var(--sand-300);">CPD Accredited</span>
+            </div>
+            <h1>AI Expert: <em>LLMs and</em> production ML.</h1>
+            <p class="lede" style="margin-top:16px;margin-bottom:0;">Design, fine-tune, and deploy language models at scale. Built for senior data scientists moving into AI engineering roles.</p>
+            <div class="course-meta">
+              <div class="m"><div class="l">Duration</div><div class="v">8 months</div></div>
+              <div class="m"><div class="l">Format</div><div class="v">Hybrid</div></div>
+              <div class="m"><div class="l">Next intake</div><div class="v">12 May</div></div>
+              <div class="m"><div class="l">Level</div><div class="v">Advanced</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="enrol">
+              <div class="price">USD 2,400</div>
+              <div class="price-sub">Or 3 instalments of USD 850</div>
+              <div class="deadline">🕐 Applications close in 21 days</div>
+              <ul class="includes">
+                <li>✓ 8 months live instruction</li>
+                <li>✓ LLM project portfolio</li>
+                <li>✓ 1-on-1 mentorship</li>
+                <li>✓ Career placement support</li>
+                <li>✓ Lifetime alumni access</li>
+              </ul>
+              <a href="#" class="btn btn-primary">Apply now</a>
+              <a href="#" class="btn btn-ghost-white" style="margin-top:8px;">Download brochure</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     09 · ANALYTICS DASHBOARD — TOKEN / STREAM HEADER
+════════════════════════════════════════════════════════ -->
+<section id="s09" class="tmpl-section" style="background:var(--ink-50);">
+  <div class="tmpl-label">09 · Analytics Dashboard <span class="device-badge ts">Token / Stream</span></div>
+  <p class="tmpl-desc">Dashboard shell: TOKEN / STREAM fills the top KPI header at ~30% opacity. The main body reverts to white cards — giving the dashboard a branded, data-dense feel without distraction.</p>
+
+  <div class="preview">
+    <div style="background:var(--ink-50);border-radius:var(--r-lg);overflow:hidden;">
+      <!-- Dashboard header -->
+      <div class="dashboard-header">
+        <canvas id="dashCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:.35;"></canvas>
+        <div class="container" style="position:relative;z-index:1;max-width:100%;">
+          <div class="dash-top">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px;">AfriCDSA · LMS Analytics</div>
+              <div class="dash-title">Cohort 14 <span>· Dashboard</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">Week 8 of 32</span>
+              <a href="#" class="btn btn-ghost-white btn-sm">Export</a>
+            </div>
+          </div>
+          <div class="dash-cards">
+            <div class="dash-kpi"><div class="kl">Enrolled</div><div class="kn">247</div><div class="kd up">↑ 12 this week</div></div>
+            <div class="dash-kpi"><div class="kl">Completion rate</div><div class="kn">84%</div><div class="kd up">↑ 3pp vs cohort 13</div></div>
+            <div class="dash-kpi"><div class="kl">Avg. session</div><div class="kn">2.4h</div><div class="kd">— on target</div></div>
+            <div class="dash-kpi"><div class="kl">Submissions</div><div class="kn">1,890</div><div class="kd up">↑ 220 this week</div></div>
+            <div class="dash-kpi"><div class="kl">NPS</div><div class="kn">72</div><div class="kd dn">↓ 4 pts</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Dashboard body -->
+      <div class="dash-body">
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <h4>Weekly engagement</h4>
+            <span class="eyebrow">Last 8 weeks</span>
+          </div>
+          <div class="chart-placeholder" id="engChart">
+            <svg viewBox="0 0 640 200" style="width:100%;height:100%;position:absolute;inset:0;" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="eg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#040474" stop-opacity=".15"/>
+                  <stop offset="100%" stop-color="#040474" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <polyline points="20,160 100,130 180,100 260,115 340,80 420,60 500,50 620,40" fill="none" stroke="#040474" stroke-width="2.5"/>
+              <polygon points="20,160 100,130 180,100 260,115 340,80 420,60 500,50 620,40 620,200 20,200" fill="url(#eg)"/>
+              <g fill="#F1592A">
+                <circle cx="100" cy="130" r="4"/><circle cx="260" cy="115" r="4"/>
+                <circle cx="420" cy="60" r="4"/><circle cx="620" cy="40" r="5"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-head">
+            <h4>Module completion</h4>
+            <span class="eyebrow">All modules</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span>Statistical foundations</span><span class="mono" style="color:var(--muted);">97%</span></div>
+              <div style="background:var(--ink-100);border-radius:2px;height:6px;"><div style="background:var(--flamingo);height:100%;border-radius:2px;width:97%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span>Data pipelines</span><span class="mono" style="color:var(--muted);">89%</span></div>
+              <div style="background:var(--ink-100);border-radius:2px;height:6px;"><div style="background:var(--flamingo);height:100%;border-radius:2px;width:89%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span>ML models</span><span class="mono" style="color:var(--muted);">72%</span></div>
+              <div style="background:var(--ink-100);border-radius:2px;height:6px;"><div style="background:var(--navy);height:100%;border-radius:2px;width:72%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span>LLM fine-tuning</span><span class="mono" style="color:var(--muted);">41%</span></div>
+              <div style="background:var(--ink-100);border-radius:2px;height:6px;"><div style="background:var(--sand-400);height:100%;border-radius:2px;width:41%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span>Deployment</span><span class="mono" style="color:var(--muted);">18%</span></div>
+              <div style="background:var(--ink-100);border-radius:2px;height:6px;"><div style="background:var(--ink-300);height:100%;border-radius:2px;width:18%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     10 · REPORT COVER — DATA MESH
+════════════════════════════════════════════════════════ -->
+<section id="s10" class="tmpl-section">
+  <div class="tmpl-label">10 · Report / Article Cover <span class="device-badge mesh">Data Mesh</span></div>
+  <p class="tmpl-desc">Editorial cover for research reports and long-form articles. Data-mesh at medium density with flow lines and node accents creates depth against the dark field.</p>
+
+  <div class="preview" style="padding:40px 56px;background:var(--ink-50);">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <!-- Cover variant A — navy -->
+      <div class="report-cover" style="background:var(--navy-800);">
+        <div class="mesh-bg fade-bottom" style="--mesh-dot:rgba(237,164,85,.22);--mesh-size:20px;opacity:1;"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g stroke="#F1592A" stroke-width="1.2" fill="none" opacity=".5">
+            <path d="M 0 200 Q 150 120 300 180 T 600 100"/>
+          </g>
+          <g fill="#F1592A"><circle cx="300" cy="180" r="3.5"/><circle cx="560" cy="105" r="3"/></g>
+        </svg>
+        <div class="rc-top" style="position:relative;z-index:1;">
+          <p class="eyebrow" style="color:var(--sand-300);margin-bottom:20px;">Research Report · 2026</p>
+          <h2 style="font-size:42px;max-width:440px;">The state of <em>data talent</em> in Sub-Saharan Africa.</h2>
+        </div>
+        <div class="rc-bottom" style="position:relative;z-index:1;">
+          <div class="rc-meta">AfriCDSA Research Unit<br/>April 2026 · 48 pages</div>
+          <a href="#" class="btn btn-white btn-sm">Download PDF</a>
+        </div>
+      </div>
+      <!-- Cover variant B — flamingo accent band -->
+      <div class="report-cover" style="background:var(--navy-900);">
+        <div class="mesh-bg" style="--mesh-dot:rgba(255,255,255,.1);--mesh-size:16px;opacity:1;mask-image:linear-gradient(to right,transparent,black 40%);"></div>
+        <div style="position:absolute;top:0;left:0;bottom:0;width:8px;background:var(--flamingo);z-index:2;border-radius:var(--r-lg) 0 0 var(--r-lg);"></div>
+        <div class="rc-top" style="position:relative;z-index:1;padding-left:20px;">
+          <p class="eyebrow" style="color:var(--flamingo);margin-bottom:20px;">Policy Brief · No. 07</p>
+          <h2 style="font-size:42px;max-width:420px;">Closing the AI <em>skills gap</em> by 2030.</h2>
+        </div>
+        <div class="rc-bottom" style="position:relative;z-index:1;padding-left:20px;">
+          <div class="rc-meta">AfriCDSA Policy Unit<br/>March 2026 · 12 pages</div>
+          <a href="#" class="btn btn-primary btn-sm">Read online</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     11 · EVENT / HACKATHON HERO — TOKEN / STREAM
+════════════════════════════════════════════════════════ -->
+<section id="s11" class="tmpl-section" style="background:var(--ink-50);">
+  <div class="tmpl-label">11 · Event / Hackathon Hero <span class="device-badge ts">Token / Stream</span></div>
+  <p class="tmpl-desc">Hackathon and event pages use TOKEN / STREAM at higher opacity to signal a fast-paced, high-energy context. The event details card uses a frosted-glass treatment.</p>
+
+  <div class="preview">
+    <div class="event-hero">
+      <canvas id="eventCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:.6;"></canvas>
+      <div class="container">
+        <div>
+          <p class="eyebrow" style="margin-bottom:16px;">AfriCDSA · DataHack 2026</p>
+          <span class="badge badge-live" style="margin-bottom:20px;display:inline-flex;">Registration open</span>
+          <h1>48 hours. <em>Real data.</em> Real impact.</h1>
+          <p class="lede" style="margin-bottom:36px;">Africa's largest data-science hackathon. Compete solo or in teams of 3. $20,000 in prizes across five challenge tracks.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="#" class="btn btn-primary btn-lg">Register team</a>
+            <a href="#" class="btn btn-ghost-white btn-lg">View challenges</a>
+          </div>
+        </div>
+        <div>
+          <div class="event-dates">
+            <h4>Key dates</h4>
+            <div class="ev-items">
+              <div class="ev-item"><div class="ev-dot orange"></div><div class="ev-info"><div class="ev-date">12 May 2026</div><div class="ev-name">Registration closes</div></div></div>
+              <div class="ev-item"><div class="ev-dot sand"></div><div class="ev-info"><div class="ev-date">20 May 2026 · 08:00 EAT</div><div class="ev-name">Hackathon kick-off + data release</div></div></div>
+              <div class="ev-item"><div class="ev-dot sand"></div><div class="ev-info"><div class="ev-date">21 May 2026 · 20:00 EAT</div><div class="ev-name">Submissions close</div></div></div>
+              <div class="ev-item"><div class="ev-dot navy"></div><div class="ev-info"><div class="ev-date">28 May 2026</div><div class="ev-name">Winners announced</div></div></div>
+            </div>
+            <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);">
+              <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Prize pool</div>
+              <div style="font-family:var(--font-display);font-size:36px;color:#fff;">$20,000 <span style="font-size:16px;color:rgba(255,255,255,.5);">USD</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     12 · CERTIFICATE CARDS — DATA MESH
+════════════════════════════════════════════════════════ -->
+<section id="s12" class="tmpl-section">
+  <div class="tmpl-label">12 · Certificate Cards <span class="device-badge mesh">Data Mesh</span></div>
+  <p class="tmpl-desc">Digital credential cards. The data-mesh and node-network devices differentiate each certification tier. Node positions shift per card to feel unique while remaining systematically related.</p>
+
+  <div class="preview" style="padding:48px 56px;background:var(--ink-50);">
+    <div class="cert-grid">
+      <!-- CDS -->
+      <div class="cert-card" id="cert01">
+        <div class="mesh-bg" style="--mesh-dot:rgba(237,164,85,.2);--mesh-size:20px;opacity:1;mask-image:linear-gradient(135deg,black 30%,transparent 75%);"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55;" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g stroke="#EDA455" stroke-width=".8" fill="none">
+            <line x1="280" y1="60" x2="380" y2="120"/><line x1="380" y1="120" x2="420" y2="220"/>
+            <line x1="380" y1="120" x2="450" y2="80"/><line x1="280" y1="60" x2="340" y2="180"/>
+          </g>
+          <g fill="#F1592A"><circle cx="280" cy="60" r="4"/><circle cx="380" cy="120" r="5"/><circle cx="420" cy="220" r="3.5"/><circle cx="450" cy="80" r="3"/><circle cx="340" cy="180" r="3"/></g>
+        </svg>
+        <div class="cert-logo" style="position:relative;z-index:1;">
+          <div class="disc">A</div><div class="nm">AfriCDSA</div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-eyebrow">Certificate of Completion</div>
+          <h3>Certified Data <em>Scientist</em></h3>
+        </div>
+        <div class="cert-foot">
+          <div class="cert-holder">Amara Okonkwo · Cohort 13</div>
+          <div class="cert-id">CDS-2026-0847</div>
+        </div>
+      </div>
+      <!-- AI Expert -->
+      <div class="cert-card" id="cert02" style="background:linear-gradient(135deg,#0A1240,#1A0A30);">
+        <div class="mesh-bg" style="--mesh-dot:rgba(241,89,42,.2);--mesh-size:18px;opacity:1;mask-image:radial-gradient(ellipse 65% 65% at 80% 30%,black,transparent 70%);"></div>
+        <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55;" viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g stroke="#F1592A" stroke-width=".8" fill="none">
+            <line x1="300" y1="50" x2="400" y2="130"/><line x1="400" y1="130" x2="460" y2="80"/>
+            <line x1="400" y1="130" x2="430" y2="240"/><line x1="300" y1="50" x2="360" y2="160"/>
+          </g>
+          <g fill="#EDA455"><circle cx="300" cy="50" r="4"/><circle cx="400" cy="130" r="6"/><circle cx="460" cy="80" r="3"/><circle cx="430" cy="240" r="3.5"/><circle cx="360" cy="160" r="3"/></g>
+        </svg>
+        <div class="cert-logo" style="position:relative;z-index:1;">
+          <div class="disc">A</div><div class="nm">AfriCDSA</div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-eyebrow">Advanced Certificate</div>
+          <h3>AI <em>Expert</em></h3>
+        </div>
+        <div class="cert-foot">
+          <div class="cert-holder">Kwame Mensah · Cohort 12</div>
+          <div class="cert-id">AIE-2026-0234</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     13 · CTA BAND — MIXED DEVICES
+════════════════════════════════════════════════════════ -->
+<section id="s13" class="tmpl-section" style="background:var(--ink-50);">
+  <div class="tmpl-label">13 · CTA Band <span class="device-badge both">Mesh + Token Stream</span></div>
+  <p class="tmpl-desc">Flamingo CTA band combines both devices: the mesh dot-grid fades from the right edge while the form card uses a navy-over-flamingo glassmorphism treatment.</p>
+
+  <div class="preview">
+    <div class="cta-band-v2">
+      <div class="mesh-bg fade-right" style="--mesh-dot:rgba(255,255,255,.18);--mesh-size:24px;opacity:1;"></div>
+      <div class="container">
+        <div class="grid">
+          <div>
+            <p class="eyebrow" style="color:rgba(255,255,255,.7);margin-bottom:18px;">Ready to start?</p>
+            <h2>Become the data expert <em>your organisation</em> needs.</h2>
+            <p class="cta-deck" style="margin-top:16px;">Join 4,200+ graduates across Africa. Applications for Cohort 14 close on 12 May — limited seats per programme.</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+              <a href="#" class="btn btn-navy btn-lg">Browse programmes</a>
+              <a href="#" class="btn btn-ghost-white btn-lg">Speak to an advisor</a>
+            </div>
+            <div style="display:flex;gap:28px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7);">
+              <span>✓ No prior degree required</span>
+              <span>✓ Instalment payment</span>
+              <span>✓ Money-back guarantee</span>
+            </div>
+          </div>
+          <div>
+            <div class="cta-form">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:16px;">Get the programme guide</div>
+              <label>Full name</label>
+              <input type="text" placeholder="e.g. Amara Okonkwo" style="color:#fff;">
+              <label>Work email</label>
+              <input type="email" placeholder="you@organisation.com" style="color:#fff;">
+              <label>Programme of interest</label>
+              <select style="width:100%;padding:12px 14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:var(--r);color:#fff;font-family:var(--font-body);font-size:15px;margin-bottom:16px;appearance:none;">
+                <option>Certified Data Scientist</option>
+                <option>Certified Data Analyst</option>
+                <option>AI Expert</option>
+                <option>Data Protection Officer</option>
+              </select>
+              <a href="#" class="btn" style="width:100%;justify-content:center;background:var(--navy);color:#fff;border-color:var(--navy);">Send me the guide →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">Afri<span>CDSA</span></div>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="Brand Kit.html">Brand Kit</a>
+        <a href="Web Templates.html">Templates v1</a>
+        <a href="web-templates-v2.html">Templates v2</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© AfriCDSA 2026</span>
+      <span>Web Templates v2 · Graphic Devices Reference</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── SHARED TOKEN STREAM RENDERER ──────────────────────────
+function hash(a,b){let h=(a*2654435761^b*2246822519)>>>0;h=((h>>>16)^h)*0x45d9f3b;return((h>>>16)^h)>>>0;}
+function drawTokenStream(canvas, opacity){
+  if(!canvas) return;
+  const dpr = window.devicePixelRatio||1;
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  if(!W||!H) return;
+  canvas.width = W*dpr; canvas.height = H*dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  ctx.fillStyle = '#0E1347';
+  ctx.fillRect(0,0,W,H);
+
+  const BH=11, VG=3, HG=3, PAD=8;
+  const WIDTHS=[10,12,14,16,18,20,22,24,26,28,30,34,38,42];
+  const hot=[
+    [.05,.20,.12,'o'],[.15,.55,.13,'o'],[.28,.30,.14,'o'],
+    [.40,.70,.11,'o'],[.52,.25,.13,'o'],[.62,.60,.12,'o'],
+    [.72,.40,.11,'o'],[.82,.75,.13,'o'],[.93,.30,.10,'o'],
+    [.08,.40,.08,'m'],[.35,.50,.09,'m'],[.55,.80,.08,'m'],
+    [.20,.15,.09,'b'],[.45,.45,.10,'b'],[.70,.20,.09,'b'],
+    [.88,.55,.09,'b'],[.30,.85,.08,'g'],[.60,.15,.08,'g'],
+    [.78,.65,.08,'g'],[.95,.50,.07,'g']
+  ];
+  const cols={
+    o:['#E5562A','#D44E22','#C8451C'],
+    b:['#D4C8A8','#C4B898','#BEB08E'],
+    g:['#8A8EA0','#9A9EB0','#7A7E90'],
+    m:['#B08090','#A07585','#C09098']
+  };
+  ctx.globalAlpha = typeof opacity === 'number' ? opacity : 1;
+  let r=0, py=PAD;
+  while(py+BH<=H-PAD){
+    let px=PAD, ci=0;
+    while(px+8<=W-PAD){
+      const wi=hash(r*31+5,ci*67+3)%WIDTHS.length;
+      let bw=WIDTHS[wi];
+      if(px+bw>W-PAD) bw=W-PAD-px;
+      if(bw<5){px+=bw+HG;ci++;continue;}
+      const nx=px/W, ny=py/H;
+      let best=0, typ='n';
+      hot.forEach(([hx,hy,hr,ht])=>{
+        const d=Math.hypot(nx-hx,ny-hy), inf=Math.max(0,1-d/hr);
+        if(inf>best){best=inf;typ=ht;}
+      });
+      const jit=(hash(r*13+2,ci*29+7)%100)/100*.25;
+      const eff=best+jit;
+      let f, ao;
+      if(eff>.55&&typ!=='n'){
+        const cv=cols[typ], pick=hash(r*7+1,ci*19+4)%cv.length;
+        f=cv[pick]; ao=.88+jit*.12;
+      } else {
+        const shade=hash(r*23+6,ci*41+2)%3;
+        f=['#1A1F6E','#1E2478','#161B64'][shade]; ao=.90;
+      }
+      ctx.globalAlpha = ao;
+      ctx.fillStyle = f;
+      ctx.beginPath();
+      ctx.roundRect(px, py, bw, BH, 2);
+      ctx.fill();
+      px+=bw+HG; ci++;
+    }
+    py+=BH+VG; r++;
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ─── PROGRAMME CARD COVER DATA-MESH SVGs ───────────────────
+function addCoverMesh(id, bg, dotColor, flowColor){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.background = bg;
+  el.style.position = 'relative';
+  el.style.overflow = 'hidden';
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' style='position:absolute;inset:0;width:100%;height:100%;' viewBox='0 0 320 200' preserveAspectRatio='xMidYMid slice' aria-hidden='true'>
+    <defs>
+      <pattern id='d${id}' width='18' height='18' patternUnits='userSpaceOnUse'>
+        <circle cx='1' cy='1' r='1.1' fill='${dotColor}' opacity='0.4'/>
+      </pattern>
+      <radialGradient id='g${id}' cx='80%' cy='50%' r='70%'>
+        <stop offset='0%' stop-color='${flowColor}' stop-opacity='0.4'/>
+        <stop offset='100%' stop-color='transparent' stop-opacity='0'/>
+      </radialGradient>
+    </defs>
+    <rect width='320' height='200' fill='url(#d${id})'/>
+    <rect width='320' height='200' fill='url(#g${id})'/>
+    <g stroke='${flowColor}' stroke-width='1.2' fill='none' opacity='0.6'>
+      <path d='M 0 120 Q 80 80 160 100 T 320 60'/>
+      <path d='M 0 160 Q 90 130 180 150 T 320 120' opacity='0.4'/>
+    </g>
+    <g fill='${flowColor}'>
+      <circle cx='160' cy='100' r='3'/><circle cx='300' cy='65' r='2.5'/>
+    </g>
+  </svg>`;
+  el.insertAdjacentHTML('afterbegin', svg);
+}
+
+// ─── INIT ───────────────────────────────────────────────────
+window.addEventListener('load', ()=>{
+  // Hero TS canvas
+  const heroC = document.getElementById('heroTsCanvas');
+  if(heroC){
+    heroC.style.position='absolute'; heroC.style.inset='0';
+    heroC.style.width='100%'; heroC.style.height='100%';
+    drawTokenStream(heroC, 1);
+  }
+  // Banner canvas
+  drawTokenStream(document.getElementById('tsBannerCanvas'), 1);
+  // Course hero canvas
+  drawTokenStream(document.getElementById('courseHeroCanvas'), 1);
+  // Dashboard canvas
+  drawTokenStream(document.getElementById('dashCanvas'), 1);
+  // Event canvas
+  drawTokenStream(document.getElementById('eventCanvas'), 1);
+
+  // Programme card cover meshes
+  addCoverMesh('pc01','#040474','#EDA455','#F1592A');
+  addCoverMesh('pc02','#D8430F','#FFFFFF','#040474');
+  addCoverMesh('pc03','#030360','#7A85D0','#EDA455');
+
+  // Resize handling
+  window.addEventListener('resize', ()=>{
+    drawTokenStream(document.getElementById('tsBannerCanvas'), 1);
+    drawTokenStream(document.getElementById('courseHeroCanvas'), 1);
+    drawTokenStream(document.getElementById('dashCanvas'), 1);
+    drawTokenStream(document.getElementById('eventCanvas'), 1);
+    drawTokenStream(document.getElementById('heroTsCanvas'), 1);
+  });
+
+  // Sidebar scrollspy
+  const sections = document.querySelectorAll('.tmpl-section[id]');
+  const links = document.querySelectorAll('.sidebar a[href^="#"]');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-25% 0px -70% 0px'});
+  sections.forEach(s=>obs.observe(s));
+});
+</script>
+</body>
+</html>
