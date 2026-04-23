@@ -515,34 +515,44 @@ html[data-theme="dark"] .step p{color:var(--ink-800);}
 .stat-big .d{font-size:14px; color:rgba(255,255,255,0.75); margin-top:8px; max-width:200px;}
 
 /* Insights (blog teaser) */
-.insights-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:20px;}
-.insight{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column;}
-.insight .cover{aspect-ratio:16/9; background:var(--sand-100); position:relative;}
-.insight.large .cover{aspect-ratio:4/3;}
-.insight .body{padding:24px;}
-.insight .tag{font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:10px;}
-.insight h4{margin-bottom:10px; font-size:20px;}
-.insight.large h4{font-size:28px;}
-.insight .meta{font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:0.06em; margin-top:16px;}
-.insight.large .body{padding:32px 32px 28px; display:flex; flex-direction:column; gap:0;}
-.insight .deck{font-size:15px; line-height:1.55; color:var(--ink-600); margin:14px 0 22px; max-width:60ch;}
-html[data-theme="dark"] .insight .deck{color:var(--ink-800);}
-.insight-stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin:0 0 22px;}
-.is-item{padding:18px 0; border-right:1px solid var(--rule);}
-.is-item:last-child{border-right:0;}
-.is-n{font-family:var(--font-display); font-size:38px; font-weight:400; line-height:1; letter-spacing:-0.02em; color:var(--navy-600); display:flex; align-items:baseline; gap:6px;}
-.is-n .unit{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; font-weight:500;}
-html[data-theme="dark"] .is-n{color:var(--ink-800);}
-.is-l{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-top:6px;}
-.insight-foot{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;}
-.insight-by{display:flex; align-items:center; gap:12px;}
-.by-av{width:36px; height:36px; border-radius:999px; background:linear-gradient(135deg, var(--navy-600), var(--flamingo)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.05em;}
-.by-n{font-size:14px; font-weight:500; color:var(--ink-800); line-height:1.2;}
-.by-r{font-family:var(--font-mono); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:3px;}
-.insight-cta{font-family:var(--font-body); font-size:14px; font-weight:500; color:var(--flamingo); text-decoration:none; display:inline-flex; align-items:center; gap:6px;}
-.insight-cta:hover{color:var(--flamingo-700);}
-.insight-cta .arrow{transition:transform 0.2s;}
-.insight-cta:hover .arrow{transform:translateX(3px);}
+.insights-grid{ display:grid; grid-template-columns:5fr 4fr; gap:24px; align-items:start; }
+.insights-right{ display:flex; flex-direction:column; gap:20px; }
+.insight{ background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column; transition:box-shadow 0.2s, transform 0.2s; }
+.insight:hover{ transform:translateY(-4px); box-shadow:0 12px 36px rgba(4,4,116,0.1); }
+html[data-theme="dark"] .insight:hover{ box-shadow:0 12px 36px rgba(0,0,0,0.35); }
+.insight .cover{ aspect-ratio:16/9; background:var(--sand-100); position:relative; overflow:hidden; }
+.insight.large .cover{ aspect-ratio:3/2; }
+.insight .ins-read-badge{ position:absolute; bottom:14px; left:14px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; background:rgba(0,0,0,0.55); color:rgba(255,255,255,0.9); padding:4px 10px; border-radius:2px; backdrop-filter:blur(4px); }
+.insight .body{ padding:22px 24px 24px; display:flex; flex-direction:column; flex:1; }
+.insight.large .body{ padding:28px 32px 32px; }
+.insight .tag{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:10px; }
+.insight h4{ margin-bottom:10px; font-size:18px; line-height:1.3; letter-spacing:-0.01em; }
+.insight.large h4{ font-size:26px; line-height:1.2; }
+.insight .deck{ font-size:14px; line-height:1.6; color:var(--ink-600); margin-bottom:16px; flex:1; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.insight.large .deck{ font-size:15px; line-height:1.65; -webkit-line-clamp:4; margin-bottom:20px; max-width:62ch; }
+html[data-theme="dark"] .insight .deck{ color:var(--ink-800); }
+.insight-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:22px; }
+.is-item{ padding:16px 0; border-right:1px solid var(--rule); }
+.is-item:last-child{ border-right:0; }
+.is-n{ font-family:var(--font-display); font-size:32px; font-weight:400; line-height:1; letter-spacing:-0.02em; color:var(--navy-600); display:flex; align-items:baseline; gap:5px; }
+.is-n .unit{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.1em; color:var(--muted); text-transform:uppercase; }
+html[data-theme="dark"] .is-n{ color:var(--ink-800); }
+.is-l{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:5px; }
+.insight-foot{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-top:auto; }
+.insight-by{ display:flex; align-items:center; gap:10px; }
+.by-av{ width:34px; height:34px; border-radius:999px; background:linear-gradient(135deg,var(--navy-600),var(--flamingo)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; font-weight:500; flex-shrink:0; }
+.by-n{ font-size:13px; font-weight:500; color:var(--text); line-height:1.2; }
+.by-r{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.07em; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+.insight-cta{ font-size:13.5px; font-weight:500; color:var(--flamingo); text-decoration:none; display:inline-flex; align-items:center; gap:5px; white-space:nowrap; font-family:var(--font-body); }
+.insight-cta:hover{ color:var(--flamingo-700); }
+.insight-cta .arrow{ transition:transform 0.2s; }
+.insight-cta:hover .arrow{ transform:translateX(3px); }
+.insight .meta{ font-family:var(--font-mono); font-size:10.5px; color:var(--muted); letter-spacing:0.06em; margin-top:14px; }
+/* Small-card specific footer */
+.insight.small .ins-foot{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:14px; border-top:1px solid var(--rule); margin-top:auto; }
+.insight.small .ins-foot .by-av-sm{ width:28px; height:28px; border-radius:999px; background:linear-gradient(135deg,var(--navy-600),var(--flamingo)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:9px; font-weight:500; flex-shrink:0; }
+.insight.small .ins-foot .by-name{ font-size:12.5px; font-weight:500; color:var(--text); }
+.insight.small .ins-foot .by-time{ font-family:var(--font-mono); font-size:9.5px; color:var(--muted); letter-spacing:0.06em; }
 
 /* CTA band */
 .cta-band{
@@ -1541,6 +1551,8 @@ table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:v
         <a href="#" class="btn-link">All field notes <span class="arrow">→</span></a>
       </div>
       <div class="insights-grid">
+
+        <!-- ── FEATURED article ── -->
         <article class="insight large">
           <div class="cover" style="background:linear-gradient(135deg, var(--navy-700), var(--navy-500)); position:relative;">
             <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
@@ -1553,6 +1565,127 @@ table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:v
                 </pattern>
                 <linearGradient id="ip1-fill" x1="0" x2="0" y1="0" y2="1">
                   <stop offset="0%" stop-color="#F1592A" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="600" height="400" fill="url(#ip1-dots)"/>
+              <rect width="600" height="400" fill="url(#ip1-grid)"/>
+              <line x1="60" y1="340" x2="560" y2="340" stroke="#EDA455" stroke-width="0.8" opacity="0.5"/>
+              <line x1="60" y1="60" x2="60" y2="340" stroke="#EDA455" stroke-width="0.8" opacity="0.5"/>
+              <path d="M 80,320 L 160,280 L 240,235 L 320,190 L 400,145 L 480,105 L 540,85 L 540,340 L 80,340 Z" fill="url(#ip1-fill)"/>
+              <polyline points="80,320 160,280 240,235 320,190 400,145 480,105 540,85" stroke="#F1592A" stroke-width="2.2" fill="none"/>
+              <line x1="60" y1="130" x2="560" y2="130" stroke="#EDA455" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.55"/>
+              <rect x="66" y="116" width="56" height="18" fill="#040474" stroke="#EDA455" stroke-width="0.5"/>
+              <text x="73" y="129" font-family="monospace" font-size="10" fill="#EDA455" letter-spacing="0.6">78% · 6 MO</text>
+              <g fill="#EDA455" opacity="0.65">
+                <circle cx="110" cy="308" r="2"/><circle cx="180" cy="268" r="2"/><circle cx="265" cy="226" r="2"/>
+                <circle cx="345" cy="178" r="2"/><circle cx="425" cy="132" r="2"/><circle cx="510" cy="94" r="2"/>
+              </g>
+              <circle cx="80" cy="320" r="5" fill="#F1592A"/>
+              <circle cx="240" cy="235" r="5" fill="#F1592A"/>
+              <circle cx="400" cy="145" r="5" fill="#F1592A"/>
+              <circle cx="540" cy="85" r="7" fill="#F1592A" stroke="#EDA455" stroke-width="2"/>
+              <g font-family="monospace" font-size="10" fill="#EDA455" opacity="0.75" letter-spacing="0.8">
+                <text x="72" y="362">C7</text><text x="152" y="362">C8</text><text x="232" y="362">C9</text>
+                <text x="312" y="362">C10</text><text x="392" y="362">C11</text><text x="472" y="362">C12</text>
+              </g>
+              <text x="60" y="44" font-family="monospace" font-size="11" fill="#EDA455" letter-spacing="1.2">PLACEMENT · COHORT 7–12</text>
+            </svg>
+            <span class="ins-read-badge">12 min read · Apr 2026</span>
+          </div>
+          <div class="body">
+            <div class="tag">Research · Labor markets</div>
+            <h4>Why 78% of our CDS graduates place within six months — and what it says about the African data-skills gap.</h4>
+            <p class="deck">A longitudinal study of cohorts 7 through 12, cross-referenced with regional labor market data from Kenya, Rwanda, and Ghana. We find a persistent skills-to-seats mismatch concentrated in three verticals — and a measurable cohort effect that has been widening since 2022.</p>
+            <div class="insight-stats">
+              <div class="is-item"><div class="is-n">78<span class="unit">%</span></div><div class="is-l">6-mo placement</div></div>
+              <div class="is-item"><div class="is-n">6<span class="unit">cohorts</span></div><div class="is-l">Longitudinal</div></div>
+              <div class="is-item"><div class="is-n">3<span class="unit">countries</span></div><div class="is-l">Labor data</div></div>
+            </div>
+            <div class="insight-foot">
+              <div class="insight-by">
+                <div class="by-av">AW</div>
+                <div><div class="by-n">Dr. Amina Wanjiru</div><div class="by-r">Head of Research · AfriCDSA</div></div>
+              </div>
+              <a href="#" class="insight-cta">Read the study <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ── Right column ── -->
+        <div class="insights-right">
+
+          <article class="insight small">
+            <div class="cover" style="background:linear-gradient(135deg,#e8f0f8,#c8d8ea); position:relative; overflow:hidden;">
+              <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="bar-shadow" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#040474" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#040474" stop-opacity="0.55"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="220" fill="rgba(255,255,255,0.3)"/>
+                <g fill="url(#bar-shadow)">
+                  <rect x="40" y="140" width="32" height="62" rx="3"/>
+                  <rect x="88" y="105" width="32" height="97" rx="3"/>
+                  <rect x="136" y="78" width="32" height="124" rx="3"/>
+                  <rect x="184" y="58" width="32" height="144" rx="3"/>
+                  <rect x="232" y="92" width="32" height="110" rx="3"/>
+                  <rect x="280" y="42" width="32" height="160" rx="3"/>
+                  <rect x="328" y="68" width="32" height="134" rx="3"/>
+                </g>
+                <line x1="32" y1="202" x2="380" y2="202" stroke="#040474" stroke-width="0.8" opacity="0.3"/>
+                <!-- highlight bar -->
+                <rect x="280" y="42" width="32" height="160" rx="3" fill="#F1592A" opacity="0.9"/>
+                <text x="296" y="34" font-family="monospace" font-size="9" fill="#F1592A" text-anchor="middle" letter-spacing="0.4">+41%</text>
+              </svg>
+              <span class="ins-read-badge">7 min read · Mar 2026</span>
+            </div>
+            <div class="body">
+              <div class="tag">Methods · Analytics</div>
+              <h4>The dashboard that ministries actually use.</h4>
+              <p class="deck">Why most government analytics initiatives fail at the last mile — and the three design principles behind dashboards that decision-makers actually open every morning.</p>
+              <div class="ins-foot">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="by-av-sm">JK</div>
+                  <span class="by-name">Joel Kamau</span>
+                </div>
+                <a href="#" class="insight-cta" style="font-size:12.5px;">Read →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="insight small">
+            <div class="cover" style="background:linear-gradient(135deg,#fdf0ec,#f9d8cc); position:relative; overflow:hidden;">
+              <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+                <rect width="400" height="220" fill="rgba(255,255,255,0.25)"/>
+                <!-- Concentric rings — data governance / policy -->
+                <circle cx="200" cy="110" r="90" fill="none" stroke="#F1592A" stroke-width="1.5" opacity="0.45"/>
+                <circle cx="200" cy="110" r="65" fill="none" stroke="#F1592A" stroke-width="1.5" opacity="0.55"/>
+                <circle cx="200" cy="110" r="40" fill="none" stroke="#F1592A" stroke-width="1.5" opacity="0.65"/>
+                <circle cx="200" cy="110" r="18" fill="none" stroke="#F1592A" stroke-width="2" opacity="0.8"/>
+                <circle cx="200" cy="110" r="6" fill="#F1592A" opacity="0.9"/>
+                <!-- small shield icon hint -->
+                <path d="M 200 60 L 228 72 V 98 C 228 118 214 130 200 136 C 186 130 172 118 172 98 V 72 Z" fill="none" stroke="rgba(241,89,42,0.35)" stroke-width="1.2"/>
+              </svg>
+              <span class="ins-read-badge">9 min read · Feb 2026</span>
+            </div>
+            <div class="body">
+              <div class="tag">Policy · Data governance</div>
+              <h4>Kenya DPA at five years — a practitioner's reading.</h4>
+              <p class="deck">Five years after enactment, where does Kenya’s Data Protection Act stand? An honest audit of enforcement gaps, compliance culture, and what data practitioners must do differently in 2026.</p>
+              <div class="ins-foot">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="by-av-sm">FO</div>
+                  <span class="by-name">Faith Otieno</span>
+                </div>
+                <a href="#" class="insight-cta" style="font-size:12.5px;">Read →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
                   <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
                 </linearGradient>
               </defs>
@@ -1614,50 +1747,6 @@ table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:v
             </div>
             <div class="insight-foot">
               <div class="insight-by">
-                <div class="by-av">AW</div>
-                <div>
-                  <div class="by-n">Dr. Amina Wanjiru</div>
-                  <div class="by-r">Head of Research · AfriCDSA</div>
-                </div>
-              </div>
-              <a href="#" class="insight-cta">Read the study <span class="arrow">→</span></a>
-            </div>
-            <div class="meta">12 min read · Apr 2026 · 24 pages · PDF available</div>
-          </div>
-        </article>
-        <article class="insight">
-          <div class="cover" style="background:var(--sand-100); position:relative;">
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-              <g fill="#040474" opacity="0.7">
-                <rect x="40" y="200" width="30" height="80"/><rect x="90" y="160" width="30" height="120"/>
-                <rect x="140" y="130" width="30" height="150"/><rect x="190" y="100" width="30" height="180"/>
-                <rect x="240" y="140" width="30" height="140"/><rect x="290" y="70" width="30" height="210"/>
-                <rect x="340" y="110" width="30" height="170"/>
-              </g>
-            </svg>
-          </div>
-          <div class="body">
-            <div class="tag">Methods · Analytics</div>
-            <h4>The dashboard that ministries actually use.</h4>
-            <div class="meta">7 min read · Mar 2026</div>
-          </div>
-        </article>
-        <article class="insight">
-          <div class="cover" style="background:var(--flamingo-50); position:relative;">
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-              <g stroke="#F1592A" fill="none" stroke-width="1.5" opacity="0.8">
-                <circle cx="200" cy="150" r="40"/><circle cx="200" cy="150" r="70"/><circle cx="200" cy="150" r="100"/>
-              </g>
-              <circle cx="200" cy="150" r="8" fill="#F1592A"/>
-            </svg>
-          </div>
-          <div class="body">
-            <div class="tag">Policy · Data governance</div>
-            <h4>Kenya DPA at five years — a practitioner's reading.</h4>
-            <div class="meta">9 min read · Feb 2026</div>
-          </div>
-        </article>
-      </div>
     </div>
   </section>
 
