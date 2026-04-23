@@ -520,9 +520,9 @@ html[data-theme="dark"] .step p{color:var(--ink-800);}
 .insight{ background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column; transition:box-shadow 0.2s, transform 0.2s; }
 .insight:hover{ transform:translateY(-4px); box-shadow:0 12px 36px rgba(4,4,116,0.1); }
 html[data-theme="dark"] .insight:hover{ box-shadow:0 12px 36px rgba(0,0,0,0.35); }
-.insight .cover{ aspect-ratio:16/9; background:var(--sand-100); position:relative; overflow:hidden; }
-.insight.large .cover{ aspect-ratio:3/2; }
-.insight .ins-read-badge{ position:absolute; bottom:14px; left:14px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; background:rgba(0,0,0,0.55); color:rgba(255,255,255,0.9); padding:4px 10px; border-radius:2px; backdrop-filter:blur(4px); }
+.insight .cover{ height:180px; background:var(--sand-100); position:relative; overflow:hidden; flex-shrink:0; }
+.insight.large .cover{ height:300px; }
+.insight .ins-read-badge{ position:absolute; bottom:14px; left:14px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; background:rgba(0,0,0,0.55); color:rgba(255,255,255,0.9); padding:4px 10px; border-radius:2px; backdrop-filter:blur(4px); z-index:1; }
 .insight .body{ padding:22px 24px 24px; display:flex; flex-direction:column; flex:1; }
 .insight.large .body{ padding:28px 32px 32px; }
 .insight .tag{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:10px; }
