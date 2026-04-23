@@ -274,34 +274,12 @@ html[data-theme="dark"] .checkbox-row label{color:var(--ink-800);}
   padding:96px 0 120px;
   background:var(--panel);
 }
-/* Full-bleed SVG pattern background — rendered in the <div class="hero-bg"> element */
 .hero-bg{
   position:absolute; inset:0; pointer-events:none;
   overflow:hidden;
 }
 .hero-bg svg{
   position:absolute; inset:0; width:100%; height:100%;
-}
-/* Gradient veil over pattern so left copy area stays clear */
-.hero-bg::after{
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(
-    to right,
-    var(--panel) 0%,
-    var(--panel) 40%,
-    rgba(var(--panel-rgb,255,255,255), 0.6) 58%,
-    transparent 100%
-  );
-}
-html[data-theme="dark"] .hero-bg::after{
-  background:linear-gradient(
-    to right,
-    var(--panel) 0%,
-    var(--panel) 40%,
-    rgba(26,29,33, 0.7) 58%,
-    transparent 100%
-  );
 }
 .hero-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:80px; align-items:center; position:relative;}
 .hero-left h1{margin-bottom:28px; max-width:620px;}
@@ -1037,151 +1015,23 @@ table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:v
     <div class="hero-bg" aria-hidden="true">
       <svg viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- Fine dot grid -->
-          <pattern id="hero-dots" width="28" height="28" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="1" fill="#040474" opacity="0.12"/>
+          <!-- Fine dot grid — covers full section uniformly -->
+          <pattern id="hero-dots" width="32" height="32" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1.1" fill="#040474" opacity="0.13"/>
           </pattern>
-          <!-- Larger accent dots -->
-          <pattern id="hero-bigdots" width="140" height="140" patternUnits="userSpaceOnUse">
-            <circle cx="70" cy="70" r="2.5" fill="#F1592A" opacity="0.18"/>
+          <!-- Sparse larger accent dot -->
+          <pattern id="hero-accent" width="160" height="160" patternUnits="userSpaceOnUse">
+            <circle cx="80" cy="80" r="2.2" fill="#F1592A" opacity="0.14"/>
           </pattern>
-          <!-- Diagonal hashmarks (African textile-inspired) -->
-          <pattern id="hero-hatch" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-            <line x1="0" y1="0" x2="0" y2="24" stroke="#040474" stroke-width="0.5" opacity="0.07"/>
+          <!-- Light coordinate lines -->
+          <pattern id="hero-grid" width="96" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 96 0 L 0 0 0 60" fill="none" stroke="#040474" stroke-width="0.5" opacity="0.07"/>
           </pattern>
-          <!-- Coordinate grid -->
-          <pattern id="hero-grid" width="70" height="44" patternUnits="userSpaceOnUse">
-            <path d="M 70 0 L 0 0 0 44" fill="none" stroke="#040474" stroke-width="0.4" opacity="0.10"/>
-          </pattern>
-          <!-- Glow for key data points -->
-          <radialGradient id="pt-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F1592A" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="pt-glow-sand" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#EDA455" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="#EDA455" stop-opacity="0"/>
-          </radialGradient>
-          <!-- Area fill gradient -->
-          <linearGradient id="area-fill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="#F1592A" stop-opacity="0.18"/>
-            <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="area-fill2" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="#040474" stop-opacity="0.13"/>
-            <stop offset="100%" stop-color="#040474" stop-opacity="0"/>
-          </linearGradient>
         </defs>
-
-        <!-- Base layers -->
+        <!-- Three stacked layers: dots + grid + accent — uniform across full section -->
         <rect width="1400" height="700" fill="url(#hero-dots)"/>
-        <rect width="1400" height="700" fill="url(#hero-grid)" opacity="0.8"/>
-        <rect width="1400" height="700" fill="url(#hero-hatch)"/>
-        <rect width="1400" height="700" fill="url(#hero-bigdots)"/>
-
-        <!-- === CHART 1: Growth line chart (right centre) === -->
-        <!-- Axis -->
-        <line x1="620" y1="580" x2="1340" y2="580" stroke="#040474" stroke-width="0.8" opacity="0.25"/>
-        <line x1="620" y1="580" x2="620" y2="130" stroke="#040474" stroke-width="0.8" opacity="0.25"/>
-        <!-- Horizontal reference lines -->
-        <g stroke="#040474" stroke-width="0.4" stroke-dasharray="4 6" opacity="0.15">
-          <line x1="620" y1="450" x2="1340" y2="450"/>
-          <line x1="620" y1="320" x2="1340" y2="320"/>
-          <line x1="620" y1="190" x2="1340" y2="190"/>
-        </g>
-        <!-- Area fill -->
-        <path d="M 660,555 L 760,510 L 870,470 L 980,395 L 1090,310 L 1200,230 L 1310,155 L 1310,580 L 660,580 Z" fill="url(#area-fill)"/>
-        <!-- Confidence band -->
-        <path d="M 660,565 L 760,520 L 870,480 L 980,405 L 1090,320 L 1200,240 L 1310,165 M 660,545 L 760,500 L 870,460 L 980,385 L 1090,300 L 1200,220 L 1310,145" stroke="#F1592A" stroke-width="0.7" stroke-dasharray="3 4" fill="none" opacity="0.35"/>
-        <!-- Main line -->
-        <polyline points="660,555 760,510 870,470 980,395 1090,310 1200,230 1310,155" stroke="#F1592A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Key data points with glows -->
-        <circle cx="660" cy="555" r="22" fill="url(#pt-glow)"/>
-        <circle cx="660" cy="555" r="5" fill="#FFFFFF" stroke="#F1592A" stroke-width="2"/>
-        <circle cx="980" cy="395" r="22" fill="url(#pt-glow)"/>
-        <circle cx="980" cy="395" r="5" fill="#F1592A" stroke="#FFFFFF" stroke-width="1.5"/>
-        <circle cx="1310" cy="155" r="28" fill="url(#pt-glow)"/>
-        <circle cx="1310" cy="155" r="6.5" fill="#F1592A" stroke="#EDA455" stroke-width="2"/>
-        <!-- Annotation callout -->
-        <line x1="1310" y1="155" x2="1260" y2="118" stroke="#EDA455" stroke-width="0.8" opacity="0.7"/>
-        <rect x="1148" y="100" width="108" height="22" rx="3" fill="#040474" opacity="0.85"/>
-        <text x="1160" y="115" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#EDA455" letter-spacing="0.5">r² = 0.947</text>
-        <!-- Axis labels -->
-        <text x="655" y="600" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="#040474" opacity="0.4" letter-spacing="1">WK 01</text>
-        <text x="1295" y="600" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="#040474" opacity="0.4" letter-spacing="1">WK 24</text>
-        <!-- Scatter residuals -->
-        <g fill="#F1592A" opacity="0.4">
-          <circle cx="690" cy="549" r="1.5"/><circle cx="720" cy="538" r="1.5"/><circle cx="745" cy="518" r="1.5"/>
-          <circle cx="800" cy="498" r="1.5"/><circle cx="840" cy="483" r="1.5"/><circle cx="910" cy="462" r="1.5"/>
-          <circle cx="945" cy="406" r="1.5"/><circle cx="1040" cy="322" r="1.5"/><circle cx="1155" cy="242" r="1.5"/>
-          <circle cx="1265" cy="165" r="1.5"/>
-        </g>
-        <!-- y-axis tick labels -->
-        <g font-family="IBM Plex Mono,monospace" font-size="8" fill="#040474" opacity="0.3" text-anchor="end">
-          <text x="614" y="455">25</text>
-          <text x="614" y="324">50</text>
-          <text x="614" y="194">75</text>
-        </g>
-
-        <!-- === CHART 2: Bar chart (mid-right) === -->
-        <g opacity="0.18" fill="#040474">
-          <rect x="730" y="440" width="22" height="130" rx="2"/>
-          <rect x="760" y="400" width="22" height="170" rx="2"/>
-          <rect x="790" y="350" width="22" height="220" rx="2"/>
-          <rect x="820" y="370" width="22" height="200" rx="2"/>
-          <rect x="850" y="310" width="22" height="260" rx="2"/>
-        </g>
-
-        <!-- === CHART 3: Scatter cluster (lower right) === -->
-        <g fill="#EDA455" opacity="0.5">
-          <circle cx="1050" cy="490" r="2"/><circle cx="1080" cy="470" r="2"/>
-          <circle cx="1120" cy="455" r="2.5"/><circle cx="1145" cy="460" r="2"/>
-          <circle cx="1175" cy="440" r="2"/><circle cx="1210" cy="420" r="2.5"/>
-          <circle cx="1245" cy="415" r="2"/><circle cx="1275" cy="398" r="2"/>
-        </g>
-        <!-- Regression line for scatter -->
-        <line x1="1045" y1="497" x2="1285" y2="390" stroke="#EDA455" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.45"/>
-
-        <!-- === DECORATIVE: African-inspired concentric arcs (top right) === -->
-        <g fill="none" stroke="#EDA455" stroke-width="0.8" opacity="0.12" transform="translate(1360, 0)">
-          <path d="M 0,40 Q -60,200 -40,380 Q -20,560 0,700"/>
-          <path d="M 0,0 Q -120,180 -100,380 Q -80,580 0,700"/>
-          <path d="M 0,-40 Q -180,160 -160,380 Q -140,600 0,700"/>
-        </g>
-
-        <!-- === DECORATIVE: Diamond lattice pattern (top center) === -->
-        <g stroke="#040474" stroke-width="0.5" fill="none" opacity="0.08" transform="translate(700, 30)">
-          <polygon points="40,0 80,40 40,80 0,40"/>
-          <polygon points="120,0 160,40 120,80 80,40"/>
-          <polygon points="200,0 240,40 200,80 160,40"/>
-          <polygon points="280,0 320,40 280,80 240,40"/>
-          <polygon points="360,0 400,40 360,80 320,40"/>
-          <polygon points="40,80 80,120 40,160 0,120"/>
-          <polygon points="120,80 160,120 120,160 80,120"/>
-          <polygon points="200,80 240,120 200,160 160,120"/>
-          <polygon points="280,80 320,120 280,160 240,120"/>
-        </g>
-
-        <!-- === DECORATIVE: Connection graph nodes (upper right area) === -->
-        <g opacity="0.15">
-          <line x1="900" y1="120" x2="1020" y2="180" stroke="#F1592A" stroke-width="0.8"/>
-          <line x1="1020" y1="180" x2="1140" y2="140" stroke="#F1592A" stroke-width="0.8"/>
-          <line x1="1020" y1="180" x2="1060" y2="270" stroke="#F1592A" stroke-width="0.8"/>
-          <line x1="1140" y1="140" x2="1280" y2="190" stroke="#F1592A" stroke-width="0.8"/>
-          <line x1="900" y1="120" x2="860" y2="220" stroke="#F1592A" stroke-width="0.8"/>
-          <circle cx="900" cy="120" r="4.5" fill="#040474"/>
-          <circle cx="1020" cy="180" r="5.5" fill="#040474"/>
-          <circle cx="1140" cy="140" r="4.5" fill="#040474"/>
-          <circle cx="1280" cy="190" r="4" fill="#040474"/>
-          <circle cx="1060" cy="270" r="4" fill="#040474"/>
-          <circle cx="860" cy="220" r="4" fill="#040474"/>
-        </g>
-
-        <!-- === Sand accent rings (decorative, bottom right) === -->
-        <circle cx="1370" cy="600" r="90" fill="none" stroke="#EDA455" stroke-width="0.7" opacity="0.12"/>
-        <circle cx="1370" cy="600" r="55" fill="none" stroke="#EDA455" stroke-width="0.7" opacity="0.16"/>
-        <circle cx="1370" cy="600" r="25" fill="none" stroke="#EDA455" stroke-width="1" opacity="0.2"/>
-
+        <rect width="1400" height="700" fill="url(#hero-grid)"/>
+        <rect width="1400" height="700" fill="url(#hero-accent)"/>
       </svg>
     </div>
     <div class="container">
