@@ -53,9 +53,14 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   --gutter:32px;
 }
 html[data-theme="dark"] {
-  --bg:#08091A; --panel:#10122A; --surface:#0D0F28;
-  --text:#E8EBF4; --muted:#8D95A8; --rule:#23264A;
-  --ink-50:#10122A; --ink-100:#15183A; --ink-200:#23264A;
+  --bg:#0E1018; --panel:#181C2E; --surface:#13162A;
+  --text:#E8EBF4; --muted:#8D95A8; --rule:#2A2F4A;
+  /* Full ink scale inverted — low numbers stay dark, high numbers become light */
+  --ink-0:#0E1018;
+  --ink-50:#13162A; --ink-100:#1C2038; --ink-200:#2A2F4A;
+  --ink-300:#3A405E; --ink-400:#54597A;
+  --ink-500:#8D95A8;
+  --ink-600:#A8B2C8; --ink-700:#C2CADE; --ink-800:#DCE1EF; --ink-900:#F0F2FA;
 }
 html[data-density="compact"] { --gutter: 24px; }
 
@@ -95,7 +100,7 @@ html[data-theme="dark"] .lede{color:var(--ink-800);}
   background:rgba(255,255,255,0.85); backdrop-filter:blur(12px);
   border-bottom:1px solid var(--rule);
 }
-html[data-theme="dark"] .nav{background:rgba(8,9,26,0.85);}
+html[data-theme="dark"] .nav{background:rgba(14,16,24,0.9);}
 .nav-inner{display:flex; align-items:center; gap:32px; height:72px;}
 .nav-inner .nav-cta{margin-left:auto;}
 .nav-logo{display:flex; align-items:center; gap:12px; text-decoration:none;}
@@ -421,7 +426,6 @@ html[data-theme="dark"] .is-n{color:var(--ink-800);}
 .insight-by{display:flex; align-items:center; gap:12px;}
 .by-av{width:36px; height:36px; border-radius:999px; background:linear-gradient(135deg, var(--navy-600), var(--flamingo)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.05em;}
 .by-n{font-size:14px; font-weight:500; color:var(--ink-800); line-height:1.2;}
-html[data-theme="dark"] .by-n{color:var(--ink-100);}
 .by-r{font-family:var(--font-mono); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:3px;}
 .insight-cta{font-family:var(--font-body); font-size:14px; font-weight:500; color:var(--flamingo); text-decoration:none; display:inline-flex; align-items:center; gap:6px;}
 .insight-cta:hover{color:var(--flamingo-700);}
@@ -587,7 +591,7 @@ html[data-theme="dark"] .module-body p{color:var(--ink-800);}
 
 /* Footer */
 footer.site{background:var(--ink-900); color:var(--ink-200); padding:72px 0 32px;}
-html[data-theme="dark"] footer.site{background:#05061A;}
+html[data-theme="dark"] footer.site{background:#0A0C16;}
 .footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:40px; margin-bottom:56px;}
 .footer-brand .logo-row{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
 .footer-brand .logo-row svg{width:32px; height:32px;}
@@ -641,9 +645,205 @@ html[data-theme="dark"] footer.site{background:#05061A;}
   .insight-stats{grid-template-columns:1fr 1fr 1fr;}
   .is-n{font-size:32px;}
 }
+
+/* ============ TEMPLATE NAVIGATOR (always-visible design tool) ============ */
+.tmpl-nav{
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  z-index:9999;
+  background:rgba(13,15,26,0.96); backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:999px; padding:5px 8px;
+  display:flex; align-items:center; gap:2px;
+  box-shadow:0 12px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  max-width:calc(100vw - 32px); overflow-x:auto;
+}
+html[data-theme="dark"] .tmpl-nav{background:rgba(14,16,24,0.97); border-color:rgba(255,255,255,0.14);}
+.tn-label{font-family:var(--font-mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.35); padding:0 10px 0 6px; flex-shrink:0; white-space:nowrap;}
+.tn-sep{width:1px; height:18px; background:rgba(255,255,255,0.1); flex-shrink:0; margin:0 3px;}
+.tn-tab{
+  display:flex; align-items:center; gap:5px;
+  padding:6px 12px; border-radius:999px;
+  background:none; border:none; cursor:pointer;
+  color:rgba(255,255,255,0.55);
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.06em;
+  white-space:nowrap; transition:all 0.15s; flex-shrink:0;
+  line-height:1;
+}
+.tn-tab:hover{background:rgba(255,255,255,0.1); color:#fff;}
+.tn-tab.active{background:var(--flamingo); color:#fff; font-weight:500;}
+.tn-ctrl{
+  padding:6px 10px; border-radius:999px;
+  background:none; border:none; cursor:pointer;
+  color:rgba(255,255,255,0.5); font-size:12px;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.15s; flex-shrink:0; line-height:1;
+}
+.tn-ctrl:hover{background:rgba(255,255,255,0.1); color:#fff;}
+.tn-ctrl.dark-on{color:var(--sand-300);}
+
+/* ============ CONSULTING PAGE ============ */
+.consult-hero{background:var(--ink-900); color:#fff; padding:80px 0 120px; position:relative; overflow:hidden;}
+html[data-theme="dark"] .consult-hero{background:#0A0C18;}
+.consult-hero::before{content:''; position:absolute; inset:0; background-image:radial-gradient(circle at 1px 1px, rgba(237,164,85,0.2) 1px, transparent 1.2px); background-size:24px 24px; mask-image:radial-gradient(ellipse 70% 80% at 80% 40%, black, transparent 70%);}
+.consult-hero-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:center; position:relative;}
+.consult-hero h1{color:#fff; margin-bottom:28px;}
+.consult-hero .lede{color:rgba(255,255,255,0.8); margin-bottom:32px;}
+.consult-hero .metric-row{display:flex; gap:40px; padding-top:32px; border-top:1px solid rgba(255,255,255,0.12);}
+.consult-hero .met .n{font-family:var(--font-display); font-size:40px; color:#fff; letter-spacing:-0.02em; line-height:1;}
+.consult-hero .met .n em{color:var(--sand-300); font-style:italic;}
+.consult-hero .met .l{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:8px;}
+.consult-visual{aspect-ratio:4/3; border-radius:var(--radius-lg); overflow:hidden; background:var(--navy-800); position:relative;}
+.services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden;}
+.service-card{background:var(--panel); padding:40px 36px;}
+.service-card .num{font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:24px;}
+.service-card h3{font-size:26px; margin-bottom:16px;}
+.service-card p{font-size:14px; color:var(--ink-600); line-height:1.6; margin-bottom:20px;}
+html[data-theme="dark"] .service-card p{color:var(--ink-800);}
+.service-card ul{list-style:none; padding:0; margin:0;}
+.service-card ul li{padding:7px 0 7px 20px; font-size:13.5px; color:var(--ink-600); position:relative; border-bottom:1px solid var(--rule);}
+html[data-theme="dark"] .service-card ul li{color:var(--ink-800);}
+.service-card ul li:last-child{border-bottom:0;}
+.service-card ul li::before{content:''; position:absolute; left:0; top:15px; width:10px; height:1px; background:var(--flamingo);}
+.process-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; margin-top:48px;}
+.process-grid::before{content:''; position:absolute; top:27px; left:5%; right:5%; height:1px; background:var(--rule); z-index:0;}
+.proc-step{display:flex; flex-direction:column; align-items:center; text-align:center; position:relative; z-index:1; padding:0 8px;}
+.proc-step .dot{width:56px; height:56px; border-radius:999px; border:2px solid var(--rule); background:var(--panel); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--flamingo); margin-bottom:20px; letter-spacing:0.1em; transition:all 0.2s;}
+.proc-step.done .dot{background:var(--flamingo); border-color:var(--flamingo); color:#fff;}
+.proc-step.active .dot{background:var(--navy-600); border-color:var(--navy-600); color:#fff; box-shadow:0 0 0 6px var(--navy-50);}
+.proc-step h4{margin-bottom:8px; font-size:16px;}
+.proc-step p{font-size:12px; color:var(--muted); margin:0; padding:0 4px; line-height:1.5;}
+.cases-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.case-card{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden;}
+.case-card .visual{aspect-ratio:16/9; position:relative; overflow:hidden;}
+.case-card .body{padding:28px;}
+.case-card .client-tag{font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:12px;}
+.case-card h4{margin-bottom:12px; font-size:22px;}
+.case-card p{font-size:14px; color:var(--ink-600); margin-bottom:20px; line-height:1.55;}
+html[data-theme="dark"] .case-card p{color:var(--ink-800);}
+.case-card .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--rule); padding-top:20px; margin-top:4px;}
+.case-card .kpi .n{font-family:var(--font-display); font-size:26px; font-weight:500; color:var(--navy-600); line-height:1; letter-spacing:-0.015em;}
+html[data-theme="dark"] .case-card .kpi .n{color:var(--ink-800);}
+.case-card .kpi .l{font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:5px;}
+
+/* ============ COMPONENT LIBRARY EXTRAS ============ */
+.type-scale{border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden; background:var(--panel);}
+.type-scale-row{display:grid; grid-template-columns:180px 1fr; gap:24px; align-items:baseline; padding:16px 24px; border-bottom:1px solid var(--rule);}
+.type-scale-row:last-child{border-bottom:0;}
+.type-scale-row .meta{font-family:var(--font-mono); font-size:10px; color:var(--muted); letter-spacing:0.08em;}
+.type-scale-row .meta span{display:block; line-height:1.8;}
+.color-swatches{display:grid; grid-template-columns:repeat(5,1fr); gap:16px;}
+.swatch-group{display:flex; flex-direction:column; gap:6px;}
+.swatch{aspect-ratio:16/9; border-radius:var(--radius-sm);}
+.swatch-label{font-family:var(--font-mono); font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); line-height:1.3;}
+.color-scale-bar{display:flex; gap:3px; border-radius:var(--radius-sm); overflow:hidden;}
+.cs-slot{height:32px; flex:1; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:9px; letter-spacing:0.05em; color:rgba(255,255,255,0.8);}
+.cs-slot.light-text{color:rgba(0,0,0,0.5);}
+.table-wrap{overflow-x:auto; border:1px solid var(--rule); border-radius:var(--radius-md);}
+table.data-table{width:100%; border-collapse:collapse; font-size:14px; background:var(--panel);}
+table.data-table thead tr{border-bottom:2px solid var(--rule);}
+table.data-table th{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); padding:14px 20px; text-align:left; font-weight:500;}
+table.data-table td{padding:14px 20px; border-bottom:1px solid var(--rule); color:var(--text);}
+table.data-table tr:last-child td{border-bottom:0;}
+table.data-table tr:hover td{background:var(--surface);}
+table.data-table .cell-primary{font-weight:500;}
+table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:0.04em; margin-top:2px;}
+.tabs-nav{display:flex; gap:0; border-bottom:2px solid var(--rule); margin-bottom:0;}
+.tab-btn{padding:10px 20px; background:none; border:none; cursor:pointer; font-family:var(--font-body); font-size:14px; color:var(--muted); position:relative; transition:color 0.15s; font-weight:500;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--navy-600);}
+.tab-btn.active::after{content:''; position:absolute; bottom:-2px; left:0; right:0; height:2px; background:var(--flamingo); border-radius:999px;}
+.tab-panel{display:none; padding:24px 0;}
+.tab-panel.active{display:block;}
+.toast{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:var(--radius-md); box-shadow:var(--shadow-md); background:var(--ink-900); color:#fff; font-size:14px; max-width:400px;}
+.toast-success{background:#0B3D28;}
+.toast-error{background:#4A150F;}
+.toast-warning{background:#3D2800;}
+.toast .toast-icon{width:18px; height:18px; flex-shrink:0; margin-top:1px;}
+.toast .toast-content{flex:1;}
+.toast .toast-title{font-weight:600; margin-bottom:3px; font-size:13.5px;}
+.toast .toast-msg{font-size:12.5px; opacity:0.8; line-height:1.45;}
+.toast .toast-close{background:none; border:none; color:inherit; opacity:0.4; cursor:pointer; padding:0 2px; font-size:18px; line-height:1; flex-shrink:0; transition:opacity 0.15s;}
+.toast .toast-close:hover{opacity:1;}
+.skeleton{background:linear-gradient(90deg, var(--ink-100) 25%, var(--ink-50) 50%, var(--ink-100) 75%); background-size:200% 100%; animation:skeleton-shimmer 1.4s infinite; border-radius:4px;}
+@keyframes skeleton-shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.empty-state{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:72px 40px; background:var(--surface); border-radius:var(--radius-md); border:1px dashed var(--rule);}
+.empty-state .es-icon{width:60px; height:60px; border-radius:var(--radius-md); background:var(--ink-100); display:flex; align-items:center; justify-content:center; margin-bottom:22px;}
+.empty-state h4{margin-bottom:10px;}
+.empty-state p{font-size:14px; color:var(--muted); margin-bottom:22px; max-width:300px;}
+.progress-group{display:flex; flex-direction:column; gap:18px;}
+.progress-item{display:flex; flex-direction:column; gap:8px;}
+.progress-item .pi-head{display:flex; justify-content:space-between; align-items:center; font-size:13px;}
+.progress-item .pi-head .lbl{font-weight:500;}
+.progress-item .pi-head .val{font-family:var(--font-mono); font-size:12px; color:var(--muted);}
+.progress-bar-h{height:8px; background:var(--ink-100); border-radius:999px; overflow:hidden;}
+.progress-bar-h .fill{height:100%; border-radius:999px; background:var(--flamingo); transition:width 0.6s ease;}
+.progress-bar-h .fill.navy{background:var(--navy-600);}
+.progress-bar-h .fill.success{background:var(--success);}
+.progress-bar-h .fill.warning{background:var(--warning);}
+/* Data viz tokens */
+.dv-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.dv-card{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); padding:20px; overflow:hidden;}
+.dv-card .dv-label{font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;}
+/* Icon grid */
+.icon-grid{display:grid; grid-template-columns:repeat(8,1fr); gap:0; border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden;}
+.icon-cell{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:20px 12px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); font-family:var(--font-mono); font-size:9px; color:var(--muted); letter-spacing:0.06em; text-align:center; transition:background 0.12s;}
+.icon-cell:hover{background:var(--surface);}
+.icon-cell:nth-child(8n){border-right:0;}
+.icon-cell:nth-last-child(-n+8){border-bottom:0;}
+
+@media (max-width:900px){
+  .consult-hero-grid, .cases-grid, .process-grid, .services-grid{grid-template-columns:1fr; gap:32px;}
+  .color-swatches{grid-template-columns:repeat(3,1fr);}
+  .icon-grid{grid-template-columns:repeat(4,1fr);}
+  .dv-grid{grid-template-columns:1fr;}
+  .tmpl-nav{bottom:12px; border-radius:12px;}
+}
 </style>
 </head>
 <body>
+
+<!-- ============ TEMPLATE NAVIGATOR ============ -->
+<div class="tmpl-nav" id="tmplNav">
+  <span class="tn-label">AfriCDSA Templates</span>
+  <div class="tn-sep"></div>
+  <button class="tn-tab" data-page="home">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    Home
+  </button>
+  <button class="tn-tab" data-page="course">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Course
+  </button>
+  <button class="tn-tab" data-page="about">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    About
+  </button>
+  <button class="tn-tab" data-page="partners">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Partners
+  </button>
+  <button class="tn-tab" data-page="hackathons">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Events
+  </button>
+  <button class="tn-tab" data-page="consulting">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Consulting
+  </button>
+  <button class="tn-tab" data-page="lms">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    LMS
+  </button>
+  <div class="tn-sep"></div>
+  <button class="tn-tab" data-page="library">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+    Components
+  </button>
+  <div class="tn-sep"></div>
+  <button class="tn-ctrl" id="tnDark" title="Toggle dark mode" aria-label="Toggle dark mode">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</div>
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
@@ -654,6 +854,7 @@ html[data-theme="dark"] footer.site{background:#05061A;}
     <a href="#" data-page="about">About</a>
     <a href="#" data-page="partners">Partners</a>
     <a href="#" data-page="hackathons">Hackathons</a>
+    <a href="#" data-page="consulting">Consulting</a>
     <a href="#" data-page="lms">LMS</a>
     <a href="#" data-page="library">Components</a>
   </div>
@@ -674,6 +875,7 @@ html[data-theme="dark"] footer.site{background:#05061A;}
       <option value="about">About</option>
       <option value="partners">Partners</option>
       <option value="hackathons">Hackathons</option>
+      <option value="consulting">Consulting</option>
       <option value="lms">LMS dashboard</option>
       <option value="library">Component library</option>
     </select>
@@ -743,7 +945,7 @@ html[data-theme="dark"] footer.site{background:#05061A;}
           <a href="#" class="mega-item" data-nav="research"><span class="code">04</span><span class="t">Field notes</span><span class="d">Research & policy briefs</span></a>
         </div>
       </li>
-      <li class="nav-item"><a href="#" data-nav="consulting">Consulting</a></li>
+      <li class="nav-item"><a href="#" data-page="consulting">Consulting</a></li>
       <li class="nav-item"><a href="#" data-page="about">About</a></li>
       <li class="nav-item"><a href="#" data-page="library">Components</a></li>
     </ul>
@@ -1849,6 +2051,362 @@ html[data-theme="dark"] footer.site{background:#05061A;}
           </div>
         </div>
       </div>
+
+      <div class="lib-row">
+        <div><h3>Typography scale</h3><p>Display (Newsreader serif) for headlines and lede copy; IBM Plex Sans for body; IBM Plex Mono for labels, codes, and meta. Type scales are fluid — H1 collapses to 44px below 900px.</p></div>
+        <div class="lib-examples column" style="max-width:100%;">
+          <div class="type-scale">
+            <div class="type-scale-row">
+              <div class="meta"><span>H1 · Display</span><span>72px</span><span>Newsreader 400</span><span>ls −0.025em</span></div>
+              <h1 style="font-size:52px; line-height:1;">Evidence-led <em>careers</em></h1>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>H2 · Section</span><span>48px</span><span>Newsreader 400</span><span>ls −0.02em</span></div>
+              <h2 style="font-size:36px;">Accredited <em>pathways.</em></h2>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>H3 · Card</span><span>28px</span><span>Newsreader 500</span><span>ls −0.01em</span></div>
+              <h3 style="font-family:var(--font-display); font-size:24px; font-weight:500; letter-spacing:-0.01em; margin:0;">Certified Data Scientist</h3>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>Lede</span><span>22px</span><span>Newsreader 300</span><span>lh 1.5</span></div>
+              <p class="lede" style="margin:0; max-width:none;">A research, consulting and professional-training institute certifying data scientists.</p>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>Body</span><span>16px</span><span>IBM Plex Sans 400</span><span>lh 1.55</span></div>
+              <p style="margin:0;">Every module ends in a hands-on deliverable, reviewed by a mentor. The final capstone is evaluated by an external panel drawn from industry.</p>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>Small / Caption</span><span>13px</span><span>IBM Plex Sans 400</span></div>
+              <p style="font-size:13px; color:var(--muted); margin:0;">12 min read · Apr 2026 · 24 pages · PDF available</p>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>Eyebrow</span><span>11px</span><span>IBM Plex Mono</span><span>ls 0.14em UPPER</span></div>
+              <p class="eyebrow" style="margin:0;">Certification programmes</p>
+            </div>
+            <div class="type-scale-row">
+              <div class="meta"><span>Code / Meta</span><span>10px</span><span>IBM Plex Mono</span><span>ls 0.12em UPPER</span></div>
+              <span class="mono" style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--flamingo);">CDS · 001 · Cohort 14</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Colour palette</h3><p>Three brand scales (navy, flamingo, sand) plus cool-neutral ink. Semantic tokens (success, warning, danger, info) are derived from the brand palette and pass WCAG AA contrast on panel surfaces.</p></div>
+        <div class="lib-examples" style="flex-direction:column; gap:20px; align-items:stretch; width:100%;">
+          <div class="color-swatches">
+            <div class="swatch-group">
+              <div class="swatch" style="background:var(--navy-600); aspect-ratio:16/9;"></div>
+              <span class="swatch-label">Navy · primary</span>
+              <span style="font-family:var(--font-mono); font-size:9px; color:var(--muted);">#040474</span>
+            </div>
+            <div class="swatch-group">
+              <div class="swatch" style="background:var(--flamingo); aspect-ratio:16/9;"></div>
+              <span class="swatch-label">Flamingo · accent</span>
+              <span style="font-family:var(--font-mono); font-size:9px; color:var(--muted);">#F1592A</span>
+            </div>
+            <div class="swatch-group">
+              <div class="swatch" style="background:var(--sand); aspect-ratio:16/9;"></div>
+              <span class="swatch-label">Sand · tertiary</span>
+              <span style="font-family:var(--font-mono); font-size:9px; color:var(--muted);">#EDA455</span>
+            </div>
+            <div class="swatch-group">
+              <div class="swatch" style="background:var(--ink-700); aspect-ratio:16/9;"></div>
+              <span class="swatch-label">Ink-700 · body text</span>
+              <span style="font-family:var(--font-mono); font-size:9px; color:var(--muted);">#2E3344</span>
+            </div>
+            <div class="swatch-group">
+              <div class="swatch" style="background:var(--success); aspect-ratio:16/9;"></div>
+              <span class="swatch-label">Success</span>
+              <span style="font-family:var(--font-mono); font-size:9px; color:var(--muted);">#1E8A5F</span>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Navy scale</p>
+            <div class="color-scale-bar">
+              <div class="cs-slot light-text" style="background:var(--navy-50);">50</div>
+              <div class="cs-slot light-text" style="background:var(--navy-100);">100</div>
+              <div class="cs-slot light-text" style="background:var(--navy-200);">200</div>
+              <div class="cs-slot" style="background:var(--navy-300);">300</div>
+              <div class="cs-slot" style="background:var(--navy-400);">400</div>
+              <div class="cs-slot" style="background:var(--navy-500);">500</div>
+              <div class="cs-slot" style="background:var(--navy-600); font-weight:700;">600 ●</div>
+              <div class="cs-slot" style="background:var(--navy-700);">700</div>
+              <div class="cs-slot" style="background:var(--navy-800);">800</div>
+              <div class="cs-slot" style="background:var(--navy-900);">900</div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Flamingo scale</p>
+            <div class="color-scale-bar">
+              <div class="cs-slot light-text" style="background:var(--flamingo-50);">50</div>
+              <div class="cs-slot light-text" style="background:var(--flamingo-100);">100</div>
+              <div class="cs-slot light-text" style="background:var(--flamingo-200);">200</div>
+              <div class="cs-slot" style="background:var(--flamingo-400);">400</div>
+              <div class="cs-slot" style="background:var(--flamingo-500); font-weight:700;">500 ●</div>
+              <div class="cs-slot" style="background:var(--flamingo-600);">600</div>
+              <div class="cs-slot" style="background:var(--flamingo-700);">700</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Data table</h3><p>For programme listings, cohort rosters, and analytics exports. Mono metadata in sub-rows. Hover highlights the full row. Sortable columns use the same eyebrow label style.</p></div>
+        <div class="lib-examples column" style="max-width:100%;">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Programme</th>
+                  <th>Code</th>
+                  <th>Duration</th>
+                  <th>Format</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Price (KES)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="cell-primary">Certified Data Scientist</div><div class="cell-sub">CDS · Cohort 14 · Flagship</div></td>
+                  <td><span class="badge badge-accredited">CDS · 001</span></td>
+                  <td>24 weeks</td>
+                  <td>Hybrid</td>
+                  <td><span class="badge badge-new">● Open</span></td>
+                  <td style="font-family:var(--font-mono); text-align:right;">180,000</td>
+                </tr>
+                <tr>
+                  <td><div class="cell-primary">Certified Data Analyst</div><div class="cell-sub">CDA · Cohort 8 · Online</div></td>
+                  <td><span class="badge" style="background:var(--flamingo-50); color:var(--flamingo-700);">CDA · 002</span></td>
+                  <td>16 weeks</td>
+                  <td>Online</td>
+                  <td><span class="badge badge-live">Enrolling</span></td>
+                  <td style="font-family:var(--font-mono); text-align:right;">120,000</td>
+                </tr>
+                <tr>
+                  <td><div class="cell-primary">Certified AI Expert</div><div class="cell-sub">AI · Cohort 5 · Deep learning</div></td>
+                  <td><span class="badge" style="background:var(--navy-50); color:var(--navy-600);">AI · 003</span></td>
+                  <td>20 weeks</td>
+                  <td>Hybrid</td>
+                  <td><span class="badge" style="background:var(--sand-100); color:#8D5516;">Waitlist</span></td>
+                  <td style="font-family:var(--font-mono); text-align:right;">220,000</td>
+                </tr>
+                <tr>
+                  <td><div class="cell-primary">BA for Managers</div><div class="cell-sub">BAM · Cohort 11 · Executive</div></td>
+                  <td><span class="badge" style="background:var(--sand-100); color:#8D5516;">BAM · 004</span></td>
+                  <td>6 weeks</td>
+                  <td>Evenings</td>
+                  <td><span class="badge badge-new">● Open</span></td>
+                  <td style="font-family:var(--font-mono); text-align:right;">95,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Tabs</h3><p>Used for switching between related views — programme overview vs curriculum, or LMS course sections. The active indicator is a 2px flamingo underline. State is managed with the <code>.active</code> class on both button and panel.</p></div>
+        <div class="lib-examples column" style="max-width:520px;">
+          <div style="background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden;">
+            <div class="tabs-nav" style="padding:0 4px; border-bottom:2px solid var(--rule);">
+              <button class="tab-btn active" onclick="switchTab(this,'t1')">Overview</button>
+              <button class="tab-btn" onclick="switchTab(this,'t2')">Curriculum</button>
+              <button class="tab-btn" onclick="switchTab(this,'t3')">Outcomes</button>
+              <button class="tab-btn" onclick="switchTab(this,'t4')">FAQ</button>
+            </div>
+            <div style="padding:0 24px;">
+              <div class="tab-panel active" id="t1"><p style="font-size:14px; color:var(--ink-600); margin:0;">The <strong>Overview</strong> tab shows high-level programme information — duration, format, accreditation, and who the programme is designed for.</p></div>
+              <div class="tab-panel" id="t2"><p style="font-size:14px; color:var(--ink-600); margin:0;">The <strong>Curriculum</strong> tab renders the module accordion — each module is collapsible with topics, duration, and lab descriptions.</p></div>
+              <div class="tab-panel" id="t3"><p style="font-size:14px; color:var(--ink-600); margin:0;">The <strong>Outcomes</strong> tab lists the six key competencies in a 2-column grid, with numbered indicators.</p></div>
+              <div class="tab-panel" id="t4"><p style="font-size:14px; color:var(--ink-600); margin:0;">The <strong>FAQ</strong> tab reuses the same accordion pattern as the syllabus — consistent interaction throughout.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Toast notifications</h3><p>Four states: neutral (dark), success (green), error (red), warning (amber). Stack at top-right on desktop, bottom-center on mobile. Auto-dismiss after 5 seconds.</p></div>
+        <div class="lib-examples column" style="gap:12px; max-width:420px;">
+          <div class="toast">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div class="toast-content"><div class="toast-title">Application received</div><div class="toast-msg">We'll send a diagnostic link within 48 hours.</div></div>
+            <button class="toast-close" aria-label="Dismiss">×</button>
+          </div>
+          <div class="toast toast-success">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <div class="toast-content"><div class="toast-title">Payment confirmed</div><div class="toast-msg">Cohort 14 seat reserved. Check your email for details.</div></div>
+            <button class="toast-close" aria-label="Dismiss">×</button>
+          </div>
+          <div class="toast toast-error">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <div class="toast-content"><div class="toast-title">Submission failed</div><div class="toast-msg">Please check your connection and try again.</div></div>
+            <button class="toast-close" aria-label="Dismiss">×</button>
+          </div>
+          <div class="toast toast-warning">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div class="toast-content"><div class="toast-title">Deadline approaching</div><div class="toast-msg">Cohort 14 closes in 18 days. Early-bird ends 5 May.</div></div>
+            <button class="toast-close" aria-label="Dismiss">×</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Progress indicators</h3><p>Horizontal bars track course completion, quiz scores, and cohort capacity. Four fill variants: flamingo (default), navy, success, and warning. Bar height adjusts for context (6px for compact, 10px for primary).</p></div>
+        <div class="lib-examples column" style="max-width:480px;">
+          <div class="progress-group">
+            <div class="progress-item">
+              <div class="pi-head"><span class="lbl">Module 4 · Causal Inference</span><span class="val">60%</span></div>
+              <div class="progress-bar-h" style="height:10px;"><div class="fill" style="width:60%;"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-head"><span class="lbl">Overall course progress</span><span class="val">42%</span></div>
+              <div class="progress-bar-h"><div class="fill navy" style="width:42%;"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-head"><span class="lbl">Capstone 1 score</span><span class="val">94 / 100</span></div>
+              <div class="progress-bar-h"><div class="fill success" style="width:94%;"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="pi-head"><span class="lbl">Cohort 14 · seats filled</span><span class="val">37 / 48</span></div>
+              <div class="progress-bar-h" style="height:6px;"><div class="fill warning" style="width:77%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Skeleton loaders</h3><p>Shimmer-animated placeholders while content loads. Used in LMS dashboard, programme grid, and search results. Match the exact shape and dimensions of the content they represent.</p></div>
+        <div class="lib-examples column" style="max-width:460px; gap:12px;">
+          <div class="card" style="padding:24px;">
+            <div style="display:flex; gap:16px; align-items:flex-start; margin-bottom:18px;">
+              <div class="skeleton" style="width:48px; height:48px; border-radius:var(--radius-sm); flex-shrink:0;"></div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:8px; padding-top:4px;">
+                <div class="skeleton" style="height:15px; width:65%;"></div>
+                <div class="skeleton" style="height:11px; width:40%;"></div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+              <div class="skeleton" style="height:12px; width:100%;"></div>
+              <div class="skeleton" style="height:12px; width:88%;"></div>
+              <div class="skeleton" style="height:12px; width:72%;"></div>
+            </div>
+            <div style="display:flex; gap:10px; padding-top:14px; border-top:1px solid var(--rule);">
+              <div class="skeleton" style="height:11px; width:56px;"></div>
+              <div class="skeleton" style="height:11px; width:38px;"></div>
+              <div class="skeleton" style="height:11px; width:48px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Empty states</h3><p>Shown when a list or view has no content. Always include an icon, a clear one-line header, a short explanation, and a single primary action. Used in LMS, search results, and watchlists.</p></div>
+        <div class="lib-examples" style="gap:20px; align-items:stretch;">
+          <div class="empty-state" style="flex:1; min-width:200px;">
+            <div class="es-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+            </div>
+            <h4>No results found</h4>
+            <p>Try adjusting your filters or search term.</p>
+            <button class="btn btn-outline btn-sm">Clear filters</button>
+          </div>
+          <div class="empty-state" style="flex:1; min-width:200px;">
+            <div class="es-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <h4>No assignments yet</h4>
+            <p>Assignments appear once your module starts.</p>
+            <button class="btn btn-primary btn-sm">View schedule</button>
+          </div>
+          <div class="empty-state" style="flex:1; min-width:200px;">
+            <div class="es-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h4>No messages</h4>
+            <p>Discussion posts from your cohort will appear here.</p>
+            <button class="btn btn-outline btn-sm">View cohort</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>Data visualization tokens</h3><p>SVG primitives used across charts: line/area charts for time-series, bar charts for comparisons, scatter for correlations. All use brand palette — flamingo for primary series, navy for secondary, sand for reference lines.</p></div>
+        <div class="lib-examples column" style="width:100%;">
+          <div class="dv-grid">
+            <div class="dv-card">
+              <div class="dv-label">Line · time series</div>
+              <svg viewBox="0 0 280 120" style="width:100%; height:auto;">
+                <defs>
+                  <linearGradient id="dv-g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#F1592A" stop-opacity="0.2"/><stop offset="100%" stop-color="#F1592A" stop-opacity="0"/></linearGradient>
+                  <pattern id="dv-dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.7" fill="var(--ink-200)"/></pattern>
+                </defs>
+                <rect width="280" height="120" fill="url(#dv-dots)"/>
+                <path d="M 20,90 L 60,70 L 100,58 L 140,42 L 180,28 L 220,18 L 260,10 L 260,100 L 20,100 Z" fill="url(#dv-g1)"/>
+                <polyline points="20,90 60,70 100,58 140,42 180,28 220,18 260,10" stroke="#F1592A" stroke-width="2" fill="none"/>
+                <g fill="#F1592A"><circle cx="20" cy="90" r="3.5"/><circle cx="140" cy="42" r="3.5"/><circle cx="260" cy="10" r="4.5" stroke="#EDA455" stroke-width="1.5"/></g>
+              </svg>
+            </div>
+            <div class="dv-card">
+              <div class="dv-label">Bar · comparison</div>
+              <svg viewBox="0 0 280 120" style="width:100%; height:auto;">
+                <defs><pattern id="dv-dots2" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.7" fill="var(--ink-200)"/></pattern></defs>
+                <rect width="280" height="120" fill="url(#dv-dots2)"/>
+                <g fill="var(--navy-600)" opacity="0.8">
+                  <rect x="20" y="70" width="24" height="40" rx="2"/>
+                  <rect x="60" y="50" width="24" height="60" rx="2"/>
+                  <rect x="100" y="35" width="24" height="75" rx="2"/>
+                  <rect x="140" y="55" width="24" height="55" rx="2"/>
+                  <rect x="180" y="25" width="24" height="85" rx="2"/>
+                  <rect x="220" y="40" width="24" height="70" rx="2"/>
+                </g>
+                <line x1="10" y1="110" x2="270" y2="110" stroke="var(--rule)" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="dv-card">
+              <div class="dv-label">Scatter · correlation</div>
+              <svg viewBox="0 0 280 120" style="width:100%; height:auto;">
+                <defs><pattern id="dv-dots3" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.7" fill="var(--ink-200)"/></pattern></defs>
+                <rect width="280" height="120" fill="url(#dv-dots3)"/>
+                <line x1="20" y1="100" x2="260" y2="20" stroke="#EDA455" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+                <g fill="#F1592A" opacity="0.75">
+                  <circle cx="40" cy="92" r="3"/><circle cx="60" cy="82" r="3"/><circle cx="80" cy="75" r="3"/>
+                  <circle cx="100" cy="68" r="3"/><circle cx="125" cy="58" r="3"/><circle cx="150" cy="50" r="3"/>
+                  <circle cx="175" cy="42" r="3"/><circle cx="200" cy="35" r="3"/><circle cx="225" cy="28" r="3"/>
+                  <circle cx="250" cy="22" r="3"/>
+                  <circle cx="55" cy="90" r="2"/><circle cx="115" cy="62" r="2"/><circle cx="190" cy="38" r="2"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-row">
+        <div><h3>System icons</h3><p>All icons are inline SVG from a consistent 24×24 viewBox. Stroke-weight: 2px. Use <code>stroke="currentColor"</code> so icons inherit text colour and respect dark mode automatically. No fill-only icons in the system.</p></div>
+        <div class="lib-examples column" style="max-width:100%;">
+          <div class="icon-grid">
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Home</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Course</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Schedule</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Users</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Check</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>Search</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Event</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Award</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendar</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Message</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9"/></svg>Settings</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Location</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Document</div>
+            <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 15 15 9 9 15 3 9"/></svg>Chevron</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 </div>
@@ -2153,6 +2711,350 @@ html[data-theme="dark"] footer.site{background:#05061A;}
   </div>
 </div>
 
+<!-- ============ CONSULTING PAGE ============ -->
+<div class="page" id="page-consulting">
+
+  <!-- Hero -->
+  <section class="consult-hero">
+    <div class="container">
+      <div class="consult-hero-grid">
+        <div>
+          <p class="eyebrow" style="color:var(--sand-300); margin-bottom:18px;">Consulting & research</p>
+          <h1>Data science, <em>on the ground</em> — for Africa.</h1>
+          <p class="lede">We embed with governments, NGOs, and enterprises across East and West Africa to build analytics capacity and deliver decision-support systems that match the local data environment.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px;">
+            <a href="#" class="btn btn-primary btn-lg">Start a conversation <span class="arrow">→</span></a>
+            <a href="#" class="btn btn-outline btn-lg" style="color:#fff; border-color:rgba(255,255,255,0.4);">View case studies</a>
+          </div>
+          <div class="metric-row">
+            <div class="met"><div class="n">240<em>+</em></div><div class="l">Engagements</div></div>
+            <div class="met"><div class="n">18</div><div class="l">Countries</div></div>
+            <div class="met"><div class="n">7</div><div class="l">Years</div></div>
+            <div class="met"><div class="n">94<em>%</em></div><div class="l">Renewal rate</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="consult-visual">
+            <svg viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%;">
+              <defs>
+                <pattern id="cv1" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1.2" fill="#EDA455" opacity="0.3"/></pattern>
+                <linearGradient id="cv1-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#F1592A" stop-opacity="0.28"/><stop offset="100%" stop-color="#F1592A" stop-opacity="0"/></linearGradient>
+              </defs>
+              <rect width="480" height="360" fill="url(#cv1)"/>
+              <line x1="60" y1="300" x2="440" y2="300" stroke="#EDA455" stroke-width="0.7" opacity="0.4"/>
+              <line x1="60" y1="60" x2="60" y2="300" stroke="#EDA455" stroke-width="0.7" opacity="0.4"/>
+              <path d="M 80,280 L 140,250 L 200,210 L 260,162 L 320,115 L 380,72 L 420,55 L 420,300 L 80,300 Z" fill="url(#cv1-fill)"/>
+              <polyline points="80,280 140,250 200,210 260,162 320,115 380,72 420,55" stroke="#F1592A" stroke-width="2.2" fill="none"/>
+              <g fill="#F1592A"><circle cx="80" cy="280" r="5"/><circle cx="200" cy="210" r="5"/><circle cx="320" cy="115" r="5"/><circle cx="420" cy="55" r="7" stroke="#EDA455" stroke-width="2"/></g>
+              <g stroke="#EDA455" stroke-width="0.5" opacity="0.3" fill="none">
+                <line x1="140" y1="250" x2="140" y2="300"/><line x1="200" y1="210" x2="200" y2="300"/>
+                <line x1="260" y1="162" x2="260" y2="300"/><line x1="320" y1="115" x2="320" y2="300"/>
+                <line x1="380" y1="72" x2="380" y2="300"/>
+              </g>
+              <g font-family="monospace" font-size="10" fill="#EDA455" opacity="0.7" letter-spacing="1">
+                <text x="60" y="324">2019</text><text x="180" y="324">2021</text>
+                <text x="300" y="324">2023</text><text x="400" y="324">2026</text>
+              </g>
+              <rect x="290" y="62" width="108" height="20" fill="#020244" stroke="#EDA455" stroke-width="0.5" opacity="0.92"/>
+              <text x="298" y="75" font-family="monospace" font-size="10" fill="#EDA455" letter-spacing="0.8">240+ engagements</text>
+              <text x="62" y="46" font-family="monospace" font-size="10" fill="#EDA455" letter-spacing="1.2">CUMULATIVE CONSULTING WORK</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted by -->
+  <section class="trust">
+    <div class="container trust-inner">
+      <span class="trust-label">Clients across East & West Africa</span>
+      <div class="trust-logos">
+        <span class="trust-logo">Ministry of Health</span>
+        <span class="trust-logo">World Bank</span>
+        <span class="trust-logo">Safaricom</span>
+        <span class="trust-logo">UNECA</span>
+        <span class="trust-logo">KCB Group</span>
+        <span class="trust-logo">IFC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section-py">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:56px;">
+        <p class="eyebrow">What we do</p>
+        <h2>Three service <em>lines.</em></h2>
+        <p class="lede" style="margin-top:16px;">Each engagement is scoped to your context — not to a pre-built playbook. We bring methods developed for African data environments, not imported wholesale from elsewhere.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="num">Service 01</div>
+          <h3>Analytics <em>Diagnostics.</em></h3>
+          <p>A structured 6-week assessment of your organization's data maturity, infrastructure, and team capability — delivered as a prioritized 12-month roadmap.</p>
+          <ul>
+            <li>Data-source audit & quality scoring</li>
+            <li>Team capability matrix</li>
+            <li>Infrastructure gap analysis</li>
+            <li>Prioritized 12-month roadmap</li>
+            <li>Executive presentation + working session</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="num">Service 02</div>
+          <h3>Embedded <em>Analytics Teams.</em></h3>
+          <p>We place a cross-functional team — data engineer, analyst, and scientist — inside your organisation for 3 to 12 months, building systems and internal capability simultaneously.</p>
+          <ul>
+            <li>3–12 month engagements</li>
+            <li>Knowledge transfer from day one</li>
+            <li>Deliverables tied to business metrics</li>
+            <li>Internal team recruiting support</li>
+            <li>Optional continuation retainer</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="num">Service 03</div>
+          <h3>Applied <em>Research.</em></h3>
+          <p>We commission, co-author, and publish policy-relevant research on data, AI, and analytics across African sectors — from mobile money to public health to agritech.</p>
+          <ul>
+            <li>Commissioned research studies</li>
+            <li>Co-authored publications</li>
+            <li>Policy brief series</li>
+            <li>Stakeholder convenings & workshops</li>
+            <li>Open-access by default</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:20px;">
+        <p class="eyebrow">How we work</p>
+        <h2>A five-phase <em>process.</em></h2>
+        <p class="lede" style="margin-top:16px;">Designed to build internal capability as much as deliver output — so you're not dependent on us once the engagement ends.</p>
+      </div>
+      <div class="process-grid">
+        <div class="proc-step done">
+          <div class="dot">01</div>
+          <h4>Scope</h4>
+          <p>2-week discovery. Define the business question, data environment, and success metrics.</p>
+        </div>
+        <div class="proc-step done">
+          <div class="dot">02</div>
+          <h4>Diagnose</h4>
+          <p>Audit existing data, infrastructure, and team. Identify the highest-leverage actions.</p>
+        </div>
+        <div class="proc-step active">
+          <div class="dot">03</div>
+          <h4>Build</h4>
+          <p>Embedded team delivers systems, models, and dashboards in iterative two-week sprints.</p>
+        </div>
+        <div class="proc-step">
+          <div class="dot">04</div>
+          <h4>Transfer</h4>
+          <p>Intensive knowledge-transfer to internal team. Documentation, code handoff, and training.</p>
+        </div>
+        <div class="proc-step">
+          <div class="dot">05</div>
+          <h4>Sustain</h4>
+          <p>Optional retainer for monitoring, retraining, and ongoing strategic advisory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section class="section-py">
+    <div class="container">
+      <div class="programmes-head" style="margin-bottom:40px;">
+        <div><p class="eyebrow">Case studies</p><h2>Work that <em>moved the needle.</em></h2></div>
+        <a href="#" class="btn-link">All case studies <span class="arrow">→</span></a>
+      </div>
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="visual" style="background:linear-gradient(135deg, var(--navy-700), var(--navy-500));">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice">
+              <defs><pattern id="cc1" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#EDA455" opacity="0.3"/></pattern>
+              <linearGradient id="cc1-g" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#F1592A" stop-opacity="0.25"/><stop offset="100%" stop-color="#F1592A" stop-opacity="0"/></linearGradient></defs>
+              <rect width="480" height="270" fill="url(#cc1)"/>
+              <path d="M 40,230 L 120,190 L 200,150 L 280,100 L 360,65 L 440,45 L 440,270 L 40,270 Z" fill="url(#cc1-g)"/>
+              <polyline points="40,230 120,190 200,150 280,100 360,65 440,45" stroke="#F1592A" stroke-width="2" fill="none"/>
+              <g fill="#F1592A"><circle cx="40" cy="230" r="5"/><circle cx="200" cy="150" r="5"/><circle cx="360" cy="65" r="5"/><circle cx="440" cy="45" r="7" stroke="#EDA455" stroke-width="2"/></g>
+              <text x="24" y="254" font-family="monospace" font-size="9" fill="#EDA455" opacity="0.75" letter-spacing="1">MoH KENYA · MATERNAL RISK · 47 COUNTIES</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="client-tag">Ministry of Health · Kenya</div>
+            <h4>Maternal-mortality risk classifier across 47 counties</h4>
+            <p>A 9-month engagement to build a county-level risk-stratification model for maternal mortality. The model informs resource allocation for Community Health Volunteers across all 47 counties — and has since been cited in three MoH policy documents.</p>
+            <div class="kpis">
+              <div class="kpi"><div class="n">47</div><div class="l">Counties</div></div>
+              <div class="kpi"><div class="n">92%</div><div class="l">Precision</div></div>
+              <div class="kpi"><div class="n">9 mo</div><div class="l">Engagement</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="visual" style="background:linear-gradient(135deg, var(--flamingo-700), var(--flamingo-500));">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice">
+              <defs><pattern id="cc2" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.3)"/></pattern></defs>
+              <rect width="480" height="270" fill="url(#cc2)"/>
+              <g fill="rgba(4,4,116,0.55)" opacity="0.9">
+                <rect x="50" y="190" width="36" height="70"/><rect x="105" y="155" width="36" height="105"/>
+                <rect x="160" y="120" width="36" height="140"/><rect x="215" y="130" width="36" height="130"/>
+                <rect x="270" y="90" width="36" height="170"/><rect x="325" y="60" width="36" height="200"/>
+                <rect x="380" y="45" width="36" height="215"/>
+              </g>
+              <line x1="40" y1="255" x2="440" y2="255" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+              <text x="24" y="265" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.75)" letter-spacing="1">SAFARICOM · M-PESA CHURN · 2.4M CUSTOMERS</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="client-tag">Safaricom</div>
+            <h4>Churn-prediction pipeline for M-PESA Business segment</h4>
+            <p>Embedded a data-science team inside Safaricom's M-PESA Business division for 12 months to build a churn-prediction and intervention pipeline. Reduced churn by 18 percentage points in the pilot segment. System processes 2.4M customer records nightly.</p>
+            <div class="kpis">
+              <div class="kpi"><div class="n">18pp</div><div class="l">Churn ↓</div></div>
+              <div class="kpi"><div class="n">2.4M</div><div class="l">Customers</div></div>
+              <div class="kpi"><div class="n">12 mo</div><div class="l">Engagement</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="visual" style="background:linear-gradient(135deg, var(--sand-400), var(--sand-500));">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice">
+              <defs><pattern id="cc3" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#040474" opacity="0.2"/></pattern></defs>
+              <rect width="480" height="270" fill="url(#cc3)"/>
+              <g stroke="#040474" fill="none" stroke-width="1.5" opacity="0.6">
+                <circle cx="240" cy="135" r="28"/><circle cx="240" cy="135" r="58"/><circle cx="240" cy="135" r="88"/><circle cx="240" cy="135" r="112"/>
+              </g>
+              <circle cx="240" cy="135" r="10" fill="#040474" opacity="0.75"/>
+              <g fill="#040474" opacity="0.6">
+                <circle cx="240" cy="107" r="5"/><circle cx="268" cy="135" r="5"/>
+                <circle cx="240" cy="163" r="5"/><circle cx="212" cy="135" r="5"/>
+                <circle cx="240" cy="77" r="4"/><circle cx="298" cy="135" r="4"/>
+              </g>
+              <text x="24" y="258" font-family="monospace" font-size="9" fill="#040474" opacity="0.7" letter-spacing="1">WORLD BANK · SUPPLY CHAIN · 6 COUNTRIES</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="client-tag">World Bank · UNECA</div>
+            <h4>Agricultural supply-chain analytics across East Africa</h4>
+            <p>A 14-month research and analytics engagement to map agricultural supply-chain inefficiencies across six East African countries. Produced a policy brief, open-source dashboard, and contributed to three World Bank working papers.</p>
+            <div class="kpis">
+              <div class="kpi"><div class="n">6</div><div class="l">Countries</div></div>
+              <div class="kpi"><div class="n">14 mo</div><div class="l">Engagement</div></div>
+              <div class="kpi"><div class="n">Open</div><div class="l">Access</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="visual" style="background:linear-gradient(135deg, var(--navy-500), var(--navy-800));">
+            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice">
+              <defs><pattern id="cc4" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1.2" fill="#EDA455" opacity="0.25"/></pattern></defs>
+              <rect width="480" height="270" fill="url(#cc4)"/>
+              <g stroke="#EDA455" fill="none" stroke-width="1" opacity="0.7">
+                <line x1="100" y1="60" x2="240" y2="135"/><line x1="380" y1="60" x2="240" y2="135"/>
+                <line x1="100" y1="210" x2="240" y2="135"/><line x1="380" y1="210" x2="240" y2="135"/>
+                <line x1="60" y1="135" x2="240" y2="135"/><line x1="420" y1="135" x2="240" y2="135"/>
+                <line x1="140" y1="75" x2="240" y2="135"/><line x1="340" y1="75" x2="240" y2="135"/>
+              </g>
+              <g fill="#F1592A"><circle cx="240" cy="135" r="8"/></g>
+              <g fill="#EDA455" opacity="0.85">
+                <circle cx="100" cy="60" r="5"/><circle cx="380" cy="60" r="5"/>
+                <circle cx="100" cy="210" r="5"/><circle cx="380" cy="210" r="5"/>
+                <circle cx="60" cy="135" r="5"/><circle cx="420" cy="135" r="5"/>
+              </g>
+              <text x="24" y="258" font-family="monospace" font-size="9" fill="#EDA455" opacity="0.75" letter-spacing="1">KCB GROUP · FRAUD GRAPH · 7 MARKETS</text>
+            </svg>
+          </div>
+          <div class="body">
+            <div class="client-tag">KCB Group</div>
+            <h4>Real-time fraud-detection network for mobile banking</h4>
+            <p>Built and deployed a graph-based fraud-detection system for KCB's mobile-banking platform across 7 markets. The system processes 2M transactions per day in real time with sub-200ms detection latency, now running in production across Kenya, Rwanda, and Uganda.</p>
+            <div class="kpis">
+              <div class="kpi"><div class="n">2M</div><div class="l">Tx / day</div></div>
+              <div class="kpi"><div class="n">200ms</div><div class="l">Latency</div></div>
+              <div class="kpi"><div class="n">7</div><div class="l">Markets</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-py" style="background:var(--surface);">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:48px;"><p class="eyebrow">What clients say</p><h2>Trusted by <em>decision-makers.</em></h2></div>
+      <div class="testi-grid">
+        <div class="testi">
+          <div class="quote">"AfriCDSA refused to use off-the-shelf tools that don't fit African data environments. Everything was built for our reality. That made the difference between a report that sat on a shelf and one that changed how we allocate resources."</div>
+          <div class="author"><div class="avatar" style="background:var(--flamingo-50); color:var(--flamingo);">JK</div><div><div class="name">Dr. James Kimani</div><div class="role">Director of Data · MoH Kenya</div></div></div>
+        </div>
+        <div class="testi">
+          <div class="quote">"Within three months of the diagnostic, we had a pipeline in production that had been on the roadmap for two years. The knowledge transfer was the part that surprised us most — our team can now maintain it independently."</div>
+          <div class="author"><div class="avatar" style="background:var(--sand-100); color:#8D5516;">NB</div><div><div class="name">Naomi Byiringiro</div><div class="role">Chief Data Officer · Bank of Kigali</div></div></div>
+        </div>
+        <div class="testi">
+          <div class="quote">"They embedded a team for six months and left us with a production-grade system and an internal team that understood it completely. That's extremely rare in the consulting world."</div>
+          <div class="author"><div class="avatar">SO</div><div><div class="name">Samuel Oduya</div><div class="role">VP Analytics · Equity Bank</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="stats-band">
+    <div class="container">
+      <div style="max-width:680px; margin-bottom:56px; position:relative;">
+        <p class="eyebrow on-dark">Consulting practice</p>
+        <h2 style="color:#fff;">Seven years. <em style="color:var(--sand-300);">240+ engagements.</em></h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-big"><div class="n">240<em>+</em></div><div class="l">Engagements</div><div class="d">Across 18 countries on the continent.</div></div>
+        <div class="stat-big"><div class="n">94<em>%</em></div><div class="l">Renewal rate</div><div class="d">Clients who extend or return for a second engagement.</div></div>
+        <div class="stat-big"><div class="n">18</div><div class="l">Countries</div><div class="d">From East Africa to West, and the diaspora.</div></div>
+        <div class="stat-big"><div class="n">3<em>mo</em></div><div class="l">Median time to impact</div><div class="d">From scoping call to first system in production.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div class="cta-left">
+        <p class="eyebrow cta-eyebrow">Start a conversation</p>
+        <h2>Let's scope your <em>next engagement.</em></h2>
+        <p class="cta-deck">Tell us what you're trying to solve and we'll respond with a scoping proposal within 5 business days. No obligation, no boilerplate pitch deck.</p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn-primary btn-lg">Book a 30-min scoping call</a>
+          <a href="#" class="btn btn-outline btn-lg">Download capabilities deck</a>
+        </div>
+        <div class="cta-reassure">
+          <span>● 5-day proposal turnaround</span>
+          <span>● Fixed-scope diagnostics available</span>
+          <span>● Open-source outputs by default</span>
+        </div>
+      </div>
+      <aside class="cta-right">
+        <h4 style="color:#fff; margin-bottom:4px; font-size:16px;">Typical engagements</h4>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:18px;">Select scope &amp; timeline</div>
+        <dl class="cta-stats">
+          <div class="cs-row"><dt>Analytics diagnostic</dt><dd>6 weeks · fixed scope</dd></div>
+          <div class="cs-row"><dt>Embedded analytics team</dt><dd>3–12 months · retainer</dd></div>
+          <div class="cs-row"><dt>Research partnership</dt><dd>6–18 months</dd></div>
+          <div class="cs-row"><dt>Earliest availability</dt><dd><span class="cs-hot">May 2026</span></dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+</div>
+
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
@@ -2230,8 +3132,13 @@ function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + name);
   if (target) target.classList.add('active');
+  // Update top nav active state
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('active', a.dataset.page === name);
+  });
+  // Update template navigator
+  document.querySelectorAll('.tmpl-nav .tn-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.page === name);
   });
   window.scrollTo({ top: 0, behavior: 'instant' });
   TWEAKS.page = name;
@@ -2243,6 +3150,9 @@ function applyTweaks() {
   document.documentElement.dataset.theme = TWEAKS.darkMode ? 'dark' : 'light';
   document.documentElement.dataset.density = TWEAKS.density;
   showPageNoScroll(TWEAKS.page);
+  // Sync dark mode button visual
+  const tnDark = document.getElementById('tnDark');
+  if (tnDark) tnDark.classList.toggle('dark-on', TWEAKS.darkMode);
 }
 function showPageNoScroll(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2250,6 +3160,9 @@ function showPageNoScroll(name) {
   if (target) target.classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('active', a.dataset.page === name);
+  });
+  document.querySelectorAll('.tmpl-nav .tn-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.page === name);
   });
 }
 function syncTweakUI() {
@@ -2264,12 +3177,35 @@ function persist() {
   try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: TWEAKS }, '*'); } catch (e) {}
 }
 
-// Wire page-switching links
+// Tabs (component library)
+function switchTab(btn, id) {
+  const wrapper = btn.closest('[style]') || btn.closest('.lib-examples');
+  const nav = btn.closest('.tabs-nav');
+  if (nav) {
+    nav.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  // hide all sibling panels
+  const container = nav ? nav.parentElement : btn.parentElement;
+  container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById(id);
+  if (panel) panel.classList.add('active');
+}
+
+// Wire ALL page-switching links (nav, cards, template nav, mobile menu)
 document.querySelectorAll('[data-page]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
     showPage(el.dataset.page);
   });
+});
+
+// Template navigator dark mode toggle
+document.getElementById('tnDark').addEventListener('click', () => {
+  TWEAKS.darkMode = !TWEAKS.darkMode;
+  applyTweaks();
+  persist();
+  syncTweakUI();
 });
 
 // Announce bar
@@ -2294,7 +3230,7 @@ document.querySelectorAll('.nav-item .has-caret').forEach(el => {
   });
 });
 
-// Wire tweaks
+// Wire tweaks panel
 document.getElementById('tw-page').addEventListener('change', e => { showPage(e.target.value); });
 document.getElementById('tw-density').addEventListener('change', e => { TWEAKS.density = e.target.value; applyTweaks(); persist(); });
 document.getElementById('tw-dark').addEventListener('change', e => { TWEAKS.darkMode = e.target.checked; applyTweaks(); persist(); });
