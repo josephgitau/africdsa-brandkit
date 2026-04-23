@@ -467,11 +467,11 @@ html[data-theme="dark"] .pc-wins li{ color:var(--ink-800); }
 .pc-pills{ display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; }
 .pc-pills span{ font-family:var(--font-mono); font-size:9px; letter-spacing:0.06em; text-transform:uppercase; background:var(--surface); border:1px solid var(--rule); color:var(--ink-600); padding:3px 9px; border-radius:999px; }
 /* Footer */
-.pc-foot{ padding:14px 22px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; gap:10px; }
-.pc-price{ font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--text); }
-.pc-price small{ display:block; font-size:8.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); font-weight:400; margin-bottom:2px; }
-.pc-enrol{ font-size:12px; font-weight:600; font-family:var(--font-body); color:var(--flamingo); background:transparent; border:1.5px solid var(--flamingo); padding:7px 14px; border-radius:var(--radius-sm); cursor:pointer; transition:all 0.15s; white-space:nowrap; }
-.pc-enrol:hover{ background:var(--flamingo); color:#fff; transform:translateY(-1px); }
+.pc-foot{ padding:16px 22px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.pc-price{ font-family:var(--font-mono); font-size:18px; font-weight:700; color:var(--text); }
+.pc-price small{ display:block; font-size:8.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); font-weight:400; margin-bottom:3px; }
+.pc-enrol{ font-size:13px; font-weight:700; font-family:var(--font-body); color:#fff; background:var(--flamingo); border:none; padding:10px 20px; border-radius:var(--radius-sm); cursor:pointer; transition:background 0.15s,transform 0.1s; white-space:nowrap; }
+.pc-enrol:hover{ background:var(--flamingo-700); transform:translateY(-2px); }
 
 /* Two-col feature (consulting) */
 .two-col{display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center;}
@@ -1285,25 +1285,50 @@ table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:v
           </div>
         </a>
 
-        <!-- ── CDA ── -->
-        <a href="#" class="prog-card c-flamingo" data-page="course">
-          <div class="pc-art">
-            <span class="pc-wm">CDA</span>
-            <span class="pc-badge badge badge-live">Enrolling</span>
+        <!-- ── CDA FEATURED ── -->
+        <a href="#" class="prog-featured" data-page="course" style="--pf-accent:#F1592A;">
+          <div class="pf-visual" style="background:linear-gradient(135deg,#c94520,var(--flamingo));">
+            <div class="pf-dotgrid"></div>
+            <div class="pf-gridlines"></div>
+            <div class="pf-wm">CDA</div>
+            <div class="pf-seal">
+              <span class="seal-name">IABAC</span>
+              <span class="seal-label">Accredited</span>
+            </div>
+            <p class="pf-vis-label">Core track · CDA 002</p>
+            <h2 class="pf-vis-title">Certified<br>Data Analyst</h2>
+            <div class="pf-vis-stats">
+              <div class="pf-vs"><div class="vsn">16 wks</div><div class="vsl">Duration</div></div>
+              <div class="pf-vs"><div class="vsn">Online</div><div class="vsl">Format</div></div>
+              <div class="pf-vs" style="border-color:rgba(255,255,255,0.35); background:rgba(255,255,255,0.15);"><div class="vsn" style="color:#fff;">Enrolling</div><div class="vsl">Status</div></div>
+            </div>
           </div>
-          <div class="pc-body">
-            <p class="pc-cat">Analytics · CDA 002</p>
-            <h3 class="pc-title">Certified Data Analyst</h3>
-            <p class="pc-desc">SQL, dashboards, and business storytelling for analyst roles in finance, telco, and the public sector.</p>
-            <ul class="pc-wins">
-              <li>Power BI &amp; Tableau dashboards</li>
-              <li>Business case projects</li>
+          <div class="pf-body">
+            <span class="pf-eyebrow">Core analytics track</span>
+            <h3>From raw data to boardroom insights</h3>
+            <p class="pf-desc">SQL, Power BI, Tableau, and business storytelling — structured around analyst roles in finance, telco, and the public sector across Africa.</p>
+            <ul class="pf-outcomes">
+              <li><span class="ck">✓</span>SQL foundations to advanced analytics</li>
+              <li><span class="ck">✓</span>Power BI &amp; Tableau dashboard projects</li>
+              <li><span class="ck">✓</span>Business case presentations &amp; storytelling</li>
+              <li><span class="ck">✓</span>IABAC internationally recognised certificate</li>
             </ul>
-            <div class="pc-pills"><span>16 weeks</span><span>Online</span><span>IABAC</span></div>
-          </div>
-          <div class="pc-foot">
-            <div class="pc-price"><small>Starting from</small>KES 120,000</div>
-            <button class="pc-enrol" onclick="event.stopPropagation();showPage('course')">Enrol →</button>
+            <div class="pf-meta">
+              <span>16 weeks</span>
+              <span>100% Online</span>
+              <span>IABAC Accredited</span>
+              <span>Now enrolling</span>
+            </div>
+            <div class="pf-cta">
+              <div class="pf-price">
+                <span class="from">Starting from</span>
+                <span class="amt">KES 120,000</span>
+              </div>
+              <div class="pf-btns">
+                <button class="btn-ghost" onclick="event.stopPropagation()">View curriculum</button>
+                <button class="btn-flamingo" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
+              </div>
+            </div>
           </div>
         </a>
 
