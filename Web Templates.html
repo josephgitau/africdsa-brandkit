@@ -327,83 +327,151 @@ html[data-theme="dark"] .hero-proof .stat .n{color:var(--ink-800);}
 html[data-theme="dark"] .trust-logo{color:var(--ink-800);}
 
 /* Programmes grid */
-.programmes{position:relative;}
-.programmes-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; gap:40px;}
-.programmes-head > div{max-width:640px;}
-.programmes-filter{display:flex; gap:10px; margin-bottom:32px; flex-wrap:wrap;}
-/* 2-col grid; featured card spans both columns */
-.programmes-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
-.programme-card{
-  background:var(--panel); border:1px solid var(--rule);
-  border-radius:var(--radius-md); overflow:hidden;
-  display:flex; flex-direction:column;
-  transition:transform 0.2s, box-shadow 0.2s;
-  text-decoration:none; color:inherit;
+/* ─── Programmes ─── */
+.programmes{ position:relative; }
+.programmes-head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:40px; }
+.programmes-head > div{ max-width:600px; }
+.programmes-head .prog-sub{ font-size:15px; color:var(--ink-600); margin-top:10px; }
+/* Filter tabs */
+.prog-filter{ display:flex; gap:8px; margin-bottom:40px; flex-wrap:wrap; padding-bottom:20px; border-bottom:1px solid var(--rule); }
+.prog-filter .pf-tab{
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+  background:transparent; border:1px solid var(--rule); color:var(--muted);
+  padding:7px 16px; border-radius:999px; cursor:pointer; transition:all 0.15s;
 }
-.programme-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--navy-200);}
-/* Featured flagship card */
-.programme-card.featured{
+.prog-filter .pf-tab:hover{ border-color:var(--navy-300); color:var(--text); }
+.prog-filter .pf-tab.active{ background:var(--navy-600); border-color:var(--navy-600); color:#fff; }
+html[data-theme="dark"] .prog-filter .pf-tab.active{ background:var(--ink-300); border-color:var(--ink-300); color:var(--bg); }
+/* Grid */
+.prog-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+/* ─── Featured flagship card ─── */
+.prog-featured{
   grid-column:1 / -1;
-  display:grid; grid-template-columns:1.2fr 1fr;
+  display:grid; grid-template-columns:5fr 6fr;
+  background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-lg); overflow:hidden;
+  transition:box-shadow 0.2s; text-decoration:none; color:inherit;
 }
-.programme-card.featured .cover{
-  aspect-ratio:unset; min-height:280px;
+.prog-featured:hover{ box-shadow:0 16px 48px rgba(4,4,116,0.12); }
+html[data-theme="dark"] .prog-featured:hover{ box-shadow:0 16px 48px rgba(0,0,0,0.4); }
+/* Visual panel */
+.pf-visual{
+  background:#040474; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:flex-end; padding:36px; min-height:340px;
 }
-.programme-card.featured .ttl{font-size:28px;}
-.programme-card.featured .desc{font-size:15px;}
-.programme-card .cover{
-  aspect-ratio:16/9; position:relative; overflow:hidden;
-  background:var(--navy-600);
+.pf-visual::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 25% 65%, rgba(241,89,42,0.25) 0%, transparent 65%),
+             radial-gradient(ellipse at 80% 20%, rgba(237,164,85,0.12) 0%, transparent 55%);
 }
-.programme-card .cover .code{
-  position:absolute; top:16px; left:16px;
-  font-family:var(--font-mono); font-size:10px; letter-spacing:0.16em; color:var(--sand-300); text-transform:uppercase;
-  background:rgba(0,0,0,0.35); padding:5px 12px; border-radius:2px; backdrop-filter:blur(4px);
+.pf-visual .pf-dotgrid{
+  position:absolute; inset:0; opacity:0.55;
+  background-image:radial-gradient(circle, rgba(237,164,85,0.28) 1px, transparent 1px);
+  background-size:22px 22px;
 }
-.programme-card .cover .badge{position:absolute; top:16px; right:16px;}
-.programme-card .body{padding:28px; flex:1; display:flex; flex-direction:column;}
-.programme-card .ttl{font-family:var(--font-display); font-size:20px; font-weight:500; letter-spacing:-0.01em; margin:0 0 10px;}
-/* Clamp description to 3 lines so cards don't balloon */
-.programme-card .desc{
-  font-size:14px; color:var(--ink-600); line-height:1.6; margin-bottom:20px; flex:1;
-  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+.pf-visual .pf-gridlines{
+  position:absolute; inset:0; opacity:0.09;
+  background-image:linear-gradient(to right,#EDA455 1px,transparent 1px),linear-gradient(to bottom,#EDA455 1px,transparent 1px);
+  background-size:44px 44px;
 }
-.programme-card.featured .desc{-webkit-line-clamp:4;}
-/* Meta pills */
-.programme-card .card-meta{
-  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;
+.pf-visual .pf-wm{
+  position:absolute; top:-8px; right:-16px;
+  font-family:var(--font-mono); font-size:148px; font-weight:700; letter-spacing:-6px;
+  color:rgba(255,255,255,0.05); line-height:1; pointer-events:none; user-select:none;
 }
-.programme-card .card-meta span{
-  font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase;
-  background:var(--surface); border:1px solid var(--rule);
-  color:var(--ink-600); padding:4px 10px; border-radius:999px;
+/* Accreditation seal */
+.pf-seal{
+  position:absolute; top:28px; right:28px;
+  width:68px; height:68px; border-radius:999px; border:1.5px solid rgba(237,164,85,0.45);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  background:rgba(4,4,116,0.75); backdrop-filter:blur(8px);
 }
-/* Card footer: price left, CTA button right */
-.programme-card .foot{
-  display:flex; justify-content:space-between; align-items:center;
-  padding-top:18px; border-top:1px solid var(--rule); margin-top:auto;
+.pf-seal .seal-name{ font-family:var(--font-mono); font-size:14px; font-weight:700; color:#EDA455; letter-spacing:0.02em; }
+.pf-seal .seal-label{ font-family:var(--font-mono); font-size:7px; color:rgba(237,164,85,0.6); letter-spacing:0.14em; text-transform:uppercase; }
+/* Visual copy */
+.pf-vis-label{ font-family:var(--font-mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,164,85,0.65); margin-bottom:8px; position:relative; }
+.pf-vis-title{ font-family:var(--font-display); font-size:34px; line-height:1.1; font-weight:500; color:#fff; position:relative; margin-bottom:22px; letter-spacing:-0.02em; }
+/* Stat chips inside visual */
+.pf-vis-stats{ display:flex; gap:12px; position:relative; flex-wrap:wrap; }
+.pf-vs{ background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px 14px; }
+.pf-vs .vsn{ font-family:var(--font-display); font-size:22px; font-weight:500; color:#fff; line-height:1; }
+.pf-vs .vsl{ font-family:var(--font-mono); font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(237,164,85,0.65); margin-top:4px; }
+/* Body panel */
+.pf-body{ padding:40px 44px; display:flex; flex-direction:column; justify-content:center; }
+.pf-eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--flamingo); margin-bottom:16px; }
+.pf-eyebrow::before{ content:''; width:22px; height:2px; background:var(--flamingo); border-radius:1px; }
+.pf-body h3{ font-family:var(--font-display); font-size:26px; font-weight:500; letter-spacing:-0.02em; margin:0 0 10px; }
+.pf-body .pf-desc{ font-size:15px; color:var(--ink-600); line-height:1.65; margin-bottom:22px; }
+html[data-theme="dark"] .pf-body .pf-desc{ color:var(--ink-800); }
+/* Outcomes list */
+.pf-outcomes{ list-style:none; padding:0; margin:0 0 24px; display:flex; flex-direction:column; gap:8px; }
+.pf-outcomes li{ display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--text); line-height:1.4; }
+.pf-outcomes li .ck{ width:20px; height:20px; border-radius:4px; background:rgba(241,89,42,0.1); display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--flamingo); }
+/* Meta row */
+.pf-meta{ display:flex; flex-wrap:wrap; gap:8px; padding:20px 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:24px; }
+.pf-meta span{ font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; background:var(--surface); border:1px solid var(--rule); color:var(--ink-600); padding:5px 12px; border-radius:999px; }
+/* CTA row */
+.pf-cta{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.pf-cta .pf-price .from{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:3px; }
+.pf-cta .pf-price .amt{ font-family:var(--font-mono); font-size:20px; font-weight:600; color:var(--text); }
+.pf-cta .pf-btns{ display:flex; gap:10px; }
+.pf-cta .btn-ghost{ font-size:13px; font-weight:500; font-family:var(--font-body); color:var(--text); background:transparent; border:1px solid var(--rule); padding:9px 18px; border-radius:var(--radius-sm); cursor:pointer; transition:border-color 0.15s; }
+.pf-cta .btn-ghost:hover{ border-color:var(--text); }
+.pf-cta .btn-flamingo{ font-size:13px; font-weight:600; font-family:var(--font-body); color:#fff; background:var(--flamingo); border:none; padding:9px 20px; border-radius:var(--radius-sm); cursor:pointer; transition:background 0.15s,transform 0.1s; display:inline-flex; align-items:center; gap:6px; }
+.pf-cta .btn-flamingo:hover{ background:var(--flamingo-700); transform:translateY(-1px); }
+/* ─── Standard programme cards ─── */
+.prog-card{
+  background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius-md); overflow:hidden;
+  display:flex; flex-direction:column; text-decoration:none; color:inherit; cursor:pointer; position:relative;
+  transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
-.programme-card .foot .price{font-family:var(--font-mono); font-size:13px; font-weight:500; color:var(--text);}
-.programme-card .foot .price .from{font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); display:block; margin-bottom:2px;}
-.programme-card .foot .enrol-btn{
-  font-size:13px; font-weight:600; font-family:var(--font-body);
-  color:#fff; background:var(--flamingo); border:none;
-  padding:8px 18px; border-radius:var(--radius-sm); cursor:pointer;
-  transition:background 0.15s, transform 0.1s;
-  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+.prog-card:hover{ transform:translateY(-5px); box-shadow:0 12px 36px rgba(4,4,116,0.1); border-color:transparent; }
+html[data-theme="dark"] .prog-card:hover{ box-shadow:0 12px 36px rgba(0,0,0,0.35); }
+/* Top accent bar */
+.prog-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:3px; z-index:1; }
+.prog-card.c-flamingo::before{ background:var(--flamingo); }
+.prog-card.c-navy::before{ background:var(--navy-600); }
+.prog-card.c-sand::before{ background:var(--sand-500); }
+.prog-card.c-ai::before{ background:linear-gradient(to right,var(--navy-600),var(--flamingo)); }
+.prog-card.c-dark::before{ background:var(--navy-500); }
+.prog-card.c-grad::before{ background:var(--flamingo-700); }
+/* Art area */
+.pc-art{ height:136px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.prog-card.c-flamingo .pc-art{ background:linear-gradient(135deg,#c94520,var(--flamingo)); }
+.prog-card.c-navy .pc-art{ background:linear-gradient(135deg,#020252,var(--navy-600)); }
+.prog-card.c-sand .pc-art{ background:linear-gradient(135deg,#c47a20,var(--sand-400)); }
+.prog-card.c-ai .pc-art{ background:linear-gradient(135deg,#020252,#2a0a6e); }
+.prog-card.c-dark .pc-art{ background:linear-gradient(135deg,var(--navy-800),var(--navy-600)); }
+.prog-card.c-grad .pc-art{ background:linear-gradient(135deg,var(--flamingo-700),#e8432a); }
+/* Watermark code */
+.pc-art .pc-wm{ position:absolute; font-family:var(--font-mono); font-weight:700; font-size:76px; letter-spacing:-3px; opacity:0.14; color:#fff; line-height:1; pointer-events:none; user-select:none; }
+/* Status badge in art */
+.pc-art .pc-badge{ position:absolute; top:12px; right:12px; }
+/* Dot pattern overlay */
+.pc-art::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.18) 1px,transparent 1px);
+  background-size:18px 18px;
 }
-.programme-card .foot .enrol-btn:hover{background:var(--flamingo-700); transform:translateY(-1px);}
-/* Cover colour variants */
-.cover.v-cds{background:var(--navy-600);}
-.cover.v-cda{background:var(--flamingo);}
-.cover.v-ai{background:linear-gradient(135deg, var(--navy-700), var(--navy-500));}
-.cover.v-bam{background:var(--sand-400);}
-.cover.v-dpo{background:var(--navy-800);}
-.cover.v-ml{background:linear-gradient(135deg, var(--flamingo-700), var(--flamingo));}
-/* Dark mode adjustments */
-html[data-theme="dark"] .programme-card .desc{color:var(--ink-700);}
-html[data-theme="dark"] .programme-card .card-meta span{background:var(--ink-100); border-color:var(--rule); color:var(--ink-600);}
-html[data-theme="dark"] .programme-card:hover{border-color:var(--ink-400);}
+/* Body */
+.pc-body{ padding:22px 22px 16px; flex:1; display:flex; flex-direction:column; }
+.pc-cat{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.pc-title{ font-family:var(--font-display); font-size:17px; font-weight:500; letter-spacing:-0.01em; color:var(--text); margin:0 0 9px; line-height:1.25; }
+.pc-desc{ font-size:13.5px; color:var(--ink-600); line-height:1.58; margin-bottom:14px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+html[data-theme="dark"] .pc-desc{ color:var(--ink-800); }
+/* Outcome bullets */
+.pc-wins{ list-style:none; padding:0; margin:0 0 16px; display:flex; flex-direction:column; gap:5px; }
+.pc-wins li{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-600); }
+.pc-wins li::before{ content:''; width:5px; height:5px; border-radius:999px; background:var(--flamingo); flex-shrink:0; }
+html[data-theme="dark"] .pc-wins li{ color:var(--ink-800); }
+/* Pills */
+.pc-pills{ display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; }
+.pc-pills span{ font-family:var(--font-mono); font-size:9px; letter-spacing:0.06em; text-transform:uppercase; background:var(--surface); border:1px solid var(--rule); color:var(--ink-600); padding:3px 9px; border-radius:999px; }
+/* Footer */
+.pc-foot{ padding:14px 22px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.pc-price{ font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--text); }
+.pc-price small{ display:block; font-size:8.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); font-weight:400; margin-bottom:2px; }
+.pc-enrol{ font-size:12px; font-weight:600; font-family:var(--font-body); color:var(--flamingo); background:transparent; border:1.5px solid var(--flamingo); padding:7px 14px; border-radius:var(--radius-sm); cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+.pc-enrol:hover{ background:var(--flamingo); color:#fff; transform:translateY(-1px); }
 
 /* Two-col feature (consulting) */
 .two-col{display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center;}
@@ -1152,223 +1220,178 @@ table.data-table .cell-sub{font-family:var(--font-mono); font-size:11px; color:v
         <div>
           <p class="eyebrow">Certification programmes</p>
           <h2>Accredited pathways — <em>from foundation to expert.</em></h2>
+          <p class="prog-sub">IABAC-accredited programmes taught by practitioners, built for the African job market.</p>
         </div>
         <a href="#" class="btn-link">View all programmes <span class="arrow">→</span></a>
       </div>
 
-      <div class="programmes-filter">
-        <button class="chip active">All · 6</button>
-        <button class="chip">Data Science</button>
-        <button class="chip">Analytics</button>
-        <button class="chip">AI / ML</button>
-        <button class="chip">Management</button>
-        <button class="chip">Governance</button>
+      <div class="prog-filter">
+        <button class="pf-tab active">All · 6</button>
+        <button class="pf-tab">Data Science</button>
+        <button class="pf-tab">Analytics</button>
+        <button class="pf-tab">AI / ML</button>
+        <button class="pf-tab">Management</button>
+        <button class="pf-tab">Governance</button>
       </div>
 
-      <div class="programmes-grid">
-        <!-- FEATURED: Certified Data Scientist (spans full width) -->
-        <a href="#" class="programme-card featured" data-page="course">
-          <div class="cover v-cds">
-            <span class="code">CDS · 001</span>
-            <span class="badge badge-new">● New cohort</span>
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <pattern id="c1-grid" width="40" height="25" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 25" fill="none" stroke="#EDA455" stroke-width="0.4" opacity="0.25"/>
-                </pattern>
-                <pattern id="c1-dots" width="14" height="14" patternUnits="userSpaceOnUse">
-                  <circle cx="1" cy="1" r="0.9" fill="#EDA455" opacity="0.28"/>
-                </pattern>
-                <linearGradient id="c1-fill" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#F1592A" stop-opacity="0.45"/>
-                  <stop offset="100%" stop-color="#F1592A" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="250" fill="url(#c1-dots)"/>
-              <rect width="400" height="250" fill="url(#c1-grid)"/>
-              <!-- axis baseline -->
-              <line x1="28" y1="212" x2="380" y2="212" stroke="#EDA455" stroke-width="0.6" opacity="0.45"/>
-              <line x1="28" y1="30" x2="28" y2="212" stroke="#EDA455" stroke-width="0.6" opacity="0.45"/>
-              <!-- tick marks -->
-              <g stroke="#EDA455" stroke-width="0.6" opacity="0.4">
-                <line x1="28" y1="212" x2="25" y2="212"/><line x1="28" y1="170" x2="25" y2="170"/>
-                <line x1="28" y1="128" x2="25" y2="128"/><line x1="28" y1="86" x2="25" y2="86"/>
-                <line x1="28" y1="44" x2="25" y2="44"/>
-              </g>
-              <!-- area fill -->
-              <path d="M 40,198 L 95,178 L 150,162 L 205,132 L 260,108 L 315,82 L 365,58 L 365,212 L 40,212 Z" fill="url(#c1-fill)"/>
-              <!-- prediction band -->
-              <path d="M 40,208 L 95,185 L 150,170 L 205,140 L 260,115 L 315,88 L 365,64 M 40,188 L 95,170 L 150,153 L 205,124 L 260,100 L 315,76 L 365,52" stroke="#EDA455" stroke-width="0.7" stroke-dasharray="2 3" fill="none" opacity="0.55"/>
-              <!-- main line -->
-              <polyline points="40,198 95,178 150,162 205,132 260,108 315,82 365,58" stroke="#F1592A" stroke-width="1.8" fill="none"/>
-              <!-- data points with outlined halos -->
-              <g>
-                <circle cx="40" cy="198" r="5" fill="#040474" stroke="#F1592A" stroke-width="1.5"/>
-                <circle cx="150" cy="162" r="3.5" fill="#F1592A"/>
-                <circle cx="260" cy="108" r="3.5" fill="#F1592A"/>
-                <circle cx="365" cy="58" r="6" fill="#F1592A" stroke="#EDA455" stroke-width="1.5"/>
-              </g>
-              <!-- annotation label near terminus -->
-              <g>
-                <line x1="365" y1="58" x2="340" y2="34" stroke="#EDA455" stroke-width="0.6" opacity="0.8"/>
-                <rect x="238" y="22" width="100" height="18" fill="#040474" stroke="#EDA455" stroke-width="0.5" opacity="0.95"/>
-                <text x="248" y="34" font-family="monospace" font-size="9" fill="#EDA455" letter-spacing="0.5">r² = 0.947</text>
-              </g>
-              <!-- scatter cluster -->
-              <g fill="#EDA455" opacity="0.6">
-                <circle cx="72" cy="195" r="1.3"/><circle cx="88" cy="188" r="1.3"/><circle cx="110" cy="176" r="1.3"/>
-                <circle cx="135" cy="168" r="1.3"/><circle cx="178" cy="146" r="1.3"/><circle cx="225" cy="122" r="1.3"/>
-                <circle cx="285" cy="98" r="1.3"/><circle cx="340" cy="72" r="1.3"/>
-                <circle cx="65" cy="202" r="1"/><circle cx="120" cy="158" r="1"/><circle cx="195" cy="140" r="1"/>
-                <circle cx="245" cy="118" r="1"/><circle cx="298" cy="90" r="1"/>
-              </g>
-              <!-- axis labels -->
-              <text x="28" y="232" font-family="monospace" font-size="8" fill="#EDA455" opacity="0.7" letter-spacing="0.8">WK 01</text>
-              <text x="340" y="232" font-family="monospace" font-size="8" fill="#EDA455" opacity="0.7" letter-spacing="0.8">WK 24</text>
-              <text x="36" y="40" font-family="monospace" font-size="8" fill="#EDA455" opacity="0.7" letter-spacing="0.8" transform="rotate(-90 36 40)">SKILL↑</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3 class="ttl">Certified Data Scientist</h3>
-            <p class="desc">The flagship programme — regression, classification, causal inference, and three applied capstone projects with real East Africa data. Join 4,200+ graduates placed across the continent.</p>
-            <div class="card-meta">
-              <span>24 weeks</span><span>Hybrid</span><span>IABAC accredited</span>
+      <div class="prog-grid">
+
+        <!-- ── FLAGSHIP ── -->
+        <a href="#" class="prog-featured" data-page="course">
+          <!-- Left: visual panel -->
+          <div class="pf-visual">
+            <div class="pf-dotgrid"></div>
+            <div class="pf-gridlines"></div>
+            <div class="pf-wm">CDS</div>
+            <div class="pf-seal">
+              <span class="seal-name">IABAC</span>
+              <span class="seal-label">Accredited</span>
             </div>
-            <div class="foot">
-              <div class="price"><span class="from">Starting from</span>KES 180,000</div>
-              <button class="enrol-btn" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
+            <p class="pf-vis-label">Flagship · CDS 001</p>
+            <h2 class="pf-vis-title">Certified<br>Data Scientist</h2>
+            <div class="pf-vis-stats">
+              <div class="pf-vs"><div class="vsn">4,200+</div><div class="vsl">Graduates</div></div>
+              <div class="pf-vs"><div class="vsn">78%</div><div class="vsl">6-mo placement</div></div>
+              <div class="pf-vs"><div class="vsn">Cohort 14</div><div class="vsl">Now open</div></div>
+            </div>
+          </div>
+          <!-- Right: body -->
+          <div class="pf-body">
+            <span class="pf-eyebrow">Most popular programme</span>
+            <h3>The complete data science track</h3>
+            <p class="pf-desc">From statistics foundations to production-ready ML — built around real East Africa datasets with three graded capstone projects reviewed by industry mentors.</p>
+            <ul class="pf-outcomes">
+              <li><span class="ck">✓</span>Regression, classification &amp; causal inference</li>
+              <li><span class="ck">✓</span>3 applied capstone projects with real data</li>
+              <li><span class="ck">✓</span>Career coaching + employer introductions</li>
+              <li><span class="ck">✓</span>IABAC internationally recognised certificate</li>
+            </ul>
+            <div class="pf-meta">
+              <span>24 weeks</span>
+              <span>Hybrid · Nairobi &amp; Online</span>
+              <span>IABAC Accredited</span>
+              <span>Cohort 14 open</span>
+            </div>
+            <div class="pf-cta">
+              <div class="pf-price">
+                <span class="from">Starting from</span>
+                <span class="amt">KES 180,000</span>
+              </div>
+              <div class="pf-btns">
+                <button class="btn-ghost" onclick="event.stopPropagation()">View curriculum</button>
+                <button class="btn-flamingo" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
+              </div>
             </div>
           </div>
         </a>
 
-        <a href="#" class="programme-card" data-page="course">
-          <div class="cover v-cda">
-            <span class="code" style="background:rgba(4,4,116,0.25); color:#fff;">CDA · 002</span>
-            <span class="badge badge-live">Enrolling</span>
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
-              <g fill="#040474" opacity="0.7">
-                <rect x="40" y="160" width="30" height="60"/>
-                <rect x="90" y="120" width="30" height="100"/>
-                <rect x="140" y="90" width="30" height="130"/>
-                <rect x="190" y="70" width="30" height="150"/>
-                <rect x="240" y="110" width="30" height="110"/>
-                <rect x="290" y="50" width="30" height="170"/>
-                <rect x="340" y="80" width="30" height="140"/>
-              </g>
-            </svg>
+        <!-- ── CDA ── -->
+        <a href="#" class="prog-card c-flamingo" data-page="course">
+          <div class="pc-art">
+            <span class="pc-wm">CDA</span>
+            <span class="pc-badge badge badge-live">Enrolling</span>
           </div>
-          <div class="body">
-            <h3 class="ttl">Certified Data Analyst</h3>
-            <p class="desc">SQL, dashboards, storytelling with data, and business-case projects tuned for analyst roles in finance, telco, and public sector.</p>
-            <div class="card-meta">
-              <span>16 weeks</span><span>Online</span><span>IABAC</span>
-            </div>
-            <div class="foot">
-              <div class="price"><span class="from">Starting from</span>KES 120,000</div>
-              <button class="enrol-btn" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
-            </div>
+          <div class="pc-body">
+            <p class="pc-cat">Analytics · CDA 002</p>
+            <h3 class="pc-title">Certified Data Analyst</h3>
+            <p class="pc-desc">SQL, dashboards, and business storytelling for analyst roles in finance, telco, and the public sector.</p>
+            <ul class="pc-wins">
+              <li>Power BI &amp; Tableau dashboards</li>
+              <li>Business case projects</li>
+            </ul>
+            <div class="pc-pills"><span>16 weeks</span><span>Online</span><span>IABAC</span></div>
+          </div>
+          <div class="pc-foot">
+            <div class="pc-price"><small>Starting from</small>KES 120,000</div>
+            <button class="pc-enrol" onclick="event.stopPropagation();showPage('course')">Enrol →</button>
           </div>
         </a>
 
-        <a href="#" class="programme-card" data-page="course">
-          <div class="cover v-ai">
-            <span class="code">AI · 003</span>
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
-              <g stroke="#F1592A" stroke-width="1" fill="none" opacity="0.7">
-                <line x1="60" y1="60" x2="200" y2="125"/><line x1="60" y1="190" x2="200" y2="125"/>
-                <line x1="200" y1="125" x2="340" y2="80"/><line x1="200" y1="125" x2="340" y2="170"/>
-                <line x1="60" y1="125" x2="200" y2="125"/>
-              </g>
-              <g fill="#F1592A">
-                <circle cx="60" cy="60" r="4"/><circle cx="60" cy="125" r="4"/><circle cx="60" cy="190" r="4"/>
-                <circle cx="200" cy="125" r="6"/>
-                <circle cx="340" cy="80" r="4"/><circle cx="340" cy="170" r="4"/>
-              </g>
-            </svg>
+        <!-- ── AI ── -->
+        <a href="#" class="prog-card c-ai" data-page="course">
+          <div class="pc-art">
+            <span class="pc-wm">AI</span>
           </div>
-          <div class="body">
-            <h3 class="ttl">Certified AI Expert</h3>
-            <p class="desc">Neural networks, transformers, applied deep learning, and responsible-AI practices. Includes a deployed ML system as capstone.</p>
-            <div class="card-meta">
-              <span>20 weeks</span><span>Hybrid</span><span>IABAC</span>
-            </div>
-            <div class="foot">
-              <div class="price"><span class="from">Starting from</span>KES 220,000</div>
-              <button class="enrol-btn" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
-            </div>
+          <div class="pc-body">
+            <p class="pc-cat">Artificial Intelligence · AI 003</p>
+            <h3 class="pc-title">Certified AI Expert</h3>
+            <p class="pc-desc">Neural networks, transformers, deep learning, and responsible-AI practices with a deployed system as capstone.</p>
+            <ul class="pc-wins">
+              <li>Production ML deployment</li>
+              <li>Responsible AI &amp; ethics module</li>
+            </ul>
+            <div class="pc-pills"><span>20 weeks</span><span>Hybrid</span><span>IABAC</span></div>
+          </div>
+          <div class="pc-foot">
+            <div class="pc-price"><small>Starting from</small>KES 220,000</div>
+            <button class="pc-enrol" onclick="event.stopPropagation();showPage('course')">Enrol →</button>
           </div>
         </a>
 
-        <a href="#" class="programme-card" data-page="course">
-          <div class="cover v-bam">
-            <span class="code" style="background:rgba(4,4,116,0.25); color:#fff;">BAM · 004</span>
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
-              <g stroke="#040474" fill="none" stroke-width="1" opacity="0.5">
-                <circle cx="200" cy="125" r="30"/><circle cx="200" cy="125" r="60"/><circle cx="200" cy="125" r="90"/><circle cx="200" cy="125" r="120"/>
-              </g>
-              <circle cx="200" cy="125" r="8" fill="#F1592A"/>
-            </svg>
+        <!-- ── BAM ── -->
+        <a href="#" class="prog-card c-sand" data-page="course">
+          <div class="pc-art">
+            <span class="pc-wm">BAM</span>
           </div>
-          <div class="body">
-            <h3 class="ttl">Business Analytics for Managers</h3>
-            <p class="desc">A 6-week executive programme for managers leading analytics teams. Methods, metrics, and how to commission data projects.</p>
-            <div class="card-meta">
-              <span>6 weeks</span><span>Evenings</span><span>IABAC</span>
-            </div>
-            <div class="foot">
-              <div class="price"><span class="from">Starting from</span>KES 95,000</div>
-              <button class="enrol-btn" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
-            </div>
+          <div class="pc-body">
+            <p class="pc-cat">Management · BAM 004</p>
+            <h3 class="pc-title">Business Analytics for Managers</h3>
+            <p class="pc-desc">Executive programme for managers leading data teams — methods, metrics, and how to commission analytics projects.</p>
+            <ul class="pc-wins">
+              <li>Data-driven decision frameworks</li>
+              <li>Evening cohort format</li>
+            </ul>
+            <div class="pc-pills"><span>6 weeks</span><span>Evenings</span><span>IABAC</span></div>
+          </div>
+          <div class="pc-foot">
+            <div class="pc-price"><small>Starting from</small>KES 95,000</div>
+            <button class="pc-enrol" onclick="event.stopPropagation();showPage('course')">Enrol →</button>
           </div>
         </a>
 
-        <a href="#" class="programme-card" data-page="course">
-          <div class="cover v-dpo">
-            <span class="code">DPO · 005</span>
-            <span class="badge badge-new">● Launching</span>
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
-              <path d="M 200 30 L 320 70 V 140 C 320 190 260 220 200 230 C 140 220 80 190 80 140 V 70 Z" fill="none" stroke="#F1592A" stroke-width="2" opacity="0.8"/>
-              <circle cx="200" cy="125" r="18" fill="#EDA455" opacity="0.85"/>
-            </svg>
+        <!-- ── DPO ── -->
+        <a href="#" class="prog-card c-dark" data-page="course">
+          <div class="pc-art">
+            <span class="pc-wm">DPO</span>
+            <span class="pc-badge badge badge-new">● Launching</span>
           </div>
-          <div class="body">
-            <h3 class="ttl">Data Protection Officer</h3>
-            <p class="desc">Kenya DPA 2019, GDPR, and regional data-governance. Designed for appointed DPOs and compliance leads.</p>
-            <div class="card-meta">
-              <span>8 weeks</span><span>Online</span><span>ODPC</span>
-            </div>
-            <div class="foot">
-              <div class="price"><span class="from">Starting from</span>KES 140,000</div>
-              <button class="enrol-btn" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
-            </div>
+          <div class="pc-body">
+            <p class="pc-cat">Governance · DPO 005</p>
+            <h3 class="pc-title">Data Protection Officer</h3>
+            <p class="pc-desc">Kenya DPA 2019, GDPR, and regional data governance for appointed DPOs and compliance leads.</p>
+            <ul class="pc-wins">
+              <li>Kenya &amp; GDPR compliance</li>
+              <li>ODPC recognised certificate</li>
+            </ul>
+            <div class="pc-pills"><span>8 weeks</span><span>Online</span><span>ODPC</span></div>
+          </div>
+          <div class="pc-foot">
+            <div class="pc-price"><small>Starting from</small>KES 140,000</div>
+            <button class="pc-enrol" onclick="event.stopPropagation();showPage('course')">Enrol →</button>
           </div>
         </a>
 
-        <a href="#" class="programme-card" data-page="course">
-          <div class="cover v-ml">
-            <span class="code">ML · 006</span>
-            <svg style="position:absolute; inset:0; width:100%; height:100%;" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
-              <g stroke="#fff" stroke-width="1" fill="none" opacity="0.6">
-                <path d="M 0 180 Q 100 60 200 130 T 400 80"/>
-                <path d="M 0 220 Q 100 100 200 170 T 400 120"/>
-              </g>
-              <g fill="#fff">
-                <circle cx="100" cy="95" r="4"/><circle cx="200" cy="130" r="4"/><circle cx="300" cy="105" r="4"/>
-              </g>
-            </svg>
+        <!-- ── ML ── -->
+        <a href="#" class="prog-card c-grad" data-page="course">
+          <div class="pc-art">
+            <span class="pc-wm">ML</span>
           </div>
-          <div class="body">
-            <h3 class="ttl">Certified Machine Learning</h3>
-            <p class="desc">Supervised, unsupervised, and reinforcement-learning foundations with a focus on production deployment and MLOps.</p>
-            <div class="card-meta">
-              <span>18 weeks</span><span>Hybrid</span><span>IABAC</span>
-            </div>
-            <div class="foot">
-              <div class="price"><span class="from">Starting from</span>KES 200,000</div>
-              <button class="enrol-btn" onclick="event.stopPropagation();showPage('course')">Enrol now →</button>
-            </div>
+          <div class="pc-body">
+            <p class="pc-cat">Machine Learning · ML 006</p>
+            <h3 class="pc-title">Certified Machine Learning</h3>
+            <p class="pc-desc">Supervised, unsupervised, and reinforcement learning with a focus on production deployment and MLOps.</p>
+            <ul class="pc-wins">
+              <li>End-to-end MLOps pipeline</li>
+              <li>Applied on African datasets</li>
+            </ul>
+            <div class="pc-pills"><span>18 weeks</span><span>Hybrid</span><span>IABAC</span></div>
+          </div>
+          <div class="pc-foot">
+            <div class="pc-price"><small>Starting from</small>KES 200,000</div>
+            <button class="pc-enrol" onclick="event.stopPropagation();showPage('course')">Enrol →</button>
           </div>
         </a>
+
       </div>
     </div>
   </section>
